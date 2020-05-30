@@ -1276,8 +1276,8 @@ article .content .caption {
 .search-input {
   width: 100%;
   font-size: 1.2rem;
-  color: #fff;
-  background-color: #383838;
+  color: #383838;
+  background-color: #fff;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
