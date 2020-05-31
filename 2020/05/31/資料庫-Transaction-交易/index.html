@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="大家好，我是 Cindy，非資訊科系相關背景的工程師，對於資料庫始終有許多的不理解，今天想跟大家分享我在網路上找到適合非本科系的同學們看的資料，以及分享一些我對於資料庫 Ttansaction 的理解。 網路上的相關資料 資料庫系統管理課程關於資料庫 Transaction(交易) 可以看 Course 8. 交易處理 和 Course 9. 並行控制與回復，裡面有 杰哥數位教室 youtube">
+<meta property="og:type" content="article">
+<meta property="og:title" content="資料庫 Transaction(交易)">
+<meta property="og:url" content="https://cindyliu923.github.io/2020/05/31/%E8%B3%87%E6%96%99%E5%BA%AB-Transaction-%E4%BA%A4%E6%98%93/index.html">
+<meta property="og:site_name" content="Cindy&#39;s Blog">
+<meta property="og:description" content="大家好，我是 Cindy，非資訊科系相關背景的工程師，對於資料庫始終有許多的不理解，今天想跟大家分享我在網路上找到適合非本科系的同學們看的資料，以及分享一些我對於資料庫 Ttansaction 的理解。 網路上的相關資料 資料庫系統管理課程關於資料庫 Transaction(交易) 可以看 Course 8. 交易處理 和 Course 9. 並行控制與回復，裡面有 杰哥數位教室 youtube">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/JmoBqZz.png">
+<meta property="article:published_time" content="2020-05-31T08:50:34.000Z">
+<meta property="article:modified_time" content="2020-05-31T16:29:36.349Z">
+<meta property="article:author" content="Cindy Liu">
+<meta property="article:tag" content="MySQL">
+<meta property="article:tag" content="PostgreSQL">
+<meta property="article:tag" content="Database">
+<meta property="article:tag" content="Transaction">
+<meta property="article:tag" content="SQL">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/JmoBqZz.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/mstile-150x150.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>資料庫 Transaction(交易)</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/posts/">Writing</a></li>
+         
+          <li><a href="https://github.com/cindyliu923" target="_blank" rel="noopener">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2020/05/28/first-post/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://cindyliu923.github.io/2020/05/31/%E8%B3%87%E6%96%99%E5%BA%AB-Transaction-%E4%BA%A4%E6%98%93/" target="_blank" rel="noopener"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://cindyliu923.github.io/2020/05/31/%E8%B3%87%E6%96%99%E5%BA%AB-Transaction-%E4%BA%A4%E6%98%93/&text=資料庫 Transaction(交易)" target="_blank" rel="noopener"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://cindyliu923.github.io/2020/05/31/%E8%B3%87%E6%96%99%E5%BA%AB-Transaction-%E4%BA%A4%E6%98%93/&title=資料庫 Transaction(交易)" target="_blank" rel="noopener"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cindyliu923.github.io/2020/05/31/%E8%B3%87%E6%96%99%E5%BA%AB-Transaction-%E4%BA%A4%E6%98%93/&is_video=false&description=資料庫 Transaction(交易)" target="_blank" rel="noopener"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=資料庫 Transaction(交易)&body=Check out this article: https://cindyliu923.github.io/2020/05/31/%E8%B3%87%E6%96%99%E5%BA%AB-Transaction-%E4%BA%A4%E6%98%93/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://cindyliu923.github.io/2020/05/31/%E8%B3%87%E6%96%99%E5%BA%AB-Transaction-%E4%BA%A4%E6%98%93/&title=資料庫 Transaction(交易)" target="_blank" rel="noopener"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://cindyliu923.github.io/2020/05/31/%E8%B3%87%E6%96%99%E5%BA%AB-Transaction-%E4%BA%A4%E6%98%93/&title=資料庫 Transaction(交易)" target="_blank" rel="noopener"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://cindyliu923.github.io/2020/05/31/%E8%B3%87%E6%96%99%E5%BA%AB-Transaction-%E4%BA%A4%E6%98%93/&title=資料庫 Transaction(交易)" target="_blank" rel="noopener"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://cindyliu923.github.io/2020/05/31/%E8%B3%87%E6%96%99%E5%BA%AB-Transaction-%E4%BA%A4%E6%98%93/&title=資料庫 Transaction(交易)" target="_blank" rel="noopener"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://cindyliu923.github.io/2020/05/31/%E8%B3%87%E6%96%99%E5%BA%AB-Transaction-%E4%BA%A4%E6%98%93/&name=資料庫 Transaction(交易)&description=" target="_blank" rel="noopener"><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#網路上的相關資料"><span class="toc-number">1.</span> <span class="toc-text">網路上的相關資料</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#什麼是-Transaction"><span class="toc-number">2.</span> <span class="toc-text">什麼是 Transaction</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MySQL-關於-Transaction-的描述"><span class="toc-number">2.1.</span> <span class="toc-text">MySQL 關於 Transaction 的描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PostgreSQL-關於-Transaction-的描述"><span class="toc-number">2.2.</span> <span class="toc-text">PostgreSQL 關於 Transaction 的描述</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Transaction-的四大特性-ACID"><span class="toc-number">3.</span> <span class="toc-text">Transaction 的四大特性 ACID</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL-標準中定義了四種數據庫的隔離級別"><span class="toc-number">4.</span> <span class="toc-text">SQL 標準中定義了四種數據庫的隔離級別</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其他可參考資料："><span class="toc-number">5.</span> <span class="toc-text">其他可參考資料：</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        資料庫 Transaction(交易)
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Cindy's Blog</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2020-05-31T08:50:34.000Z" itemprop="datePublished">2020-05-31</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Database/" rel="tag">Database</a>, <a class="tag-link" href="/tags/MySQL/" rel="tag">MySQL</a>, <a class="tag-link" href="/tags/PostgreSQL/" rel="tag">PostgreSQL</a>, <a class="tag-link" href="/tags/SQL/" rel="tag">SQL</a>, <a class="tag-link" href="/tags/Transaction/" rel="tag">Transaction</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>大家好，我是 Cindy，非資訊科系相關背景的工程師，對於資料庫始終有許多的不理解，今天想跟大家分享我在網路上找到適合非本科系的同學們看的資料，以及分享一些我對於資料庫 <a href="https://zh.wikipedia.org/wiki/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1" target="_blank" rel="noopener">Ttansaction</a> 的理解。</p>
+<h2 id="網路上的相關資料"><a href="#網路上的相關資料" class="headerlink" title="網路上的相關資料"></a>網路上的相關資料</h2><ul>
+<li><p><a href="http://debussy.im.nuu.edu.tw/sjchen/DataBaseMan_Final.html" target="_blank" rel="noopener">資料庫系統管理課程</a><br>關於資料庫 Transaction(交易) 可以看 <strong>Course 8. 交易處理</strong> 和 <strong>Course 9. 並行控制與回復</strong>，裡面有 <strong>杰哥數位教室</strong> youtube 課程可以搭配講義學習，雖然 youtube 音質不是很好，但整體看下來對於沒有上過資料庫課程的工程師，我覺得對於觀念的理解會蠻有幫助的。</p>
+</li>
+<li><p><a href="https://dev.mysql.com/doc/refman/5.7/en/innodb-locking-transaction-model.html" target="_blank" rel="noopener">MySQL 文件</a></p>
+</li>
+<li><p><a href="https://docs.postgresql.tw/tutorial/advanced-features/transactions" target="_blank" rel="noopener">PostgreSQL 文件</a></p>
+</li>
+<li><p><a href="https://docs.postgresql.tw/the-sql-language/concurrency-control/transaction-isolation" target="_blank" rel="noopener">PostgreSQL 文件 - isolation</a><br>MySQL 和 PostgreSQL 算是目前常用到的資料庫系統，如果在實務上有需要了解的時候，直接看文件會最快，因為各個資料庫系統實作的演算法不同。</p>
+</li>
+</ul>
+<h2 id="什麼是-Transaction"><a href="#什麼是-Transaction" class="headerlink" title="什麼是 Transaction"></a>什麼是 Transaction</h2><p>如果有這樣的情境：某個功能需要對資料庫進行操作，且是對一或多筆資料進行操作，如果中間發生失敗，是不會允許有些資料變更成功，有些資料變更失敗的話，就會需要 Transaction。</p>
+<h3 id="MySQL-關於-Transaction-的描述"><a href="#MySQL-關於-Transaction-的描述" class="headerlink" title="MySQL 關於 Transaction 的描述"></a>MySQL 關於 Transaction 的描述</h3><blockquote>
+<p>Transactions are atomic units of work that can be <strong>committed</strong> or <strong>rolled back</strong>. When a transaction makes multiple changes to the database, either all the changes succeed when the transaction is committed, or all the changes are undone when the transaction is rolled back.</p>
+<p>Database transactions, as implemented by InnoDB, have properties that are collectively known by the acronym <strong>ACID</strong>, for atomicity, consistency, isolation, and durability.</p>
+<p>See Also ACID, commit, <strong>isolation level</strong>, <strong>lock</strong>, rollback.</p>
+</blockquote>
+<h3 id="PostgreSQL-關於-Transaction-的描述"><a href="#PostgreSQL-關於-Transaction-的描述" class="headerlink" title="PostgreSQL 關於 Transaction 的描述"></a>PostgreSQL 關於 Transaction 的描述</h3><blockquote>
+<p>Transactions are a fundamental concept of all database systems. The essential point of a transaction is that it bundles multiple steps into a single, <strong>all-or-nothing</strong> operation. The intermediate states between the steps are not visible to other concurrent transactions, and if some failure occurs that prevents the transaction from completing, then none of the steps affect the database at all.</p>
+</blockquote>
+<p>由以上內容可以看到關鍵字 <strong>committed</strong> or <strong>rolled back</strong> ，表示的是 Transaction 的兩種情況：</p>
+<ul>
+<li>成功：committed</li>
+<li>失敗：rolled back</li>
+</ul>
+<p>其實也就是 <strong>all-or-nothing</strong> 的表示，要不是全部成功(all)就是全部失敗(nothing)。<br>最常見的例子就是轉帳，假如小明要轉帳給小美，我們不會希望有轉一半的情況發生，例如小明成功扣了轉帳出去的錢，而小美卻沒有得到小明轉進帳戶的錢，所以我們就會需要 Transaction 來幫助我們做到 <strong>all-or-nothing</strong>。<br>=&gt; 詳細參考資料：<a href="http://debussy.im.nuu.edu.tw/sjchen/Database/Final/Ch09.pdf" target="_blank" rel="noopener">交易管理</a></p>
+<h2 id="Transaction-的四大特性-ACID"><a href="#Transaction-的四大特性-ACID" class="headerlink" title="Transaction 的四大特性 ACID"></a>Transaction 的四大特性 ACID</h2><ul>
+<li>單元性 (<strong>Atomicity</strong>；基元性)：<ul>
+<li>交易是一個不可再分割的完整個體，它不是全部執行，就是全部不執行。</li>
+<li>確保單元性是回復 (<strong>Recovery</strong>) 的責任。</li>
+</ul>
+</li>
+<li>一致性 (<strong>Consistency</strong>)：<ul>
+<li>如果交易是全部執行，能讓資料庫從某個一致狀態，轉變到另一個一致狀態。我們則稱此次交易具有一致性。</li>
+<li>確保一致性通常是 DBMS 程式設計師的責任。</li>
+</ul>
+</li>
+<li>孤立性 (<strong>Isolation</strong>)：<ul>
+<li>某交易執行期間所用的資料或中間結果，不容許其它交易讀取或寫入，直到此交易被確認 (Commit，即：成功結束) 為止。也就是說，它不應被同時執行的其它交易所干擾。</li>
+<li>確保孤立性是並行控制 (<strong>Concurrency Control</strong>) 的責任。可依需求定立不同層級的限制。</li>
+</ul>
+</li>
+<li>永久性 (<strong>Durability</strong>, Permanency)：<ul>
+<li>一旦交易全部執行，且經過確認 (Commit) 後，其對資料庫所做的變更則永遠有效，即使未來系統當機或毀損。</li>
+<li>一般是以備份(Back Up)、硬碟映射(Disk Mirroring)、系統日誌(System Log、System Journal)等數種方式來達成。</li>
+<li>永久性是回復 (<strong>Recovery</strong>) 的責任。</li>
+</ul>
+</li>
+</ul>
+<p>由上面敘述就可以知道，實現 Transaction 最重要的兩件事情就是：</p>
+<ol>
+<li><strong>失敗回復、復原 (Failure Recovery)</strong></li>
+<li><strong>並行控制 (Concurrency Control)</strong><br>=&gt; 詳細參考資料：<a href="http://debussy.im.nuu.edu.tw/sjchen/Database/Final/Ch10.pdf" target="_blank" rel="noopener">並行控制與回復</a></li>
+</ol>
+<h2 id="SQL-標準中定義了四種數據庫的隔離級別"><a href="#SQL-標準中定義了四種數據庫的隔離級別" class="headerlink" title="SQL 標準中定義了四種數據庫的隔離級別"></a>SQL 標準中定義了四種數據庫的隔離級別</h2><p><img src="https://i.imgur.com/JmoBqZz.png" alt=""></p>
+<blockquote>
+<p>圖片來自 <a href="https://docs.postgresql.tw/the-sql-language/concurrency-control/transaction-isolation" target="_blank" rel="noopener">PostgreSQL 文件</a></p>
+<ul>
+<li>RAED UNCOMMITED：使用查詢語句不會加鎖，可能會讀到未提交的資料（Dirty Read）</li>
+<li>READ COMMITED：只對記錄加記錄鎖，而不會在記錄之間加間隙鎖，所以允許新的記錄插入到被鎖定記錄的附近，所以再多次使用查詢語句時，可能得到不同的結果（Non-Repeatable Read）</li>
+<li>REPEATABLE READ：多次讀取同一範圍的數據會返回第一次查詢的快照，不會返回不同的數據行，但是可能發生幻讀（Phantom Read）</li>
+<li>SERIALIZABLE：InnoDB 隱式地將全部的查詢語句加上共享鎖，解決了幻讀的問題</li>
+</ul>
+</blockquote>
+<p>p.s. MySQL 的 InnoDB 預設的是 Repeatable Read<br>p.s. PostgreSQL 預設的是 Read Committed</p>
+<h2 id="其他可參考資料："><a href="#其他可參考資料：" class="headerlink" title="其他可參考資料："></a>其他可參考資料：</h2><ul>
+<li><a href="https://blog.fntsr.tw/articles/904/#fn-904-START%20TRANSACTION" target="_blank" rel="noopener">PostgreSQL 與 MySQL 關於 transaction 的設計理念</a></li>
+<li><a href="https://kkc.github.io/2017/10/08/transaction-note" target="_blank" rel="noopener">Transaction 筆記</a></li>
+<li><a href="https://vladmihalcea.com/a-beginners-guide-to-acid-and-database-transactions" target="_blank" rel="noopener">A beginner’s guide to ACID and database transactions</a></li>
+<li><a href="https://www.guru99.com/dbms-transaction-management.html" target="_blank" rel="noopener">DBMS Transaction Management: ACID Properties, Schedule</a></li>
+<li><a href="https://draveness.me/mysql-transaction" target="_blank" rel="noopener">『浅入深出』MySQL 中事务的实现</a></li>
+<li><a href="http://coding-geek.com/how-databases-work" target="_blank" rel="noopener">How does a relational database work</a></li>
+<li><a href="https://vinta.ws/code/locking-and-mvcc-in-mysql-innodb.html" target="_blank" rel="noopener">Locking and MVCC in MySQL InnoDB 鎖機制與多版本並發控制</a></li>
+</ul>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/posts/">Writing</a></li>
+         
+          <li><a href="https://github.com/cindyliu923" target="_blank" rel="noopener">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#網路上的相關資料"><span class="toc-number">1.</span> <span class="toc-text">網路上的相關資料</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#什麼是-Transaction"><span class="toc-number">2.</span> <span class="toc-text">什麼是 Transaction</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MySQL-關於-Transaction-的描述"><span class="toc-number">2.1.</span> <span class="toc-text">MySQL 關於 Transaction 的描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PostgreSQL-關於-Transaction-的描述"><span class="toc-number">2.2.</span> <span class="toc-text">PostgreSQL 關於 Transaction 的描述</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Transaction-的四大特性-ACID"><span class="toc-number">3.</span> <span class="toc-text">Transaction 的四大特性 ACID</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL-標準中定義了四種數據庫的隔離級別"><span class="toc-number">4.</span> <span class="toc-text">SQL 標準中定義了四種數據庫的隔離級別</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其他可參考資料："><span class="toc-number">5.</span> <span class="toc-text">其他可參考資料：</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://cindyliu923.github.io/2020/05/31/%E8%B3%87%E6%96%99%E5%BA%AB-Transaction-%E4%BA%A4%E6%98%93/" target="_blank" rel="noopener"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://cindyliu923.github.io/2020/05/31/%E8%B3%87%E6%96%99%E5%BA%AB-Transaction-%E4%BA%A4%E6%98%93/&text=資料庫 Transaction(交易)" target="_blank" rel="noopener"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://cindyliu923.github.io/2020/05/31/%E8%B3%87%E6%96%99%E5%BA%AB-Transaction-%E4%BA%A4%E6%98%93/&title=資料庫 Transaction(交易)" target="_blank" rel="noopener"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cindyliu923.github.io/2020/05/31/%E8%B3%87%E6%96%99%E5%BA%AB-Transaction-%E4%BA%A4%E6%98%93/&is_video=false&description=資料庫 Transaction(交易)" target="_blank" rel="noopener"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=資料庫 Transaction(交易)&body=Check out this article: https://cindyliu923.github.io/2020/05/31/%E8%B3%87%E6%96%99%E5%BA%AB-Transaction-%E4%BA%A4%E6%98%93/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://cindyliu923.github.io/2020/05/31/%E8%B3%87%E6%96%99%E5%BA%AB-Transaction-%E4%BA%A4%E6%98%93/&title=資料庫 Transaction(交易)" target="_blank" rel="noopener"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://cindyliu923.github.io/2020/05/31/%E8%B3%87%E6%96%99%E5%BA%AB-Transaction-%E4%BA%A4%E6%98%93/&title=資料庫 Transaction(交易)" target="_blank" rel="noopener"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://cindyliu923.github.io/2020/05/31/%E8%B3%87%E6%96%99%E5%BA%AB-Transaction-%E4%BA%A4%E6%98%93/&title=資料庫 Transaction(交易)" target="_blank" rel="noopener"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://cindyliu923.github.io/2020/05/31/%E8%B3%87%E6%96%99%E5%BA%AB-Transaction-%E4%BA%A4%E6%98%93/&title=資料庫 Transaction(交易)" target="_blank" rel="noopener"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://cindyliu923.github.io/2020/05/31/%E8%B3%87%E6%96%99%E5%BA%AB-Transaction-%E4%BA%A4%E6%98%93/&name=資料庫 Transaction(交易)&description=" target="_blank" rel="noopener"><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2020 Cindy Liu
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/posts/">Writing</a></li>
+         
+          <li><a href="https://github.com/cindyliu923" target="_blank" rel="noopener">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+
+<!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-80238614-3', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+
+
