@@ -5,17 +5,18 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
+    <meta name="google-site-verification" content="yE1jgc5Tv8iV5DSEVyofU-gRWHhi7jbA3b1Q2qvS-gI" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="大家好，我是 Cindy，非資訊科系相關背景的工程師，對於資料庫始終有許多的不理解，今天想跟大家分享我在網路上找到適合非本科系的同學們看的資料，以及分享一些我對於資料庫 Ttansaction 的理解。 網路上的相關資料 資料庫系統管理課程關於資料庫 Transaction(交易) 可以看 Course 8. 交易處理 和 Course 9. 並行控制與回復，裡面有 杰哥數位教室 youtube">
 <meta property="og:type" content="article">
 <meta property="og:title" content="資料庫 Transaction(交易)">
-<meta property="og:url" content="https://cindyliu923.github.io/2020/05/31/%E8%B3%87%E6%96%99%E5%BA%AB-Transaction-%E4%BA%A4%E6%98%93/index.html">
+<meta property="og:url" content="https://cindyliu923.github.io/2020/05/31/Database-Transaction/index.html">
 <meta property="og:site_name" content="Cindy&#39;s Blog">
 <meta property="og:description" content="大家好，我是 Cindy，非資訊科系相關背景的工程師，對於資料庫始終有許多的不理解，今天想跟大家分享我在網路上找到適合非本科系的同學們看的資料，以及分享一些我對於資料庫 Ttansaction 的理解。 網路上的相關資料 資料庫系統管理課程關於資料庫 Transaction(交易) 可以看 Course 8. 交易處理 和 Course 9. 並行控制與回復，裡面有 杰哥數位教室 youtube">
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://i.imgur.com/JmoBqZz.png">
 <meta property="article:published_time" content="2020-05-31T08:50:34.000Z">
-<meta property="article:modified_time" content="2020-05-31T16:29:36.349Z">
+<meta property="article:modified_time" content="2020-06-01T11:30:44.470Z">
 <meta property="article:author" content="Cindy Liu">
 <meta property="article:tag" content="MySQL">
 <meta property="article:tag" content="PostgreSQL">
@@ -93,16 +94,16 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://cindyliu923.github.io/2020/05/31/%E8%B3%87%E6%96%99%E5%BA%AB-Transaction-%E4%BA%A4%E6%98%93/" target="_blank" rel="noopener"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=https://cindyliu923.github.io/2020/05/31/%E8%B3%87%E6%96%99%E5%BA%AB-Transaction-%E4%BA%A4%E6%98%93/&text=資料庫 Transaction(交易)" target="_blank" rel="noopener"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://cindyliu923.github.io/2020/05/31/%E8%B3%87%E6%96%99%E5%BA%AB-Transaction-%E4%BA%A4%E6%98%93/&title=資料庫 Transaction(交易)" target="_blank" rel="noopener"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cindyliu923.github.io/2020/05/31/%E8%B3%87%E6%96%99%E5%BA%AB-Transaction-%E4%BA%A4%E6%98%93/&is_video=false&description=資料庫 Transaction(交易)" target="_blank" rel="noopener"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=資料庫 Transaction(交易)&body=Check out this article: https://cindyliu923.github.io/2020/05/31/%E8%B3%87%E6%96%99%E5%BA%AB-Transaction-%E4%BA%A4%E6%98%93/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=https://cindyliu923.github.io/2020/05/31/%E8%B3%87%E6%96%99%E5%BA%AB-Transaction-%E4%BA%A4%E6%98%93/&title=資料庫 Transaction(交易)" target="_blank" rel="noopener"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=https://cindyliu923.github.io/2020/05/31/%E8%B3%87%E6%96%99%E5%BA%AB-Transaction-%E4%BA%A4%E6%98%93/&title=資料庫 Transaction(交易)" target="_blank" rel="noopener"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://cindyliu923.github.io/2020/05/31/%E8%B3%87%E6%96%99%E5%BA%AB-Transaction-%E4%BA%A4%E6%98%93/&title=資料庫 Transaction(交易)" target="_blank" rel="noopener"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=https://cindyliu923.github.io/2020/05/31/%E8%B3%87%E6%96%99%E5%BA%AB-Transaction-%E4%BA%A4%E6%98%93/&title=資料庫 Transaction(交易)" target="_blank" rel="noopener"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://cindyliu923.github.io/2020/05/31/%E8%B3%87%E6%96%99%E5%BA%AB-Transaction-%E4%BA%A4%E6%98%93/&name=資料庫 Transaction(交易)&description=" target="_blank" rel="noopener"><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://cindyliu923.github.io/2020/05/31/Database-Transaction/" target="_blank" rel="noopener"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://cindyliu923.github.io/2020/05/31/Database-Transaction/&text=資料庫 Transaction(交易)" target="_blank" rel="noopener"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://cindyliu923.github.io/2020/05/31/Database-Transaction/&title=資料庫 Transaction(交易)" target="_blank" rel="noopener"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cindyliu923.github.io/2020/05/31/Database-Transaction/&is_video=false&description=資料庫 Transaction(交易)" target="_blank" rel="noopener"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=資料庫 Transaction(交易)&body=Check out this article: https://cindyliu923.github.io/2020/05/31/Database-Transaction/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://cindyliu923.github.io/2020/05/31/Database-Transaction/&title=資料庫 Transaction(交易)" target="_blank" rel="noopener"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://cindyliu923.github.io/2020/05/31/Database-Transaction/&title=資料庫 Transaction(交易)" target="_blank" rel="noopener"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://cindyliu923.github.io/2020/05/31/Database-Transaction/&title=資料庫 Transaction(交易)" target="_blank" rel="noopener"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://cindyliu923.github.io/2020/05/31/Database-Transaction/&title=資料庫 Transaction(交易)" target="_blank" rel="noopener"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://cindyliu923.github.io/2020/05/31/Database-Transaction/&name=資料庫 Transaction(交易)&description=" target="_blank" rel="noopener"><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -253,16 +254,16 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://cindyliu923.github.io/2020/05/31/%E8%B3%87%E6%96%99%E5%BA%AB-Transaction-%E4%BA%A4%E6%98%93/" target="_blank" rel="noopener"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=https://cindyliu923.github.io/2020/05/31/%E8%B3%87%E6%96%99%E5%BA%AB-Transaction-%E4%BA%A4%E6%98%93/&text=資料庫 Transaction(交易)" target="_blank" rel="noopener"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://cindyliu923.github.io/2020/05/31/%E8%B3%87%E6%96%99%E5%BA%AB-Transaction-%E4%BA%A4%E6%98%93/&title=資料庫 Transaction(交易)" target="_blank" rel="noopener"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cindyliu923.github.io/2020/05/31/%E8%B3%87%E6%96%99%E5%BA%AB-Transaction-%E4%BA%A4%E6%98%93/&is_video=false&description=資料庫 Transaction(交易)" target="_blank" rel="noopener"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=資料庫 Transaction(交易)&body=Check out this article: https://cindyliu923.github.io/2020/05/31/%E8%B3%87%E6%96%99%E5%BA%AB-Transaction-%E4%BA%A4%E6%98%93/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=https://cindyliu923.github.io/2020/05/31/%E8%B3%87%E6%96%99%E5%BA%AB-Transaction-%E4%BA%A4%E6%98%93/&title=資料庫 Transaction(交易)" target="_blank" rel="noopener"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=https://cindyliu923.github.io/2020/05/31/%E8%B3%87%E6%96%99%E5%BA%AB-Transaction-%E4%BA%A4%E6%98%93/&title=資料庫 Transaction(交易)" target="_blank" rel="noopener"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://cindyliu923.github.io/2020/05/31/%E8%B3%87%E6%96%99%E5%BA%AB-Transaction-%E4%BA%A4%E6%98%93/&title=資料庫 Transaction(交易)" target="_blank" rel="noopener"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=https://cindyliu923.github.io/2020/05/31/%E8%B3%87%E6%96%99%E5%BA%AB-Transaction-%E4%BA%A4%E6%98%93/&title=資料庫 Transaction(交易)" target="_blank" rel="noopener"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://cindyliu923.github.io/2020/05/31/%E8%B3%87%E6%96%99%E5%BA%AB-Transaction-%E4%BA%A4%E6%98%93/&name=資料庫 Transaction(交易)&description=" target="_blank" rel="noopener"><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://cindyliu923.github.io/2020/05/31/Database-Transaction/" target="_blank" rel="noopener"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://cindyliu923.github.io/2020/05/31/Database-Transaction/&text=資料庫 Transaction(交易)" target="_blank" rel="noopener"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://cindyliu923.github.io/2020/05/31/Database-Transaction/&title=資料庫 Transaction(交易)" target="_blank" rel="noopener"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cindyliu923.github.io/2020/05/31/Database-Transaction/&is_video=false&description=資料庫 Transaction(交易)" target="_blank" rel="noopener"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=資料庫 Transaction(交易)&body=Check out this article: https://cindyliu923.github.io/2020/05/31/Database-Transaction/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://cindyliu923.github.io/2020/05/31/Database-Transaction/&title=資料庫 Transaction(交易)" target="_blank" rel="noopener"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://cindyliu923.github.io/2020/05/31/Database-Transaction/&title=資料庫 Transaction(交易)" target="_blank" rel="noopener"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://cindyliu923.github.io/2020/05/31/Database-Transaction/&title=資料庫 Transaction(交易)" target="_blank" rel="noopener"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://cindyliu923.github.io/2020/05/31/Database-Transaction/&title=資料庫 Transaction(交易)" target="_blank" rel="noopener"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://cindyliu923.github.io/2020/05/31/Database-Transaction/&name=資料庫 Transaction(交易)&description=" target="_blank" rel="noopener"><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
