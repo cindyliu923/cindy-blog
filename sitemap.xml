@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://cindyliu923.github.io/about/index.html</loc>
+    
+    <lastmod>2020-06-01T13:29:08.063Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://cindyliu923.github.io/2020/05/31/Database-Transaction/</loc>
     
     <lastmod>2020-06-01T11:30:44.470Z</lastmod>
@@ -12,13 +19,6 @@
     <loc>https://cindyliu923.github.io/search/index.html</loc>
     
     <lastmod>2020-05-30T16:36:17.643Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://cindyliu923.github.io/about/index.html</loc>
-    
-    <lastmod>2020-05-30T10:38:53.154Z</lastmod>
     
   </url>
   
