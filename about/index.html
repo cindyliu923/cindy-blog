@@ -7,15 +7,15 @@
     <meta name="HandheldFriendly" content="True">
     <meta name="google-site-verification" content="yE1jgc5Tv8iV5DSEVyofU-gRWHhi7jbA3b1Q2qvS-gI" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="Hi, 大家好, 我是 Cindy Liu, Rails Developer, 努力學習程式中, 這是一個學習筆記部落格。下面是一個小畫板，大家可以畫圈圈叉叉!？             🐤顏色:          🐤大小:                      window.addEventListener(&#39;DOMContentLoaded&#39;, () &#x3D;&gt; {       const">
+    <meta name="description" content="Hi, 大家好, 我是 Cindy Liu, Rails Developer, 努力學習程式中, 這是一個學習筆記部落格。下面是一個小畫板，大家可以畫圈圈叉叉!？             🐤顏色:          🐤大小:          橡皮擦                 window.addEventListener(&#39;DOMContentLoaded&#39;, () &#x3D;&gt; {">
 <meta property="og:type" content="website">
 <meta property="og:title" content="about">
 <meta property="og:url" content="https://cindyliu923.github.io/about/index.html">
 <meta property="og:site_name" content="Cindy&#39;s Blog">
-<meta property="og:description" content="Hi, 大家好, 我是 Cindy Liu, Rails Developer, 努力學習程式中, 這是一個學習筆記部落格。下面是一個小畫板，大家可以畫圈圈叉叉!？             🐤顏色:          🐤大小:                      window.addEventListener(&#39;DOMContentLoaded&#39;, () &#x3D;&gt; {       const">
+<meta property="og:description" content="Hi, 大家好, 我是 Cindy Liu, Rails Developer, 努力學習程式中, 這是一個學習筆記部落格。下面是一個小畫板，大家可以畫圈圈叉叉!？             🐤顏色:          🐤大小:          橡皮擦                 window.addEventListener(&#39;DOMContentLoaded&#39;, () &#x3D;&gt; {">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2020-05-27T16:38:05.000Z">
-<meta property="article:modified_time" content="2020-06-04T15:03:08.584Z">
+<meta property="article:modified_time" content="2020-06-04T16:17:12.061Z">
 <meta property="article:author" content="Cindy Liu">
 <meta property="article:tag" content="Ruby">
 <meta property="article:tag" content="Rails">
@@ -106,6 +106,7 @@
     <input id="color" type="color" name="color" value="#ffc600">
     <label for="size">🐤大小:</label>
     <input id="size" type="range" name="size" min="5" max="100" value="50">
+    <button type="button">橡皮擦</button>
     <canvas id="draw" width="800" height="600"></canvas>
   </div>
 
@@ -120,6 +121,7 @@
       const colorInput = document.querySelector('#color');
       const sizeInput = document.querySelector('#size');
       const cursor = document.querySelector('#cursor-img')
+      const eraser = document.querySelector('button')
       canvas.width = screen.width > 800 ? 800 : screen.width - 0.15*screen.width;
 
       const position = (e) => {
@@ -135,6 +137,7 @@
         return { x: x, y: y };
       }
 
+      let isEarser = false;
       let isDrawing = false;
       let lastX = 0;
       let lastY = 0;
@@ -142,7 +145,9 @@
       let size = 30;
 
       const draw = (e) => {
-        cursor.style.display = 'block';
+        if (!hasTouchEvent) {
+          cursor.style.display = 'block';
+        }
         cursor.style.left = `${e.clientX}px`;
         cursor.style.top = `${e.clientY}px`;
 
@@ -176,6 +181,20 @@
         cursor.style.display = 'none';
       }
 
+      const eraserEvent = () => {
+        if (isEarser) {
+          ctx.globalCompositeOperation = 'source-over';
+          cursor.style.backgroundImage = "url('/images/favicon.ico')";
+          eraser.innerHTML = '橡皮擦';
+          isEarser = false;
+        } else {
+          ctx.globalCompositeOperation = 'destination-out';
+          cursor.style.backgroundImage = "url('/images/fried-egg.ico')";
+          eraser.innerHTML = '小雞筆';
+          isEarser = true;
+        }
+      }
+
       canvas.addEventListener(downEvent, (e) => {
         var movePosition = position(e);
         isDrawing = true;
@@ -187,6 +206,7 @@
       canvas.addEventListener(moveEvent, draw);
       canvas.addEventListener(upEvent, () => isDrawing = false);
       canvas.addEventListener('mouseout', hideCursor);
+      eraser.addEventListener('click', eraserEvent);
     });
   </script>
   <style>
@@ -200,7 +220,7 @@
       height: 100px;
       display: none;
       position: fixed;
-      background: url(/images/favicon.ico);
+      background-image: url(/images/favicon.ico);
       background-size: 50%;
       background-repeat: no-repeat;
       cursor: none;
