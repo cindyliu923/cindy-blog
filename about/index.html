@@ -7,15 +7,15 @@
     <meta name="HandheldFriendly" content="True">
     <meta name="google-site-verification" content="yE1jgc5Tv8iV5DSEVyofU-gRWHhi7jbA3b1Q2qvS-gI" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="Hi, 大家好, 我是 Cindy Liu, Rails Developer, 努力學習程式中, 這是一個學習筆記部落格。下面是一個小畫板，大家可以畫圈圈叉叉!？        🐤顏色:          🐤大小:                      window.addEventListener(&#39;DOMContentLoaded&#39;, () &#x3D;&gt; {       const hasTo">
+    <meta name="description" content="Hi, 大家好, 我是 Cindy Liu, Rails Developer, 努力學習程式中, 這是一個學習筆記部落格。下面是一個小畫板，大家可以畫圈圈叉叉!？             🐤顏色:          🐤大小:                      window.addEventListener(&#39;DOMContentLoaded&#39;, () &#x3D;&gt; {       const">
 <meta property="og:type" content="website">
 <meta property="og:title" content="about">
 <meta property="og:url" content="https://cindyliu923.github.io/about/index.html">
 <meta property="og:site_name" content="Cindy&#39;s Blog">
-<meta property="og:description" content="Hi, 大家好, 我是 Cindy Liu, Rails Developer, 努力學習程式中, 這是一個學習筆記部落格。下面是一個小畫板，大家可以畫圈圈叉叉!？        🐤顏色:          🐤大小:                      window.addEventListener(&#39;DOMContentLoaded&#39;, () &#x3D;&gt; {       const hasTo">
+<meta property="og:description" content="Hi, 大家好, 我是 Cindy Liu, Rails Developer, 努力學習程式中, 這是一個學習筆記部落格。下面是一個小畫板，大家可以畫圈圈叉叉!？             🐤顏色:          🐤大小:                      window.addEventListener(&#39;DOMContentLoaded&#39;, () &#x3D;&gt; {       const">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2020-05-27T16:38:05.000Z">
-<meta property="article:modified_time" content="2020-06-01T13:29:08.063Z">
+<meta property="article:modified_time" content="2020-06-04T15:03:08.584Z">
 <meta property="article:author" content="Cindy Liu">
 <meta property="article:tag" content="Ruby">
 <meta property="article:tag" content="Rails">
@@ -101,10 +101,11 @@
   <div class="content" itemprop="articleBody">
     <p>Hi, 大家好, 我是 Cindy Liu, Rails Developer, 努力學習程式中, 這是一個學習筆記部落格。<br>下面是一個小畫板，大家可以畫圈圈叉叉!？</p>
   <div>
+    <div id="cursor-img"></div>
     <label for="color">🐤顏色:</label>
     <input id="color" type="color" name="color" value="#ffc600">
     <label for="size">🐤大小:</label>
-    <input id="size" type="range" name="size" min="0" max="100" value="50">
+    <input id="size" type="range" name="size" min="5" max="100" value="50">
     <canvas id="draw" width="800" height="600"></canvas>
   </div>
 
@@ -118,6 +119,7 @@
       const ctx = canvas.getContext('2d');
       const colorInput = document.querySelector('#color');
       const sizeInput = document.querySelector('#size');
+      const cursor = document.querySelector('#cursor-img')
       canvas.width = screen.width > 800 ? 800 : screen.width - 0.15*screen.width;
 
       const position = (e) => {
@@ -138,10 +140,14 @@
       let lastY = 0;
       let color = "#ffc600";
       let size = 30;
+
       const draw = (e) => {
+        cursor.style.display = 'block';
+        cursor.style.left = `${e.clientX}px`;
+        cursor.style.top = `${e.clientY}px`;
+
         if (!isDrawing) return;
         var movePosition = position(e);
-        // console.log(e);
         ctx.lineJoin = 'round';
         ctx.lineCap = 'round';
         ctx.lineWidth = size;
@@ -156,12 +162,18 @@
 
         e.preventDefault();
       }
+
       const updateColor = (e) => {
         color = e.target.value;
       }
 
       const updateSize = (e) => {
         size = e.target.value;
+        cursor.style.backgroundSize = `${e.target.value}%`;
+      }
+
+      const hideCursor = () => {
+        cursor.style.display = 'none';
       }
 
       canvas.addEventListener(downEvent, (e) => {
@@ -174,12 +186,25 @@
       sizeInput.addEventListener('input', updateSize);
       canvas.addEventListener(moveEvent, draw);
       canvas.addEventListener(upEvent, () => isDrawing = false);
+      canvas.addEventListener('mouseout', hideCursor);
     });
   </script>
   <style>
     canvas {
       border: 1px solid black;
-      cursor: url(/images/favicon.ico), default;
+      cursor: none;
+    }
+
+    #cursor-img {
+      width: 100px;
+      height: 100px;
+      display: none;
+      position: fixed;
+      background: url(/images/favicon.ico);
+      background-size: 50%;
+      background-repeat: no-repeat;
+      cursor: none;
+      pointer-events: none;
     }
   </style>
 
