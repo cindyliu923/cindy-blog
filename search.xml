@@ -4,6 +4,29 @@
   
     
     <entry>
+      <title>Clean Code - 無瑕的程式碼</title>
+      <link href="/2020/06/06/clean-code/"/>
+      <url>/2020/06/06/clean-code/</url>
+      
+        <content type="html"><![CDATA[<p>大家好，我是 Cindy，想跟大家分享最近在閱讀的書：<a href="https://www.tenlong.com.tw/products/9789862017050?list_name=e-106" target="_blank" rel="noopener">無瑕的程式碼－敏捷軟體開發技巧守則 (Clean Code: A Handbook of Agile Software Craftsmanship)</a>，作者是 <a href="https://github.com/unclebob" target="_blank" rel="noopener">Robert C. Martin (人稱 Uncle Bob)</a>，是一本對程式設計具代表性的書。預計之後會邊看邊將每章閱讀過後的重點及心得整理成一篇文章分享給大家。</p><h2 id="為什麼要閱讀-Clean-Code？"><a href="#為什麼要閱讀-Clean-Code？" class="headerlink" title="為什麼要閱讀 Clean Code？"></a>為什麼要閱讀 Clean Code？</h2><p>想先跟大家分享我想看這本書的原因，主要是因為在工作中曾經被同事唸過我寫了奇怪的程式碼，剛開始工作在開發時我會有 Cindy 的 100 種寫法(這邊的 100 是誇飾)，總之我會寫了之後又改掉、又再重寫、又再改掉、再重寫，始終不清楚怎麼寫才是好的寫法，畢竟要達到功能的實現，本來就有很多的方式，大概就是條條道路通羅馬的概念。對於 Clean Code，我自己目前的想法是<strong>最簡單最困難</strong>，如果說專案的程式碼可以非常清楚的表達目的，即看起來很簡單，讓接手專案的人都可以快速地上手，是我心中的 Clean Code，但其實想要達到如此境界確實是不容易的一件事情，尤其是當專案的商業邏輯相當複雜的時候，一不小心就會被牽著走，所以希望藉由這本書，提升自己的能力，為了成為更好的程式設計師。</p><h2 id="無瑕的程式碼"><a href="#無瑕的程式碼" class="headerlink" title="無瑕的程式碼"></a>無瑕的程式碼</h2><p>Uncle Bob 在書中第一章節首先對無瑕的程式碼進行說明，表示程式碼將一直存在，所以無可避免我們始終會面對現有的程式碼，而如果我們必須面對劣質的程式碼，那麼開發時間的上升絕對是必然的，因為我們必須花更多的時間去理解雜亂的程式碼。作者提出了一個關於<strong>態度</strong>的觀點，表示保護程式碼是我們的工作，即使我們被開發時程推著走的時候也應該要提出程式現況有多少的風險，這些風險是否會讓未來的開發付出更大的代價，表現出我們的專業。</p><h2 id="最根本的難題"><a href="#最根本的難題" class="headerlink" title="最根本的難題"></a>最根本的難題</h2><p>讓開發速度變快的<strong>唯一</strong>方法是隨時隨地都確保程式碼整齊潔淨。這邊我想如果要做到的話，其實邊開發邊檢視是否需要重構是必要的，因為也許在新的需求進來的時候，程式應該要如何設計的面貌會更清晰，所以作者曾經在 <a href="https://www.youtube.com/watch?v=2dKZ-dWaCiU&t=3616" target="_blank" rel="noopener">ITkonekt 2019</a> 的演講說過我們如果可以延遲應該盡量先延遲某些決定。</p><h2 id="什麼是-Clean-Code？"><a href="#什麼是-Clean-Code？" class="headerlink" title="什麼是 Clean Code？"></a>什麼是 Clean Code？</h2><p>這邊作者認為每個人對於 Clean Code 會有不同的看法，所以列了一些他請教不同資深程式設計師的說法，其中 Bjarne Stroustrup (<a href="https://www.tenlong.com.tw/products/9789863476030" target="_blank" rel="noopener">The C++ Programming Language</a> 的作者) 表示 Clean Code 對細節相當在意，如：<a href="https://zh.wikipedia.org/zh-tw/%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F" target="_blank" rel="noopener">記憶體流失(memory leak)</a>、<a href="https://zh.wikipedia.org/zh-tw/%E7%AB%B6%E7%88%AD%E5%8D%B1%E5%AE%B3" target="_blank" rel="noopener">競爭情況(race condition)</a>、不一致的命名方式(下一篇文章會介紹)……等等。Grady Booch (<a href="https://www.tenlong.com.tw/products/9789861816074" target="_blank" rel="noopener">Object-Oriented Analysis and Design with Applications</a> 的作者) 指出我們撰寫的程式碼應該說明事實，不該使人臆測。這邊我指出幾個印象深刻的，想看更多的大家可以去買書看看唷。</p><h2 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h2><p>作者表示我們可以把此書當作是<strong>整潔程式碼之物件學派</strong>，可以學到如何寫出整潔又專業的程式碼，但不要當作這些絕對是<strong>對的</strong>，還有其他不同學派值得我們學習。</p><p>最後下面兩點指出我們要寫 Clean Code 的原因：</p><ul><li>當我們要撰寫程式碼前，其實花了不少功夫在不斷的了解舊的程式碼。</li><li>你今天寫程式的難易度，取決於周遭程式碼的可讀性高低。</li></ul><p>下一篇會介紹有意義的命名，敬請期待。</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Clean Code </tag>
+            
+            <tag> Coding </tag>
+            
+            <tag> Agile </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>資料庫 Transaction(交易)</title>
       <link href="/2020/05/31/Database-Transaction/"/>
       <url>/2020/05/31/Database-Transaction/</url>

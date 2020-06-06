@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="google-site-verification" content="yE1jgc5Tv8iV5DSEVyofU-gRWHhi7jbA3b1Q2qvS-gI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="大家好，我是 Cindy，想跟大家分享最近在閱讀的書：無瑕的程式碼－敏捷軟體開發技巧守則 (Clean Code: A Handbook of Agile Software Craftsmanship)，作者是 Robert C. Martin (人稱 Uncle Bob)，是一本對程式設計具代表性的書。預計之後會邊看邊將每章閱讀過後的重點及心得整理成一篇文章分享給大家。 為什麼要閱讀 Clean">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Clean Code - 無瑕的程式碼">
+<meta property="og:url" content="https://cindyliu923.github.io/2020/06/06/clean-code/index.html">
+<meta property="og:site_name" content="Cindy&#39;s Blog">
+<meta property="og:description" content="大家好，我是 Cindy，想跟大家分享最近在閱讀的書：無瑕的程式碼－敏捷軟體開發技巧守則 (Clean Code: A Handbook of Agile Software Craftsmanship)，作者是 Robert C. Martin (人稱 Uncle Bob)，是一本對程式設計具代表性的書。預計之後會邊看邊將每章閱讀過後的重點及心得整理成一篇文章分享給大家。 為什麼要閱讀 Clean">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2020-06-06T13:31:11.000Z">
+<meta property="article:modified_time" content="2020-06-06T18:54:40.688Z">
+<meta property="article:author" content="Cindy Liu">
+<meta property="article:tag" content="Clean Code">
+<meta property="article:tag" content="Coding">
+<meta property="article:tag" content="Agile">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/mstile-150x150.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Clean Code - 無瑕的程式碼</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/posts/">Writing</a></li>
+         
+          <li><a href="https://github.com/cindyliu923" target="_blank" rel="noopener">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2020/05/31/Database-Transaction/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://cindyliu923.github.io/2020/06/06/clean-code/" target="_blank" rel="noopener"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://cindyliu923.github.io/2020/06/06/clean-code/&text=Clean Code - 無瑕的程式碼" target="_blank" rel="noopener"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://cindyliu923.github.io/2020/06/06/clean-code/&title=Clean Code - 無瑕的程式碼" target="_blank" rel="noopener"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cindyliu923.github.io/2020/06/06/clean-code/&is_video=false&description=Clean Code - 無瑕的程式碼" target="_blank" rel="noopener"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Clean Code - 無瑕的程式碼&body=Check out this article: https://cindyliu923.github.io/2020/06/06/clean-code/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://cindyliu923.github.io/2020/06/06/clean-code/&title=Clean Code - 無瑕的程式碼" target="_blank" rel="noopener"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://cindyliu923.github.io/2020/06/06/clean-code/&title=Clean Code - 無瑕的程式碼" target="_blank" rel="noopener"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://cindyliu923.github.io/2020/06/06/clean-code/&title=Clean Code - 無瑕的程式碼" target="_blank" rel="noopener"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://cindyliu923.github.io/2020/06/06/clean-code/&title=Clean Code - 無瑕的程式碼" target="_blank" rel="noopener"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://cindyliu923.github.io/2020/06/06/clean-code/&name=Clean Code - 無瑕的程式碼&description=" target="_blank" rel="noopener"><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#為什麼要閱讀-Clean-Code？"><span class="toc-number">1.</span> <span class="toc-text">為什麼要閱讀 Clean Code？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#無瑕的程式碼"><span class="toc-number">2.</span> <span class="toc-text">無瑕的程式碼</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最根本的難題"><span class="toc-number">3.</span> <span class="toc-text">最根本的難題</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#什麼是-Clean-Code？"><span class="toc-number">4.</span> <span class="toc-text">什麼是 Clean Code？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#總結"><span class="toc-number">5.</span> <span class="toc-text">總結</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Clean Code - 無瑕的程式碼
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Cindy's Blog</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2020-06-06T13:31:11.000Z" itemprop="datePublished">2020-06-06</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Agile/" rel="tag">Agile</a>, <a class="tag-link" href="/tags/Clean-Code/" rel="tag">Clean Code</a>, <a class="tag-link" href="/tags/Coding/" rel="tag">Coding</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>大家好，我是 Cindy，想跟大家分享最近在閱讀的書：<a href="https://www.tenlong.com.tw/products/9789862017050?list_name=e-106" target="_blank" rel="noopener">無瑕的程式碼－敏捷軟體開發技巧守則 (Clean Code: A Handbook of Agile Software Craftsmanship)</a>，作者是 <a href="https://github.com/unclebob" target="_blank" rel="noopener">Robert C. Martin (人稱 Uncle Bob)</a>，是一本對程式設計具代表性的書。預計之後會邊看邊將每章閱讀過後的重點及心得整理成一篇文章分享給大家。</p>
+<h2 id="為什麼要閱讀-Clean-Code？"><a href="#為什麼要閱讀-Clean-Code？" class="headerlink" title="為什麼要閱讀 Clean Code？"></a>為什麼要閱讀 Clean Code？</h2><p>想先跟大家分享我想看這本書的原因，主要是因為在工作中曾經被同事唸過我寫了奇怪的程式碼，剛開始工作在開發時我會有 Cindy 的 100 種寫法(這邊的 100 是誇飾)，總之我會寫了之後又改掉、又再重寫、又再改掉、再重寫，始終不清楚怎麼寫才是好的寫法，畢竟要達到功能的實現，本來就有很多的方式，大概就是條條道路通羅馬的概念。對於 Clean Code，我自己目前的想法是<strong>最簡單最困難</strong>，如果說專案的程式碼可以非常清楚的表達目的，即看起來很簡單，讓接手專案的人都可以快速地上手，是我心中的 Clean Code，但其實想要達到如此境界確實是不容易的一件事情，尤其是當專案的商業邏輯相當複雜的時候，一不小心就會被牽著走，所以希望藉由這本書，提升自己的能力，為了成為更好的程式設計師。</p>
+<h2 id="無瑕的程式碼"><a href="#無瑕的程式碼" class="headerlink" title="無瑕的程式碼"></a>無瑕的程式碼</h2><p>Uncle Bob 在書中第一章節首先對無瑕的程式碼進行說明，表示程式碼將一直存在，所以無可避免我們始終會面對現有的程式碼，而如果我們必須面對劣質的程式碼，那麼開發時間的上升絕對是必然的，因為我們必須花更多的時間去理解雜亂的程式碼。作者提出了一個關於<strong>態度</strong>的觀點，表示保護程式碼是我們的工作，即使我們被開發時程推著走的時候也應該要提出程式現況有多少的風險，這些風險是否會讓未來的開發付出更大的代價，表現出我們的專業。</p>
+<h2 id="最根本的難題"><a href="#最根本的難題" class="headerlink" title="最根本的難題"></a>最根本的難題</h2><p>讓開發速度變快的<strong>唯一</strong>方法是隨時隨地都確保程式碼整齊潔淨。這邊我想如果要做到的話，其實邊開發邊檢視是否需要重構是必要的，因為也許在新的需求進來的時候，程式應該要如何設計的面貌會更清晰，所以作者曾經在 <a href="https://www.youtube.com/watch?v=2dKZ-dWaCiU&t=3616" target="_blank" rel="noopener">ITkonekt 2019</a> 的演講說過我們如果可以延遲應該盡量先延遲某些決定。</p>
+<h2 id="什麼是-Clean-Code？"><a href="#什麼是-Clean-Code？" class="headerlink" title="什麼是 Clean Code？"></a>什麼是 Clean Code？</h2><p>這邊作者認為每個人對於 Clean Code 會有不同的看法，所以列了一些他請教不同資深程式設計師的說法，其中 Bjarne Stroustrup (<a href="https://www.tenlong.com.tw/products/9789863476030" target="_blank" rel="noopener">The C++ Programming Language</a> 的作者) 表示 Clean Code 對細節相當在意，如：<a href="https://zh.wikipedia.org/zh-tw/%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F" target="_blank" rel="noopener">記憶體流失(memory leak)</a>、<a href="https://zh.wikipedia.org/zh-tw/%E7%AB%B6%E7%88%AD%E5%8D%B1%E5%AE%B3" target="_blank" rel="noopener">競爭情況(race condition)</a>、不一致的命名方式(下一篇文章會介紹)……等等。Grady Booch (<a href="https://www.tenlong.com.tw/products/9789861816074" target="_blank" rel="noopener">Object-Oriented Analysis and Design with Applications</a> 的作者) 指出我們撰寫的程式碼應該說明事實，不該使人臆測。這邊我指出幾個印象深刻的，想看更多的大家可以去買書看看唷。</p>
+<h2 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h2><p>作者表示我們可以把此書當作是<strong>整潔程式碼之物件學派</strong>，可以學到如何寫出整潔又專業的程式碼，但不要當作這些絕對是<strong>對的</strong>，還有其他不同學派值得我們學習。</p>
+<p>最後下面兩點指出我們要寫 Clean Code 的原因：</p>
+<ul>
+<li>當我們要撰寫程式碼前，其實花了不少功夫在不斷的了解舊的程式碼。</li>
+<li>你今天寫程式的難易度，取決於周遭程式碼的可讀性高低。</li>
+</ul>
+<p>下一篇會介紹有意義的命名，敬請期待。</p>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/posts/">Writing</a></li>
+         
+          <li><a href="https://github.com/cindyliu923" target="_blank" rel="noopener">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#為什麼要閱讀-Clean-Code？"><span class="toc-number">1.</span> <span class="toc-text">為什麼要閱讀 Clean Code？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#無瑕的程式碼"><span class="toc-number">2.</span> <span class="toc-text">無瑕的程式碼</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最根本的難題"><span class="toc-number">3.</span> <span class="toc-text">最根本的難題</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#什麼是-Clean-Code？"><span class="toc-number">4.</span> <span class="toc-text">什麼是 Clean Code？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#總結"><span class="toc-number">5.</span> <span class="toc-text">總結</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://cindyliu923.github.io/2020/06/06/clean-code/" target="_blank" rel="noopener"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://cindyliu923.github.io/2020/06/06/clean-code/&text=Clean Code - 無瑕的程式碼" target="_blank" rel="noopener"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://cindyliu923.github.io/2020/06/06/clean-code/&title=Clean Code - 無瑕的程式碼" target="_blank" rel="noopener"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cindyliu923.github.io/2020/06/06/clean-code/&is_video=false&description=Clean Code - 無瑕的程式碼" target="_blank" rel="noopener"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Clean Code - 無瑕的程式碼&body=Check out this article: https://cindyliu923.github.io/2020/06/06/clean-code/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://cindyliu923.github.io/2020/06/06/clean-code/&title=Clean Code - 無瑕的程式碼" target="_blank" rel="noopener"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://cindyliu923.github.io/2020/06/06/clean-code/&title=Clean Code - 無瑕的程式碼" target="_blank" rel="noopener"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://cindyliu923.github.io/2020/06/06/clean-code/&title=Clean Code - 無瑕的程式碼" target="_blank" rel="noopener"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://cindyliu923.github.io/2020/06/06/clean-code/&title=Clean Code - 無瑕的程式碼" target="_blank" rel="noopener"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://cindyliu923.github.io/2020/06/06/clean-code/&name=Clean Code - 無瑕的程式碼&description=" target="_blank" rel="noopener"><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2020 Cindy Liu
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/posts/">Writing</a></li>
+         
+          <li><a href="https://github.com/cindyliu923" target="_blank" rel="noopener">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+
+<!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-80238614-3', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+
+
