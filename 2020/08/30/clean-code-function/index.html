@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="google-site-verification" content="yE1jgc5Tv8iV5DSEVyofU-gRWHhi7jbA3b1Q2qvS-gI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="大家好，我是 Cindy，相信看過 Clean Code - 無瑕的程式碼 這篇文章的朋友們已經知道什麼是 Clean Code 了，之後會陸續針對每個章節做重點整理，以龜速進行中。 無瑕的程式碼－敏捷軟體開發技巧守則 (Clean Code: A Handbook of Agile Software Craftsmanship) 第三章函式，我想就我們寫 Ruby 而言其實可以對應到我們所謂的方">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Clean Code - 函式">
+<meta property="og:url" content="https://cindyliu923.com/2020/08/30/clean-code-function/index.html">
+<meta property="og:site_name" content="Cindy&#39;s Blog">
+<meta property="og:description" content="大家好，我是 Cindy，相信看過 Clean Code - 無瑕的程式碼 這篇文章的朋友們已經知道什麼是 Clean Code 了，之後會陸續針對每個章節做重點整理，以龜速進行中。 無瑕的程式碼－敏捷軟體開發技巧守則 (Clean Code: A Handbook of Agile Software Craftsmanship) 第三章函式，我想就我們寫 Ruby 而言其實可以對應到我們所謂的方">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2020-08-30T13:38:28.000Z">
+<meta property="article:modified_time" content="2020-08-31T17:04:35.981Z">
+<meta property="article:author" content="Cindy Liu">
+<meta property="article:tag" content="Clean Code">
+<meta property="article:tag" content="Coding">
+<meta property="article:tag" content="Agile">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/mstile-150x150.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <div id="fb-root"></div>
+<script>(function(d, s, id) {
+var js, fjs = d.getElementsByTagName(s)[0];
+if (d.getElementById(id)) return;
+js = d.createElement(s); js.id = id;
+js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v7.0&appId=3074485109285192&autoLogAppEvents=1&colorscheme=light&order_by=time";
+fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+    <!-- title -->
+    <title>Clean Code - 函式</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- rss -->
+    
+      
+    
+    
+      <link rel="alternate" href="/atom.xml" title="Cindy&#39;s Blog" type="application/atom+xml" />
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/posts/">Writing</a></li>
+         
+          <li><a href="https://github.com/cindyliu923" target="_blank" rel="noopener">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a href="/atom.xml">RSS</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2020/06/25/ruby-pass-by-reference-and-value/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://cindyliu923.com/2020/08/30/clean-code-function/" target="_blank" rel="noopener"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://cindyliu923.com/2020/08/30/clean-code-function/&text=Clean Code - 函式" target="_blank" rel="noopener"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://cindyliu923.com/2020/08/30/clean-code-function/&title=Clean Code - 函式" target="_blank" rel="noopener"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cindyliu923.com/2020/08/30/clean-code-function/&is_video=false&description=Clean Code - 函式" target="_blank" rel="noopener"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Clean Code - 函式&body=Check out this article: https://cindyliu923.com/2020/08/30/clean-code-function/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://cindyliu923.com/2020/08/30/clean-code-function/&title=Clean Code - 函式" target="_blank" rel="noopener"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://cindyliu923.com/2020/08/30/clean-code-function/&title=Clean Code - 函式" target="_blank" rel="noopener"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://cindyliu923.com/2020/08/30/clean-code-function/&title=Clean Code - 函式" target="_blank" rel="noopener"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://cindyliu923.com/2020/08/30/clean-code-function/&title=Clean Code - 函式" target="_blank" rel="noopener"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://cindyliu923.com/2020/08/30/clean-code-function/&name=Clean Code - 函式&description=" target="_blank" rel="noopener"><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#簡短！"><span class="toc-number">1.</span> <span class="toc-text">簡短！</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#只做一件事情"><span class="toc-number">2.</span> <span class="toc-text">只做一件事情</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#函式的段落"><span class="toc-number">2.1.</span> <span class="toc-text">函式的段落</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#由上而下閱讀程式碼：降層準則"><span class="toc-number">3.</span> <span class="toc-text">由上而下閱讀程式碼：降層準則</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Switch-敘述-或-if-else"><span class="toc-number">4.</span> <span class="toc-text">Switch 敘述 (或 if&#x2F;else)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用具描述能力的名稱"><span class="toc-number">5.</span> <span class="toc-text">使用具描述能力的名稱</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#函式的參數"><span class="toc-number">6.</span> <span class="toc-text">函式的參數</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#單一參數的常見形式"><span class="toc-number">6.1.</span> <span class="toc-text">單一參數的常見形式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#旗標-flag-參數"><span class="toc-number">6.2.</span> <span class="toc-text">旗標(flag)參數</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#物件型態的參數"><span class="toc-number">6.3.</span> <span class="toc-text">物件型態的參數</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#動詞和關鍵字"><span class="toc-number">6.4.</span> <span class="toc-text">動詞和關鍵字</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#要無副作用"><span class="toc-number">7.</span> <span class="toc-text">要無副作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#指令和查詢的分離"><span class="toc-number">8.</span> <span class="toc-text">指令和查詢的分離</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#錯誤處理就是一件事"><span class="toc-number">9.</span> <span class="toc-text">錯誤處理就是一件事</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#不要重複自己-DRY-Don’t-Repeat-Yourself"><span class="toc-number">10.</span> <span class="toc-text">不要重複自己 DRY(Don’t Repeat Yourself)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#結構化程式設計"><span class="toc-number">11.</span> <span class="toc-text">結構化程式設計</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#總結"><span class="toc-number">12.</span> <span class="toc-text">總結</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Clean Code - 函式
+    </h1>
+
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Cindy's Blog</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2020-08-30T13:38:28.000Z" itemprop="datePublished">2020-08-30</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Agile/" rel="tag">Agile</a>, <a class="tag-link" href="/tags/Clean-Code/" rel="tag">Clean Code</a>, <a class="tag-link" href="/tags/Coding/" rel="tag">Coding</a>
+    </div>
+
+
+    </div>
+    <div class="meta">
+      <span class="post-count">👀 6 min read for this post 👀</span>
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>大家好，我是 Cindy，相信看過 <a href="/2020/06/06/clean-code">Clean Code - 無瑕的程式碼</a> 這篇文章的朋友們已經知道什麼是 Clean Code 了，之後會陸續針對每個章節做重點整理，以龜速進行中。</p>
+<p><a href="https://www.tenlong.com.tw/products/9789862017050?list_name=e-106" target="_blank" rel="noopener">無瑕的程式碼－敏捷軟體開發技巧守則 (Clean Code: A Handbook of Agile Software Craftsmanship)</a> 第三章函式，我想就我們寫 Ruby 而言其實可以對應到我們所謂的<strong>方法</strong>。</p>
+<h2 id="簡短！"><a href="#簡短！" class="headerlink" title="簡短！"></a>簡短！</h2><p>關於函式的首要準則，就是要簡短。第二項準則，就是<strong>要比第一項的簡短函式還要更短簡短</strong>。看到書中這段話有相當深刻的感受，當我們在看一段很長的函式(或方法)，其實真的很常會看到不知道在哪裡，懷疑人生。另外想跟大家提一下 <a href="https://thoughtbot.com/blog/sandi-metz-rules-for-developers" target="_blank" rel="noopener">Sandi Metz’ Rules For Developers</a> thoughtbot 的這篇文章，其中第二條規則 <strong>Methods can be no longer than five lines of code.</strong>，跟 clean code 這本書提到的簡短其實都是一樣的道理。希望每個函式(或方法)都一清二楚，透露出本身的意圖。</p>
+<h2 id="只做一件事情"><a href="#只做一件事情" class="headerlink" title="只做一件事情"></a>只做一件事情</h2><p>函式應該做一件事情。他們應該把這件事做好。而且他們應該只做這件事。<br>如果函式只做了函式名稱下<strong>同一層抽象概念</strong>的幾個步驟，那麼，這個函式就算是只做了一件事。觀察函式是否超過<strong>一件事情</strong>的另一種方法，是看你是否能夠從此函式中，提煉出另一個新函式，但此新函式不能只是重新詮釋原函式的實現過程(實作)而已。</p>
+<h3 id="函式的段落"><a href="#函式的段落" class="headerlink" title="函式的段落"></a>函式的段落</h3><p>做一件事的函式沒有辦法被合理的分成不同段落。</p>
+<h2 id="由上而下閱讀程式碼：降層準則"><a href="#由上而下閱讀程式碼：降層準則" class="headerlink" title="由上而下閱讀程式碼：降層準則"></a>由上而下閱讀程式碼：降層準則</h2><p>我們希望程式的閱讀就像是由上而下的敘事。我們希望每個函式的後面都緊接著<strong>下一層次的抽象概念</strong>，如此，我們在閱讀程式可依照看到的一連串函式，對應著抽象層次降層閱讀。這個方法就叫做降層準則。</p>
+<h2 id="Switch-敘述-或-if-else"><a href="#Switch-敘述-或-if-else" class="headerlink" title="Switch 敘述 (或 if/else)"></a>Switch 敘述 (或 if/else)</h2><p>Switch 敘述總是在做 N 件事情，雖然我們無法避開使用 Switch 敘述，但我們能確保讓每個 Switch 敘述都被深埋在較低層次的類別裡，而且他永遠都不會被重複使用。我們可以利用多型(Polymorphism)來達到這樣的目的。</p>
+<p>關於 Ruby 如何利用多型(Polymorphism)來達到這樣的目的，可參考 <a href="https://www.youtube.com/watch?v=mpA2F1In41w&t=1728" target="_blank" rel="noopener">hafentalks #7 - Sandi Metz: “Go Ahead, Make a Mess”</a>。</p>
+<h2 id="使用具描述能力的名稱"><a href="#使用具描述能力的名稱" class="headerlink" title="使用具描述能力的名稱"></a>使用具描述能力的名稱</h2><p>當每個你看到的程式，執行結果都與你想的差不多，你會察覺到你正工作在 Clean Code 之上。<br>別害怕去取較長的名稱，一個較長但具描述性質的名稱，比一個較短但難以理解的名稱還要好。</p>
+<h2 id="函式的參數"><a href="#函式的參數" class="headerlink" title="函式的參數"></a>函式的參數</h2><p>函式的參數數量，最理想的是零個(零參數函式;niladic)，其次是一個(單參數函式;monadic)，再不然就是兩個(雙參數函式;dyadic)。可以的話，盡量避免使用三個參數(三參數函式;triadic)。如果要使用超過三個參數(多參數函式;polyadic)，必須有非常特殊的理由—否則無論如何都不應該如此做。</p>
+<h3 id="單一參數的常見形式"><a href="#單一參數的常見形式" class="headerlink" title="單一參數的常見形式"></a>單一參數的常見形式</h3><ol>
+<li>會問與這個參數有關的問題。</li>
+<li>對這個參數進行某種操作。</li>
+<li>事件。這類的形式比較少見，在這類型中會有輸入型參數，但是不會有輸出型參數。</li>
+</ol>
+<h3 id="旗標-flag-參數"><a href="#旗標-flag-參數" class="headerlink" title="旗標(flag)參數"></a>旗標(flag)參數</h3><p>使用 flag 參數是一種很爛的做法。將一個布林變數傳遞給函式，是一種非常恐怖的習慣。這馬上會使得方法的署名(signature)變得複雜，等同於大聲宣布此函式做了不只一件事。</p>
+<h3 id="物件型態的參數"><a href="#物件型態的參數" class="headerlink" title="物件型態的參數"></a>物件型態的參數</h3><p>當一個函式看起來需要超過兩個或三個的參數時，很可能需要將當中的一些參數包裝在一個類別裡。利用建立物件的方式，減少函式參數的數量，當一堆變數一起被傳遞時，他們是某個概念裡的相似部分，而這個概念應該獲得一個屬於他的名稱。</p>
+<h3 id="動詞和關鍵字"><a href="#動詞和關鍵字" class="headerlink" title="動詞和關鍵字"></a>動詞和關鍵字</h3><p>替函式選一個好名稱，可以產生許多良好的附加價值，例如解釋函式的意圖、解釋函式參數的順序性及意圖。</p>
+<h2 id="要無副作用"><a href="#要無副作用" class="headerlink" title="要無副作用"></a>要無副作用</h2><p>副作用(Side effects)就像是謊言。你的函式保證只做一件事情，卻暗地裡偷偷做了其他事情。有時候會使得同類別的其他變數，產生不可預期的改變。常會導致奇怪的時空耦合(temporal coupling)和順序相依性的問題。如果你必須有一個時空耦合，你應該在函式的名稱中說明清楚。</p>
+<h2 id="指令和查詢的分離"><a href="#指令和查詢的分離" class="headerlink" title="指令和查詢的分離"></a>指令和查詢的分離</h2><p>函式應該要能做某件事，或能回答某個問題，但兩者不該同時發生。</p>
+<h2 id="錯誤處理就是一件事"><a href="#錯誤處理就是一件事" class="headerlink" title="錯誤處理就是一件事"></a>錯誤處理就是一件事</h2><p>當你使用例外處理，而非使用錯誤碼時，新的例外可由例外類別衍生出來，不必被迫重新編譯和重新部署，就可以加入到現有的程式中。</p>
+<h2 id="不要重複自己-DRY-Don’t-Repeat-Yourself"><a href="#不要重複自己-DRY-Don’t-Repeat-Yourself" class="headerlink" title="不要重複自己 DRY(Don’t Repeat Yourself)"></a>不要重複自己 DRY(Don’t Repeat Yourself)</h2><p>重複會讓程式變得擁擠，當演算法某些地方需要改變時，這些修改的地方需要花費 N 倍的工夫，因此也讓遺漏而導致的錯誤，發生的機會變 N 倍。</p>
+<p>重複程式碼也許是軟體裡所有邪惡的根源。許多準則或慣例都是為了控制或移除他而發明的。例如，資料庫的 Codd’s normal forms(柯德正規法)是用來消除資料的重複。又例如，物件導向程式設計是利用將程式碼集中到基本的類別裡，來避免冗餘(redundant)。結構化程式設計、剖面導向程式設計(Aspect Oriented Programming)、元件導向程式設計(Component Oriented Programming)等。</p>
+<h2 id="結構化程式設計"><a href="#結構化程式設計" class="headerlink" title="結構化程式設計"></a>結構化程式設計</h2><p>每個函式，及每個函式裡的區塊，都應該只有一個進入點及一個離開點。要遵守這個準則，代表在一個函式裡，只能有一個 return 敘述，迴圈內不能有任何的 break 或 continue 敘述，而且永遠不能有 goto 敘述。</p>
+<h2 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h2><p>今天的重點整理就到這邊了，還記得我曾經寫過指令和查詢混在一起的方法，被公司 Fred 大大告訴我不應該這樣寫，之後也在 clean code 看到一樣的概念，覺得熟悉，但確實我應該讓方法的命名可以直接看出來是做什麼，如果是要問他是什麼狀態，就不應該邊問邊更改他的狀態啊啊啊。</p>
+
+  </div>
+</article>
+
+<section id="comments">
+<div class="fb-like" data-href="
+https://cindyliu923.com/2020/08/30/clean-code-function/" data-width="" data-layout="button_count" data-action="like" data-size="large" data-share="true""></div>
+<div class="fb-comments" data-href="
+https://cindyliu923.com/2020/08/30/clean-code-function/" data-numposts="10" data-width="100%"></div>
+</section>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/posts/">Writing</a></li>
+         
+          <li><a href="https://github.com/cindyliu923" target="_blank" rel="noopener">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a href="/atom.xml">RSS</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#簡短！"><span class="toc-number">1.</span> <span class="toc-text">簡短！</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#只做一件事情"><span class="toc-number">2.</span> <span class="toc-text">只做一件事情</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#函式的段落"><span class="toc-number">2.1.</span> <span class="toc-text">函式的段落</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#由上而下閱讀程式碼：降層準則"><span class="toc-number">3.</span> <span class="toc-text">由上而下閱讀程式碼：降層準則</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Switch-敘述-或-if-else"><span class="toc-number">4.</span> <span class="toc-text">Switch 敘述 (或 if&#x2F;else)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用具描述能力的名稱"><span class="toc-number">5.</span> <span class="toc-text">使用具描述能力的名稱</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#函式的參數"><span class="toc-number">6.</span> <span class="toc-text">函式的參數</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#單一參數的常見形式"><span class="toc-number">6.1.</span> <span class="toc-text">單一參數的常見形式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#旗標-flag-參數"><span class="toc-number">6.2.</span> <span class="toc-text">旗標(flag)參數</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#物件型態的參數"><span class="toc-number">6.3.</span> <span class="toc-text">物件型態的參數</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#動詞和關鍵字"><span class="toc-number">6.4.</span> <span class="toc-text">動詞和關鍵字</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#要無副作用"><span class="toc-number">7.</span> <span class="toc-text">要無副作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#指令和查詢的分離"><span class="toc-number">8.</span> <span class="toc-text">指令和查詢的分離</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#錯誤處理就是一件事"><span class="toc-number">9.</span> <span class="toc-text">錯誤處理就是一件事</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#不要重複自己-DRY-Don’t-Repeat-Yourself"><span class="toc-number">10.</span> <span class="toc-text">不要重複自己 DRY(Don’t Repeat Yourself)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#結構化程式設計"><span class="toc-number">11.</span> <span class="toc-text">結構化程式設計</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#總結"><span class="toc-number">12.</span> <span class="toc-text">總結</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://cindyliu923.com/2020/08/30/clean-code-function/" target="_blank" rel="noopener"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://cindyliu923.com/2020/08/30/clean-code-function/&text=Clean Code - 函式" target="_blank" rel="noopener"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://cindyliu923.com/2020/08/30/clean-code-function/&title=Clean Code - 函式" target="_blank" rel="noopener"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cindyliu923.com/2020/08/30/clean-code-function/&is_video=false&description=Clean Code - 函式" target="_blank" rel="noopener"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Clean Code - 函式&body=Check out this article: https://cindyliu923.com/2020/08/30/clean-code-function/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://cindyliu923.com/2020/08/30/clean-code-function/&title=Clean Code - 函式" target="_blank" rel="noopener"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://cindyliu923.com/2020/08/30/clean-code-function/&title=Clean Code - 函式" target="_blank" rel="noopener"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://cindyliu923.com/2020/08/30/clean-code-function/&title=Clean Code - 函式" target="_blank" rel="noopener"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://cindyliu923.com/2020/08/30/clean-code-function/&title=Clean Code - 函式" target="_blank" rel="noopener"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://cindyliu923.com/2020/08/30/clean-code-function/&name=Clean Code - 函式&description=" target="_blank" rel="noopener"><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2020 Cindy Liu <a href='/Privacy-Policy'>Privacy Policy</a>
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/posts/">Writing</a></li>
+        
+          <li><a href="https://github.com/cindyliu923" target="_blank" rel="noopener">Projects</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+          <li><a href="/atom.xml">RSS</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+
+<!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-80238614-3', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+
+
