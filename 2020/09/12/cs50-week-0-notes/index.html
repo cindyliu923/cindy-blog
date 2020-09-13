@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="google-site-verification" content="yE1jgc5Tv8iV5DSEVyofU-gRWHhi7jbA3b1Q2qvS-gI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="大家好，我是 Cindy，最近跟同事小夥伴相約一起看 CS50 的課程，CS50 (Introduction to Computer Science）是一堂美國哈佛大學知名的通識課程，完全免費，在 edx 或 youtube 或 CS50-Study-Group github 都可以非常容易地看到。 這系列的文章會是我的個人筆記，歡迎有興趣的人一定要自己去看看 CS50 的課程歐。 開始看影片就被">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CS50 week 0 筆記">
+<meta property="og:url" content="https://cindyliu923.com/2020/09/12/cs50-week-0-notes/index.html">
+<meta property="og:site_name" content="Cindy&#39;s Blog">
+<meta property="og:description" content="大家好，我是 Cindy，最近跟同事小夥伴相約一起看 CS50 的課程，CS50 (Introduction to Computer Science）是一堂美國哈佛大學知名的通識課程，完全免費，在 edx 或 youtube 或 CS50-Study-Group github 都可以非常容易地看到。 這系列的文章會是我的個人筆記，歡迎有興趣的人一定要自己去看看 CS50 的課程歐。 開始看影片就被">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2020-09-12T14:54:07.000Z">
+<meta property="article:modified_time" content="2020-09-13T14:25:22.688Z">
+<meta property="article:author" content="Cindy Liu">
+<meta property="article:tag" content="CS50">
+<meta property="article:tag" content="Computer Science">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/mstile-150x150.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <div id="fb-root"></div>
+<script>(function(d, s, id) {
+var js, fjs = d.getElementsByTagName(s)[0];
+if (d.getElementById(id)) return;
+js = d.createElement(s); js.id = id;
+js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v7.0&appId=3074485109285192&autoLogAppEvents=1&colorscheme=light&order_by=time";
+fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+    <!-- title -->
+    <title>CS50 week 0 筆記</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- rss -->
+    
+      
+    
+    
+      <link rel="alternate" href="/atom.xml" title="Cindy&#39;s Blog" type="application/atom+xml" />
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/posts/">Writing</a></li>
+         
+          <li><a href="https://github.com/cindyliu923" target="_blank" rel="noopener">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a href="/atom.xml">RSS</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2020/08/30/clean-code-function/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://cindyliu923.com/2020/09/12/cs50-week-0-notes/" target="_blank" rel="noopener"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://cindyliu923.com/2020/09/12/cs50-week-0-notes/&text=CS50 week 0 筆記" target="_blank" rel="noopener"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://cindyliu923.com/2020/09/12/cs50-week-0-notes/&title=CS50 week 0 筆記" target="_blank" rel="noopener"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cindyliu923.com/2020/09/12/cs50-week-0-notes/&is_video=false&description=CS50 week 0 筆記" target="_blank" rel="noopener"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=CS50 week 0 筆記&body=Check out this article: https://cindyliu923.com/2020/09/12/cs50-week-0-notes/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://cindyliu923.com/2020/09/12/cs50-week-0-notes/&title=CS50 week 0 筆記" target="_blank" rel="noopener"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://cindyliu923.com/2020/09/12/cs50-week-0-notes/&title=CS50 week 0 筆記" target="_blank" rel="noopener"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://cindyliu923.com/2020/09/12/cs50-week-0-notes/&title=CS50 week 0 筆記" target="_blank" rel="noopener"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://cindyliu923.com/2020/09/12/cs50-week-0-notes/&title=CS50 week 0 筆記" target="_blank" rel="noopener"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://cindyliu923.com/2020/09/12/cs50-week-0-notes/&name=CS50 week 0 筆記&description=" target="_blank" rel="noopener"><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#什麼是-Computer-Science"><span class="toc-number">1.</span> <span class="toc-text">什麼是 Computer Science</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Binary"><span class="toc-number">2.</span> <span class="toc-text">Binary</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ASCII"><span class="toc-number">3.</span> <span class="toc-text">ASCII</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#抽象"><span class="toc-number">4.</span> <span class="toc-text">抽象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Unicode"><span class="toc-number">5.</span> <span class="toc-text">Unicode</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RGB"><span class="toc-number">6.</span> <span class="toc-text">RGB</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其他"><span class="toc-number">7.</span> <span class="toc-text">其他</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Algorithms"><span class="toc-number">8.</span> <span class="toc-text">Algorithms</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#總結"><span class="toc-number">9.</span> <span class="toc-text">總結</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        CS50 week 0 筆記
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Cindy's Blog</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2020-09-12T14:54:07.000Z" itemprop="datePublished">2020-09-12</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/CS50/" rel="tag">CS50</a>, <a class="tag-link" href="/tags/Computer-Science/" rel="tag">Computer Science</a>
+    </div>
+
+
+    </div>
+    <div class="meta">
+      <span class="post-count">👀 4 min read 👀</span>
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>大家好，我是 Cindy，最近跟同事小夥伴相約一起看 CS50 的課程，CS50 (Introduction to Computer Science）是一堂美國哈佛大學知名的通識課程，完全免費，在 <a href="https://www.edx.org/course/cs50s-introduction-to-computer-science" target="_blank" rel="noopener">edx</a> 或 <a href="https://www.youtube.com/watch?v=Tpl7k8IOT6E" target="_blank" rel="noopener">youtube</a> 或 <a href="https://github.com/athena-xcy/CS50-Study-Group" target="_blank" rel="noopener">CS50-Study-Group github</a> 都可以非常容易地看到。</p>
+<p>這系列的文章會是我的個人筆記，歡迎有興趣的人一定要自己去看看 CS50 的課程歐。</p>
+<p>開始看影片就被講者激動的演說方式感動到，就像是用盡全力要讓看影片的人聽懂一樣，覺得很棒推薦給大家。</p>
+<h2 id="什麼是-Computer-Science"><a href="#什麼是-Computer-Science" class="headerlink" title="什麼是 Computer Science"></a>什麼是 Computer Science</h2><p>Computer Science is about problem solving，即 CS 就是解決問題的科學，看到這裡不免點頭同意，在工作中我們確實是不停地要去思考如何才能夠解決客戶提出的問題呢！完全不是躲在電腦前面這麼一回事，必須要想辦法去理解客戶需要解決的問題是什麼，並且提出解決問題的方案。所以我們會有個 Input(待解決的問題) 以及 Output(解答)，而這整個過程，就是 Computer Science。</p>
+<h2 id="Binary"><a href="#Binary" class="headerlink" title="Binary"></a>Binary</h2><p>Computer 只有 0 和 1，就像是開燈或關燈，通電或不通電，對電腦來說其實這樣就足夠了，因為他只需要知道有跟沒有，就可以運用 mapping 的方式知道說例如開啟電源是 1 而關閉電源是 0。</p>
+<p>二進位中每個 bits 可以表示 1 和 0，而當我們有更多的 bits 時我們可以數更大的數字，例如二進位的 111(三 bits) 是十進位的 7，1111(四 bits) 是 15。</p>
+<h2 id="ASCII"><a href="#ASCII" class="headerlink" title="ASCII"></a>ASCII</h2><p><a href="https://www.asciichart.com" target="_blank" rel="noopener">ASCII</a> 設計出可以表示字母的數字，例如大寫的 A 是用十進位的 65 表示，或說是二進位的 01000001，電腦會由環境的 context 決定是數字或字母等等。ASCII 一個字(byte) 只有 8 個 bits 故只能排列組合出 256 種不同的字符。</p>
+<h2 id="抽象"><a href="#抽象" class="headerlink" title="抽象"></a>抽象</h2><p>如果我們將電腦直接理解的低階概念移到了人類更好理解的階層，就是抽象。<br>這讓我想到我們通常覺得比較容易理解的是高階的程式語言，感覺有點相似。</p>
+<h2 id="Unicode"><a href="#Unicode" class="headerlink" title="Unicode"></a>Unicode</h2><p>當人們發現 ASCII 已經不夠用了，開始有了 Unicode 的出現，有 8 bits、16 bits、24 bits，甚至 32 bits，有了如此巨大的空間，所以我們可以有更多更多的特殊符號，而我們常聽到的 UTF-8 就是 Unicode 的一種。</p>
+<p>當我們在電腦畫面上看到 😂，實際上是十進位的 128514，二進位的 000000011111011000000010 呢。</p>
+<h2 id="RGB"><a href="#RGB" class="headerlink" title="RGB"></a>RGB</h2><p>RGB(Red、Green、Blue)，當 context 是照片這類跟顏色相關的情況時，由三個 byte 表示分別需要多少 pixel 的紅色、綠色和藍色，而每個 byte 是 8 bits，用十進位表示的話就是每個 byte 有 0-255 可以表示。</p>
+<p>而圖片透過這些顏色(每個點的 RGB)的表示來顯示出來，影片則是透過不同時間顯示不同圖片來表示。</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>音樂也可以透過量化的方式來表示，例如某個聲音用什麼數字表示，並用某個數字表示要持續此聲音多久等等。</p>
+<p>而我們人類同意用什麼樣的模式來表示之後，讓電腦如此運作，所以我們有各種不同的檔案型態，但這一切對電腦來說，其實也都只是 1 和 0 的各種變化呢。</p>
+<h2 id="Algorithms"><a href="#Algorithms" class="headerlink" title="Algorithms"></a>Algorithms</h2><p>演算法就是一開始說的 Input(待解決的問題) 以及 Output(解答)，這中間一步步解決問題的過程。</p>
+<p>講者用在電話簿裡找到特定的對象舉例，想到的演算法有三種：</p>
+<ol>
+<li>從頭翻到尾一頁一頁慢慢找。</li>
+<li>每兩頁翻一次，可能會錯過而需要再翻回去找。</li>
+<li>每次對分一半，看要找的對象在前半還是後半(電話簿有按照順序排列)。 =&gt; 這就是常聽到的二分法。</li>
+</ol>
+<p>用二分法可以更有效率的解決問題，因為每次都先解決了一半的問題。<br>這讓我想到以前在寫類似 <a href="https://leetcode.com" target="_blank" rel="noopener">leetcode</a> 的問題的時候都要思考會不會有時間複雜度的問題呢，在思考演算法的時候時間也是要考慮的因素。</p>
+<h2 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h2><p>最後講者先用 Pseudocode (用英文直接表示程式邏輯) 帶著大家理解：Function、Condition、Boolean expressions、Loops</p>
+<p>接著用 <a href="https://scratch.mit.edu" target="_blank" rel="noopener">scratch</a> 做為大家的第一個程式語言，並提醒大家拆解分析的重要。</p>
+<p>總之是一堂讓人收穫良多的課程啊。</p>
+
+  </div>
+</article>
+
+<section id="comments">
+<div class="fb-like" data-href="
+https://cindyliu923.com/2020/09/12/cs50-week-0-notes/" data-width="" data-layout="button_count" data-action="like" data-size="large" data-share="true""></div>
+<div class="fb-comments" data-href="
+https://cindyliu923.com/2020/09/12/cs50-week-0-notes/" data-numposts="10" data-width="100%"></div>
+</section>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/posts/">Writing</a></li>
+         
+          <li><a href="https://github.com/cindyliu923" target="_blank" rel="noopener">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a href="/atom.xml">RSS</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#什麼是-Computer-Science"><span class="toc-number">1.</span> <span class="toc-text">什麼是 Computer Science</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Binary"><span class="toc-number">2.</span> <span class="toc-text">Binary</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ASCII"><span class="toc-number">3.</span> <span class="toc-text">ASCII</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#抽象"><span class="toc-number">4.</span> <span class="toc-text">抽象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Unicode"><span class="toc-number">5.</span> <span class="toc-text">Unicode</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RGB"><span class="toc-number">6.</span> <span class="toc-text">RGB</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其他"><span class="toc-number">7.</span> <span class="toc-text">其他</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Algorithms"><span class="toc-number">8.</span> <span class="toc-text">Algorithms</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#總結"><span class="toc-number">9.</span> <span class="toc-text">總結</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://cindyliu923.com/2020/09/12/cs50-week-0-notes/" target="_blank" rel="noopener"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://cindyliu923.com/2020/09/12/cs50-week-0-notes/&text=CS50 week 0 筆記" target="_blank" rel="noopener"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://cindyliu923.com/2020/09/12/cs50-week-0-notes/&title=CS50 week 0 筆記" target="_blank" rel="noopener"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cindyliu923.com/2020/09/12/cs50-week-0-notes/&is_video=false&description=CS50 week 0 筆記" target="_blank" rel="noopener"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=CS50 week 0 筆記&body=Check out this article: https://cindyliu923.com/2020/09/12/cs50-week-0-notes/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://cindyliu923.com/2020/09/12/cs50-week-0-notes/&title=CS50 week 0 筆記" target="_blank" rel="noopener"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://cindyliu923.com/2020/09/12/cs50-week-0-notes/&title=CS50 week 0 筆記" target="_blank" rel="noopener"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://cindyliu923.com/2020/09/12/cs50-week-0-notes/&title=CS50 week 0 筆記" target="_blank" rel="noopener"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://cindyliu923.com/2020/09/12/cs50-week-0-notes/&title=CS50 week 0 筆記" target="_blank" rel="noopener"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://cindyliu923.com/2020/09/12/cs50-week-0-notes/&name=CS50 week 0 筆記&description=" target="_blank" rel="noopener"><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2020 Cindy Liu <a href='/Privacy-Policy'>Privacy Policy</a>
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/posts/">Writing</a></li>
+        
+          <li><a href="https://github.com/cindyliu923" target="_blank" rel="noopener">Projects</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+          <li><a href="/atom.xml">RSS</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+
+<!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-80238614-3', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+
+
