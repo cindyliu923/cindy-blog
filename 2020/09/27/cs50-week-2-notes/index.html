@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="google-site-verification" content="yE1jgc5Tv8iV5DSEVyofU-gRWHhi7jbA3b1Q2qvS-gI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="大家好，我是 Cindy，最近跟同事小夥伴相約一起看 CS50 的課程，CS50 (Introduction to Computer Science）是一堂美國哈佛大學知名的通識課程，完全免費，在 edx 或 youtube 或 CS50-Study-Group github 都可以非常容易地看到。 這系列的文章會是我的個人筆記，歡迎有興趣的人一定要自己去看看 CS50 的課程歐。 今天這篇是 C">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CS50 week 2 筆記">
+<meta property="og:url" content="https://cindyliu923.com/2020/09/27/cs50-week-2-notes/index.html">
+<meta property="og:site_name" content="Cindy&#39;s Blog">
+<meta property="og:description" content="大家好，我是 Cindy，最近跟同事小夥伴相約一起看 CS50 的課程，CS50 (Introduction to Computer Science）是一堂美國哈佛大學知名的通識課程，完全免費，在 edx 或 youtube 或 CS50-Study-Group github 都可以非常容易地看到。 這系列的文章會是我的個人筆記，歡迎有興趣的人一定要自己去看看 CS50 的課程歐。 今天這篇是 C">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2020-09-27T12:54:34.000Z">
+<meta property="article:modified_time" content="2020-10-03T12:13:42.250Z">
+<meta property="article:author" content="Cindy Liu">
+<meta property="article:tag" content="CS50">
+<meta property="article:tag" content="Computer Science">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/mstile-150x150.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <div id="fb-root"></div>
+<script>(function(d, s, id) {
+var js, fjs = d.getElementsByTagName(s)[0];
+if (d.getElementById(id)) return;
+js = d.createElement(s); js.id = id;
+js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v7.0&appId=3074485109285192&autoLogAppEvents=1&colorscheme=light&order_by=time";
+fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+    <!-- title -->
+    <title>CS50 week 2 筆記</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- rss -->
+    
+      
+    
+    
+      <link rel="alternate" href="/atom.xml" title="Cindy&#39;s Blog" type="application/atom+xml" />
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/posts/">Writing</a></li>
+         
+          <li><a href="https://github.com/cindyliu923" target="_blank" rel="noopener">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a href="/atom.xml">RSS</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2020/09/19/cs50-week-1-notes/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://cindyliu923.com/2020/09/27/cs50-week-2-notes/" target="_blank" rel="noopener"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://cindyliu923.com/2020/09/27/cs50-week-2-notes/&text=CS50 week 2 筆記" target="_blank" rel="noopener"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://cindyliu923.com/2020/09/27/cs50-week-2-notes/&title=CS50 week 2 筆記" target="_blank" rel="noopener"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cindyliu923.com/2020/09/27/cs50-week-2-notes/&is_video=false&description=CS50 week 2 筆記" target="_blank" rel="noopener"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=CS50 week 2 筆記&body=Check out this article: https://cindyliu923.com/2020/09/27/cs50-week-2-notes/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://cindyliu923.com/2020/09/27/cs50-week-2-notes/&title=CS50 week 2 筆記" target="_blank" rel="noopener"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://cindyliu923.com/2020/09/27/cs50-week-2-notes/&title=CS50 week 2 筆記" target="_blank" rel="noopener"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://cindyliu923.com/2020/09/27/cs50-week-2-notes/&title=CS50 week 2 筆記" target="_blank" rel="noopener"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://cindyliu923.com/2020/09/27/cs50-week-2-notes/&title=CS50 week 2 筆記" target="_blank" rel="noopener"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://cindyliu923.com/2020/09/27/cs50-week-2-notes/&name=CS50 week 2 筆記&description=" target="_blank" rel="noopener"><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#make-hello"><span class="toc-number">1.</span> <span class="toc-text">make hello</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Compiling"><span class="toc-number">2.</span> <span class="toc-text">Compiling</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#debugging"><span class="toc-number">3.</span> <span class="toc-text">debugging</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-data-types"><span class="toc-number">4.</span> <span class="toc-text">C data types</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#memory"><span class="toc-number">5.</span> <span class="toc-text">memory</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#arrays"><span class="toc-number">6.</span> <span class="toc-text">arrays</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#型別轉換"><span class="toc-number">7.</span> <span class="toc-text">型別轉換</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#strings"><span class="toc-number">8.</span> <span class="toc-text">strings</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#英文大小寫轉換"><span class="toc-number">9.</span> <span class="toc-text">英文大小寫轉換</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Command-Line-Arguments"><span class="toc-number">10.</span> <span class="toc-text">Command-Line Arguments</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#為什麼-main-回傳的是-integer？"><span class="toc-number">10.1.</span> <span class="toc-text">為什麼 main 回傳的是 integer？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cryptography"><span class="toc-number">11.</span> <span class="toc-text">Cryptography</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#總結"><span class="toc-number">12.</span> <span class="toc-text">總結</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        CS50 week 2 筆記
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Cindy's Blog</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2020-09-27T12:54:34.000Z" itemprop="datePublished">2020-09-27</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/CS50/" rel="tag">CS50</a>, <a class="tag-link" href="/tags/Computer-Science/" rel="tag">Computer Science</a>
+    </div>
+
+
+    </div>
+    <div class="meta">
+      <span class="post-count">👀 7 min read 👀</span>
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>大家好，我是 Cindy，最近跟同事小夥伴相約一起看 CS50 的課程，CS50 (Introduction to Computer Science）是一堂美國哈佛大學知名的通識課程，完全免費，在 <a href="https://www.edx.org/course/cs50s-introduction-to-computer-science" target="_blank" rel="noopener">edx</a> 或 <a href="https://www.youtube.com/watch?v=v7Ho89RMRIo&t=851" target="_blank" rel="noopener">youtube</a> 或 <a href="https://github.com/athena-xcy/CS50-Study-Group" target="_blank" rel="noopener">CS50-Study-Group github</a> 都可以非常容易地看到。</p>
+<p>這系列的文章會是我的個人筆記，歡迎有興趣的人一定要自己去看看 CS50 的課程歐。</p>
+<p>今天這篇是 CS50 week 2 筆記，想先看 <a href="/2020/09/12/cs50-week-0-notes">week 0</a> 和 <a href="/2020/09/19/cs50-week-1-notes">week 1</a> 筆記的各位觀眾可以點連結過去看看唷！</p>
+<p>課程的一開始講師開始講解上週我們使用的指令 <code>make</code> …</p>
+<h2 id="make-hello"><a href="#make-hello" class="headerlink" title="make hello"></a>make hello</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 此檔案為 hello.c</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span> ( <span class="string">"hello, world"</span> );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上週我們使用 make 指令來做 compiling 的時候，輸入完指令後畫面會出現這些 <code>clang -ggdb3 -O0 -std=c11 -Wall -Werror -Wextra -Wno-sign-compare -Wno-unused-parameter -Wno-unused-variable -Wshadow    hello.c  -lcrypt -lcs50 -lm -o hello</code>，實際上我們在使用的指令其實是 <code>clang</code> 呢！</p>
+<p>而當我們直接使用 <code>clang hello.c</code> 這個指令時，我們編譯出的可執行檔案叫做 <code>a.out</code>(多年前人類決定的預設名稱)，而如果我們輸入的指令為 <code>clang -o hello hello.c</code> 時 (clang 後面的指令可以稱之為 command line arguments)，這次指令的意思是<strong>編譯 hello.c 這個檔案且 output 的檔案要叫 hello</strong>。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 此檔案為 hello.c</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cs50.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">string</span> name = get_string(<span class="string">"What's your name? "</span>);</span><br><span class="line">    <span class="built_in">printf</span> (<span class="string">"hello, %s\n"</span>, name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>當我們引用了 cs50 的 library 時，我們用同樣的 <code>clang -o hello hello.c</code> 指令是會出現 undefined reference to ‘get_string’ 的錯誤，因為我們沒有告訴電腦我們有使用到 cs50 的 library，這時候指令可以改成 <code>clang -o hello hello.c -lcs50</code>(l 表示 link)，這樣就可以正常運作了，而 <code>make</code> 指令其實就是在幫我們自動做這些事情。</p>
+<h2 id="Compiling"><a href="#Compiling" class="headerlink" title="Compiling"></a>Compiling</h2><p>上週我們簡單的知道從 source code 到 machine code 會經過 compiler，但 compiling 的過程其實可以細分成四個步驟：</p>
+<ol>
+<li><p>Preprocess<br>這個步驟將 header 檔案裡 function 的 prototype(原型) 寫到我們的檔案裡，例如上面的程式碼會變成這樣：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">get_string</span><span class="params">(<span class="built_in">string</span> prompt)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">printf</span><span class="params">(<span class="built_in">string</span> format, ...)</span></span>;</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">string</span> name = get_string(<span class="string">"What's your name? "</span>);</span><br><span class="line">    <span class="built_in">printf</span> (<span class="string">"hello, %s\n"</span>, name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Compiling<br>將 source code(C) 轉變成另一種 source code 叫做 assembly code (對電腦的大腦(CPU)較友善的語言)，看起來像這樣：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">main:                         # @main</span><br><span class="line">    .cfi_startproc</span><br><span class="line"># BB#0:</span><br><span class="line">    pushq    %rbp</span><br><span class="line">.Ltmp0:</span><br><span class="line">    .cfi_def_cfa_offset 16</span><br><span class="line">.Ltmp1:</span><br><span class="line">    .cfi_offset %rbp, -16</span><br><span class="line">    movq    %rsp, %rbp</span><br><span class="line">.Ltmp2:</span><br><span class="line">    .cfi_def_cfa_register %rbp</span><br><span class="line">    subq    $16, %rsp</span><br><span class="line">    xorl    %eax, %eax</span><br><span class="line">    movl    %eax, %edi</span><br><span class="line">    movabsq    $.L.str, %rsi</span><br><span class="line">    movb    $0, %al</span><br><span class="line">    callq    get_string</span><br><span class="line">    movabsq    $.L.str.1, %rdi</span><br><span class="line">    movq    %rax, -8(%rbp)</span><br><span class="line">    movq    -8(%rbp), %rsi</span><br><span class="line">    movb    $0, %al</span><br><span class="line">    callq    printf</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Assembling<br>將 assembly code 轉換成最後的 machine code (0 和 1)。</p>
+</li>
+<li><p>Linking<br>將我們寫的程式碼已經轉換的 0 和 1 們，以及有用到的 library 程式碼轉換的 0 和 1 們全部合併再一起。</p>
+</li>
+</ol>
+<h2 id="debugging"><a href="#debugging" class="headerlink" title="debugging"></a>debugging</h2><ul>
+<li>printf：將我們需要的資訊印出來看看問題在哪裡。</li>
+<li><a href="https://github.com/cs50/harvard.cs50.debug" target="_blank" rel="noopener">debug50</a>：CS50 提供給我們的工具，在 <a href="https://ide.cs50.io" target="_blank" rel="noopener">CS50 IDE</a> 中可以直接使用，在執行指令前輸入 debug50，例如 <code>debug50 ./hello</code>，但要先設定  breakpoint，程式才知道要停在哪裡。</li>
+<li>Duck Debugging：說出來就會發現問題，跟桌上的小鴨說說話吧:)</li>
+</ul>
+<h2 id="C-data-types"><a href="#C-data-types" class="headerlink" title="C data types"></a>C data types</h2><p>1 byte(位元組) = 8 bits(位元)</p>
+<ul>
+<li>bool(布林)：1 byte</li>
+<li>char：1 byte</li>
+<li>double：8 bytes</li>
+<li>float：4 bytes</li>
+<li>int：4 bytes</li>
+<li>long：8 bytes</li>
+<li>string：? bytes (依據長度有所不同)</li>
+</ul>
+<p>通常占多少空間依據電腦而有所不同。</p>
+<h2 id="memory"><a href="#memory" class="headerlink" title="memory"></a>memory</h2><p>RAM(Random Access Memory)：資料短暫儲存的記憶體(要插電才能運作)，因為還沒有存到永久記憶體中而可能遺失，但速度快。<br>硬碟：資料永久儲存的地方。</p>
+<p>當我們在執行程式的時候，變數會暫存在記憶體中，而佔用的空間可以參考上一段 C data types。</p>
+<h2 id="arrays"><a href="#arrays" class="headerlink" title="arrays"></a>arrays</h2><p>由左至右有序的排列，例如：<code>int scores[3];</code>表示 3 個 integer 的 array，在電腦中慣例是從 0 開始數，所以 3 個數字會是 scores[0]、scores[1]、scores[2]。</p>
+<p>在 function 中可以傳入 array 作為參數，範例如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">float</span> <span class="title">average</span><span class="params">(<span class="keyword">int</span> length, <span class="keyword">int</span> <span class="built_in">array</span>[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">return</span> sum / (<span class="keyword">float</span>) length;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="型別轉換"><a href="#型別轉換" class="headerlink" title="型別轉換"></a>型別轉換</h2><p>我們都知道了字母或符號在 <a href="https://www.asciichart.com" target="_blank" rel="noopener">ASCII</a> 都會有對應的數字，所以我們可以直接將 char 或符號轉換成 int，例如：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> c = <span class="string">'#'</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// print 35</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%i\n"</span>, c);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="strings"><a href="#strings" class="headerlink" title="strings"></a>strings</h2><p>我們將 char 放在 array 裡實現了 string (雙引號)，所以我們可以 s[0] 取出 string 中的第一個字母，而電腦需要知道在記憶體中這個 string 是在哪裡結束(不會跟記憶體中的其他東西混在一起)，string 會在最後多占一個 byte 存 <code>00000000</code>，或用 <code>\0</code> 表示 byte 中全是 0，又稱為 <code>NUL</code>，告訴電腦這裡是結束的位置，所以我們每次使用 string 都會多佔用一個 byte(00000000)。</p>
+<ul>
+<li>注意：我們在 C 語言可以訪問記憶體中的任何位置。例如我只有存了叫做 HI! 的 string，<code>string s = &quot;HI!&quot;;</code> 卻可以透過 s[3] 得到 0，s[400] 得到記憶體中的某個東西。</li>
+</ul>
+<p>我們可以透過 <code>s[i] != &#39;\0&#39;</code> 來判斷是不是最後一個字母，或著我們可以直接用 <code>string.h</code> 提供給我們的方法 <code>strlen(s)</code> 來知道 string 的長度。</p>
+<h2 id="英文大小寫轉換"><a href="#英文大小寫轉換" class="headerlink" title="英文大小寫轉換"></a>英文大小寫轉換</h2><p>再次觀察 <a href="https://www.asciichart.com" target="_blank" rel="noopener">ASCII</a> 表，我們可以知道 <code>s[i] &gt;= &#39;a&#39; &amp;&amp; s[i] &lt;= &#39;z&#39;</code> 表示是小寫英文字母，而大寫英文和小寫英文都差了 32，所以可以利用這個特性做到大小寫轉換，而 <code>ctype.h</code> 提供給我們 islower function。</p>
+<h2 id="Command-Line-Arguments"><a href="#Command-Line-Arguments" class="headerlink" title="Command-Line Arguments"></a>Command-Line Arguments</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span> <span class="params">(<span class="keyword">int</span> argc, <span class="built_in">string</span> argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>argc 表示 argument count，使用者輸入的所有字的數量(包含程式指令)。</li>
+<li>argv 表示 argument vector，使用者輸入的所有字(包含程式指令)，以陣列中的 string 來表示。由於 string 本身也是  array，所以我們可以透過 array in array 的關係得到在 argv 中的每一個單字。</li>
+</ul>
+<h3 id="為什麼-main-回傳的是-integer？"><a href="#為什麼-main-回傳的是-integer？" class="headerlink" title="為什麼 main 回傳的是 integer？"></a>為什麼 main 回傳的是 integer？</h3><p>執行指令後會回傳代碼，0 表示正常，1 或其他數字表示錯誤，當我們執行完程式後可利用 <code>echo $?</code> 來確認上一步驟執行的程式最後回傳的值是什麼，以利於發生錯誤時的檢測。</p>
+<h2 id="Cryptography"><a href="#Cryptography" class="headerlink" title="Cryptography"></a>Cryptography</h2><p>當我們在傳紙條的時候不會希望紙條的內容被其他人看懂，這時候我們可能會用類似暗號的方式，而暗號通常會有一個對照表找出暗號要表達的意思，這樣的話只要知道對照表的人就可以知道紙條的內容了，而這時候我們就會想要作加密這件事情，例如我們可能本來想要傳遞的訊息是 <strong>I LOVE YOU</strong> 而我們可以利用 <a href="https://www.asciichart.com" target="_blank" rel="noopener">ASCII</a> 找到對應的數字 <strong>73  76 79 86  89 79 85</strong>，接著將每個值都 +1，內容會變成 <strong>74  77 80 87  90 80 86</strong>，接著再利用 <a href="https://www.asciichart.com" target="_blank" rel="noopener">ASCII</a> 將數字轉換成英文，所以我們最終的結果會變成 <strong>J MPWF ZPV</strong>，其中 key 是 1，plaintext 是 I LOVE YOU，經過 cipher 加密後 ciphertext 為 J MPWF ZPV，如此的話只有知道如何加密且擁有 key 的人才會知道要怎麼解密。</p>
+<p>過程示意如下：</p>
+<p>key       -&gt;<br>plaintext -&gt; <em>cipher</em> -&gt; ciphertext</p>
+<h2 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h2><p>這堂課針對前幾堂課的內容做更深入點的說明，讓我們認識 array，也讓我們了解 string 的運作是利用將單字放在 array 裡而達成的，並且了解了字母或符號是如何可以做型別轉換…等等，是內容豐富的一堂課，如果想知道更多的話可以參考<a href="https://cs50.harvard.edu/college/2020/fall/weeks/2" target="_blank" rel="noopener">官網</a>唷！</p>
+
+  </div>
+</article>
+
+<section id="comments">
+<div class="fb-like" data-href="
+https://cindyliu923.com/2020/09/27/cs50-week-2-notes/" data-width="" data-layout="button_count" data-action="like" data-size="large" data-share="true""></div>
+<div class="fb-comments" data-href="
+https://cindyliu923.com/2020/09/27/cs50-week-2-notes/" data-numposts="10" data-width="100%"></div>
+</section>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/posts/">Writing</a></li>
+         
+          <li><a href="https://github.com/cindyliu923" target="_blank" rel="noopener">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a href="/atom.xml">RSS</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#make-hello"><span class="toc-number">1.</span> <span class="toc-text">make hello</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Compiling"><span class="toc-number">2.</span> <span class="toc-text">Compiling</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#debugging"><span class="toc-number">3.</span> <span class="toc-text">debugging</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-data-types"><span class="toc-number">4.</span> <span class="toc-text">C data types</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#memory"><span class="toc-number">5.</span> <span class="toc-text">memory</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#arrays"><span class="toc-number">6.</span> <span class="toc-text">arrays</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#型別轉換"><span class="toc-number">7.</span> <span class="toc-text">型別轉換</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#strings"><span class="toc-number">8.</span> <span class="toc-text">strings</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#英文大小寫轉換"><span class="toc-number">9.</span> <span class="toc-text">英文大小寫轉換</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Command-Line-Arguments"><span class="toc-number">10.</span> <span class="toc-text">Command-Line Arguments</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#為什麼-main-回傳的是-integer？"><span class="toc-number">10.1.</span> <span class="toc-text">為什麼 main 回傳的是 integer？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cryptography"><span class="toc-number">11.</span> <span class="toc-text">Cryptography</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#總結"><span class="toc-number">12.</span> <span class="toc-text">總結</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://cindyliu923.com/2020/09/27/cs50-week-2-notes/" target="_blank" rel="noopener"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://cindyliu923.com/2020/09/27/cs50-week-2-notes/&text=CS50 week 2 筆記" target="_blank" rel="noopener"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://cindyliu923.com/2020/09/27/cs50-week-2-notes/&title=CS50 week 2 筆記" target="_blank" rel="noopener"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cindyliu923.com/2020/09/27/cs50-week-2-notes/&is_video=false&description=CS50 week 2 筆記" target="_blank" rel="noopener"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=CS50 week 2 筆記&body=Check out this article: https://cindyliu923.com/2020/09/27/cs50-week-2-notes/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://cindyliu923.com/2020/09/27/cs50-week-2-notes/&title=CS50 week 2 筆記" target="_blank" rel="noopener"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://cindyliu923.com/2020/09/27/cs50-week-2-notes/&title=CS50 week 2 筆記" target="_blank" rel="noopener"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://cindyliu923.com/2020/09/27/cs50-week-2-notes/&title=CS50 week 2 筆記" target="_blank" rel="noopener"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://cindyliu923.com/2020/09/27/cs50-week-2-notes/&title=CS50 week 2 筆記" target="_blank" rel="noopener"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://cindyliu923.com/2020/09/27/cs50-week-2-notes/&name=CS50 week 2 筆記&description=" target="_blank" rel="noopener"><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2020 Cindy Liu <a href='/Privacy-Policy'>Privacy Policy</a>
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/posts/">Writing</a></li>
+        
+          <li><a href="https://github.com/cindyliu923" target="_blank" rel="noopener">Projects</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+          <li><a href="/atom.xml">RSS</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+
+<!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-80238614-3', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+
+
