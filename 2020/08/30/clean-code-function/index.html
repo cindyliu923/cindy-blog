@@ -15,7 +15,7 @@
 <meta property="og:description" content="大家好，我是 Cindy，相信看過 Clean Code - 無瑕的程式碼 這篇文章的朋友們已經知道什麼是 Clean Code 了，之後會陸續針對每個章節做重點整理，以龜速進行中。 無瑕的程式碼－敏捷軟體開發技巧守則 (Clean Code: A Handbook of Agile Software Craftsmanship) 第三章函式，我想就我們寫 Ruby 而言其實可以對應到我們所謂的方">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2020-08-30T13:38:28.000Z">
-<meta property="article:modified_time" content="2020-08-31T17:04:35.981Z">
+<meta property="article:modified_time" content="2020-11-22T13:15:15.098Z">
 <meta property="article:author" content="Cindy Liu">
 <meta property="article:tag" content="Clean Code">
 <meta property="article:tag" content="Coding">
@@ -164,7 +164,7 @@ fjs.parentNode.insertBefore(js, fjs);
 
   <div class="content" itemprop="articleBody">
     <p>大家好，我是 Cindy，相信看過 <a href="/2020/06/06/clean-code">Clean Code - 無瑕的程式碼</a> 這篇文章的朋友們已經知道什麼是 Clean Code 了，之後會陸續針對每個章節做重點整理，以龜速進行中。</p>
-<p><a href="https://www.tenlong.com.tw/products/9789862017050?list_name=e-106" target="_blank" rel="noopener">無瑕的程式碼－敏捷軟體開發技巧守則 (Clean Code: A Handbook of Agile Software Craftsmanship)</a> 第三章函式，我想就我們寫 Ruby 而言其實可以對應到我們所謂的<strong>方法</strong>。</p>
+<p><a href="https://amzn.to/3kSY9ug" target="_blank" rel="noopener">無瑕的程式碼－敏捷軟體開發技巧守則 (Clean Code: A Handbook of Agile Software Craftsmanship)</a> 第三章函式，我想就我們寫 Ruby 而言其實可以對應到我們所謂的<strong>方法</strong>。</p>
 <h2 id="簡短！"><a href="#簡短！" class="headerlink" title="簡短！"></a>簡短！</h2><p>關於函式的首要準則，就是要簡短。第二項準則，就是<strong>要比第一項的簡短函式還要更短簡短</strong>。看到書中這段話有相當深刻的感受，當我們在看一段很長的函式(或方法)，其實真的很常會看到不知道在哪裡，懷疑人生。另外想跟大家提一下 <a href="https://thoughtbot.com/blog/sandi-metz-rules-for-developers" target="_blank" rel="noopener">Sandi Metz’ Rules For Developers</a> thoughtbot 的這篇文章，其中第二條規則 <strong>Methods can be no longer than five lines of code.</strong>，跟 clean code 這本書提到的簡短其實都是一樣的道理。希望每個函式(或方法)都一清二楚，透露出本身的意圖。</p>
 <h2 id="只做一件事情"><a href="#只做一件事情" class="headerlink" title="只做一件事情"></a>只做一件事情</h2><p>函式應該做一件事情。他們應該把這件事做好。而且他們應該只做這件事。<br>如果函式只做了函式名稱下<strong>同一層抽象概念</strong>的幾個步驟，那麼，這個函式就算是只做了一件事。觀察函式是否超過<strong>一件事情</strong>的另一種方法，是看你是否能夠從此函式中，提煉出另一個新函式，但此新函式不能只是重新詮釋原函式的實現過程(實作)而已。</p>
 <h3 id="函式的段落"><a href="#函式的段落" class="headerlink" title="函式的段落"></a>函式的段落</h3><p>做一件事的函式沒有辦法被合理的分成不同段落。</p>
