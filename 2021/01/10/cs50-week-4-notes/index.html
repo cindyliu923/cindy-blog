@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="google-site-verification" content="yE1jgc5Tv8iV5DSEVyofU-gRWHhi7jbA3b1Q2qvS-gI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="大家好，我是 Cindy，最近跟同事小夥伴相約一起看 CS50 的課程，CS50 (Introduction to Computer Science）是一堂美國哈佛大學知名的通識課程，完全免費，在 edx 或 youtube 或 CS50-Study-Group github 都可以非常容易地看到。 這系列的文章會是我的個人筆記，歡迎有興趣的人一定要自己去看看 CS50 的課程歐。 今天這篇是 C">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CS50 week 4 - Memory 筆記">
+<meta property="og:url" content="https://cindyliu923.com/2021/01/10/cs50-week-4-notes/index.html">
+<meta property="og:site_name" content="Cindy&#39;s Blog">
+<meta property="og:description" content="大家好，我是 Cindy，最近跟同事小夥伴相約一起看 CS50 的課程，CS50 (Introduction to Computer Science）是一堂美國哈佛大學知名的通識課程，完全免費，在 edx 或 youtube 或 CS50-Study-Group github 都可以非常容易地看到。 這系列的文章會是我的個人筆記，歡迎有興趣的人一定要自己去看看 CS50 的課程歐。 今天這篇是 C">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2021-01-10T13:20:40.000Z">
+<meta property="article:modified_time" content="2021-01-10T15:35:55.984Z">
+<meta property="article:author" content="Cindy Liu">
+<meta property="article:tag" content="CS50">
+<meta property="article:tag" content="Computer Science">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/mstile-150x150.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <div id="fb-root"></div>
+<script>(function(d, s, id) {
+var js, fjs = d.getElementsByTagName(s)[0];
+if (d.getElementById(id)) return;
+js = d.createElement(s); js.id = id;
+js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v7.0&appId=3074485109285192&autoLogAppEvents=1&colorscheme=light&order_by=time";
+fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+    <!-- title -->
+    <title>CS50 week 4 - Memory 筆記</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- rss -->
+    
+      
+    
+    
+      <link rel="alternate" href="/atom.xml" title="Cindy&#39;s Blog" type="application/atom+xml" />
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/posts/">Writing</a></li>
+         
+          <li><a href="https://github.com/cindyliu923" target="_blank" rel="noopener">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a href="/atom.xml">RSS</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2020/12/07/CS50-Lab-2-Scrabble/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://cindyliu923.com/2021/01/10/cs50-week-4-notes/" target="_blank" rel="noopener"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://cindyliu923.com/2021/01/10/cs50-week-4-notes/&text=CS50 week 4 - Memory 筆記" target="_blank" rel="noopener"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://cindyliu923.com/2021/01/10/cs50-week-4-notes/&title=CS50 week 4 - Memory 筆記" target="_blank" rel="noopener"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cindyliu923.com/2021/01/10/cs50-week-4-notes/&is_video=false&description=CS50 week 4 - Memory 筆記" target="_blank" rel="noopener"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=CS50 week 4 - Memory 筆記&body=Check out this article: https://cindyliu923.com/2021/01/10/cs50-week-4-notes/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://cindyliu923.com/2021/01/10/cs50-week-4-notes/&title=CS50 week 4 - Memory 筆記" target="_blank" rel="noopener"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://cindyliu923.com/2021/01/10/cs50-week-4-notes/&title=CS50 week 4 - Memory 筆記" target="_blank" rel="noopener"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://cindyliu923.com/2021/01/10/cs50-week-4-notes/&title=CS50 week 4 - Memory 筆記" target="_blank" rel="noopener"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://cindyliu923.com/2021/01/10/cs50-week-4-notes/&title=CS50 week 4 - Memory 筆記" target="_blank" rel="noopener"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://cindyliu923.com/2021/01/10/cs50-week-4-notes/&name=CS50 week 4 - Memory 筆記&description=" target="_blank" rel="noopener"><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#十六進位-Hexadecimal"><span class="toc-number">1.</span> <span class="toc-text">十六進位(Hexadecimal)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RGB"><span class="toc-number">2.</span> <span class="toc-text">RGB</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#記憶體位址"><span class="toc-number">3.</span> <span class="toc-text">記憶體位址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pointers"><span class="toc-number">4.</span> <span class="toc-text">Pointers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Strings"><span class="toc-number">5.</span> <span class="toc-text">Strings</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#compare"><span class="toc-number">5.1.</span> <span class="toc-text">compare</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#copy"><span class="toc-number">5.2.</span> <span class="toc-text">copy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#malloc-amp-free"><span class="toc-number">5.3.</span> <span class="toc-text">malloc &amp; free</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#valgrind"><span class="toc-number">6.</span> <span class="toc-text">valgrind</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Garbage-values"><span class="toc-number">7.</span> <span class="toc-text">Garbage values</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#swap"><span class="toc-number">8.</span> <span class="toc-text">swap</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Memory-Layout"><span class="toc-number">8.1.</span> <span class="toc-text">Memory Layout</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Heap-overflow-amp-Stack-overflow"><span class="toc-number">8.2.</span> <span class="toc-text">Heap overflow &amp; Stack overflow</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Buffer-Overflow"><span class="toc-number">8.3.</span> <span class="toc-text">Buffer Overflow</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#scanf"><span class="toc-number">9.</span> <span class="toc-text">scanf</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#File-I-O"><span class="toc-number">10.</span> <span class="toc-text">File I&#x2F;O</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        CS50 week 4 - Memory 筆記
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Cindy's Blog</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2021-01-10T13:20:40.000Z" itemprop="datePublished">2021-01-10</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/CS50/" rel="tag">CS50</a>, <a class="tag-link" href="/tags/Computer-Science/" rel="tag">Computer Science</a>
+    </div>
+
+
+    </div>
+    <div class="meta">
+      <span class="post-count">👀 8 min read 👀</span>
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>大家好，我是 Cindy，最近跟同事小夥伴相約一起看 CS50 的課程，CS50 (Introduction to Computer Science）是一堂美國哈佛大學知名的通識課程，完全免費，在 <a href="https://www.edx.org/course/cs50s-introduction-to-computer-science" target="_blank" rel="noopener">edx</a> 或 <a href="https://www.youtube.com/watch?t=531&v=pcbmiLUzr0w&feature=youtu.be" target="_blank" rel="noopener">youtube</a> 或 <a href="https://github.com/athena-xcy/CS50-Study-Group" target="_blank" rel="noopener">CS50-Study-Group github</a> 都可以非常容易地看到。</p>
+<p>這系列的文章會是我的個人筆記，歡迎有興趣的人一定要自己去看看 CS50 的課程歐。</p>
+<p>今天這篇是 CS50 week 3 筆記，想先看之前筆記的人可以點選下面連結：</p>
+<ul>
+<li><a href="/2020/09/12/cs50-week-0-notes">week 0</a></li>
+<li><a href="/2020/09/19/cs50-week-1-notes">week 1</a></li>
+<li><a href="/2020/09/27/cs50-week-2-notes">week 2</a></li>
+<li><a href="/2020/10/10/cs50-week-3-notes">week 3</a></li>
+</ul>
+<h2 id="十六進位-Hexadecimal"><a href="#十六進位-Hexadecimal" class="headerlink" title="十六進位(Hexadecimal)"></a>十六進位(Hexadecimal)</h2><p>用 1 2 3 4 5 6 7 8 9 A B C D E F 表示每個數字，例如十進位的 10 改成用十六進位表示的話就是 A。</p>
+<h2 id="RGB"><a href="#RGB" class="headerlink" title="RGB"></a>RGB</h2><p>紅綠藍三種顏色用十六進位表示，就是我們常看到的 <code>#FF0000</code> <code>#00FF00</code> <code>#0000FF</code>。</p>
+<h2 id="記憶體位址"><a href="#記憶體位址" class="headerlink" title="記憶體位址"></a>記憶體位址</h2><p><code>int n = 50;</code> 當我們定義一個變數並給值，這些會被存在記憶體的位址中。</p>
+<p>c 語言中可以看見變數的 addresses 是什麼：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = <span class="number">50</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%p\n"</span>, &amp;n);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 0x7ffd80792f7c (0x 前綴用來表示是 16 進位)</span></span><br></pre></td></tr></table></figure>
+
+<p><code>&amp;</code> 表示變數 n 的 address 是什麼，<code>%p</code> 表示 address 的 format (pointer)。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = <span class="number">50</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%i\n"</span>, *&amp;n);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 50</span></span><br></pre></td></tr></table></figure>
+
+<p><code>*</code> 表示進去 address 裡面看。</p>
+<h2 id="Pointers"><a href="#Pointers" class="headerlink" title="Pointers"></a>Pointers</h2><p>在記憶體中儲存著變數的 address 就叫做 pointer，可以當作是指向記憶體變數的指標。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   <span class="keyword">int</span> n = <span class="number">50</span>;</span><br><span class="line">   <span class="keyword">int</span> *p = &amp;n;</span><br><span class="line">   <span class="built_in">printf</span>(<span class="string">"%p\n"</span>, p);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 0x12345678</span></span><br></pre></td></tr></table></figure>
+
+<p>將 address 儲存至變數時，前面要加一個 * 表示我知道自己在做什麼。<br>Pointer 往往佔了 8 bytes。</p>
+<h2 id="Strings"><a href="#Strings" class="headerlink" title="Strings"></a>Strings</h2><p>存在記憶體中連續的位址，用 <code>\0</code> 結尾，pointer 表示的是 string 第一個字母在記憶體的位址。<br><code>Char *</code> 給你一個 pointer 指向字串中的第一個 character，其實就是 cs50 library 中的 string data type，而在 C 語言中會用 <code>Char *</code> 來表示。</p>
+<ul>
+<li><a href="https://zh.wikipedia.org/wiki/%E8%A8%98%E6%86%B6%E9%AB%94%E5%8D%80%E6%AE%B5%E9%8C%AF%E8%AA%A4" target="_blank" rel="noopener">Segmentation fault</a>: 當我們觸碰了不該觸碰的記憶體區域，會發生的錯誤。</li>
+</ul>
+<h3 id="compare"><a href="#compare" class="headerlink" title="compare"></a>compare</h3><p><code>char *</code> 定義的變數進行比較時，比較的會是 address 而不是字母本身，可以用 <code>strcmp()</code>(來自 string.h 的方法)進行比較。</p>
+<h3 id="copy"><a href="#copy" class="headerlink" title="copy"></a>copy</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cs50.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;ctype.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> *s = get_string(<span class="string">"s: "</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span> *t = s;</span><br><span class="line"></span><br><span class="line">    t[<span class="number">0</span>] = <span class="built_in">toupper</span>(t[<span class="number">0</span>]);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"s: %s\n"</span>, s);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"t: %s\n"</span>, t);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面這段程式碼因為複製的是指標位址，所以結果會將 s 和 t 都一起改變(因為指向同一個位址)。類似我之前寫過的<a href="/2020/06/25/ruby-pass-by-reference-and-value">這篇</a>文章。</p>
+<h3 id="malloc-amp-free"><a href="#malloc-amp-free" class="headerlink" title="malloc &amp; free"></a>malloc &amp; free</h3><p>上一個問題可以用下面的程式碼解決，其中 <code>malloc</code> 是當我們直接跟 c 語言要記憶體空間時可以使用(分配記憶體空間)，<code>t == NULL</code> 表示記憶體空間 address 不存在的錯誤，最後 <code>free</code> 將先前用 <code>malloc</code> 要的記憶體空間釋出。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cs50.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;ctype.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> *s = get_string(<span class="string">"s: "</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span> *t = <span class="built_in">malloc</span>(<span class="built_in">strlen</span>(s) + <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">if</span> (t == <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, n = <span class="built_in">strlen</span>(s); i &lt; n + <span class="number">1</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        t[i] = s[i];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">strlen</span>(t) &gt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        t[<span class="number">0</span>] = <span class="built_in">toupper</span>(t[<span class="number">0</span>]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"s: %s\n"</span>, s);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"t: %s\n"</span>, t);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">free</span>(t);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="valgrind"><a href="#valgrind" class="headerlink" title="valgrind"></a>valgrind</h2><p>valgrind 是一個協助我們找出關於記憶體錯誤的工具，例如下面這段程式碼，很明顯我們使用了 malloc 要記憶體空間卻沒有使用 free 釋放記憶體空間，且我們只跟記憶體要了 3 byte 的空間，卻使用了 4 bytes，當我們執行 <code>valgrind ./memory</code> 可以看到這些錯誤的提示訊息。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// memory.c</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> *s = <span class="built_in">malloc</span>(<span class="number">3</span>); <span class="comment">// 應該改成 char *s = malloc(4);</span></span><br><span class="line">    s[<span class="number">0</span>] = <span class="string">'H'</span>;</span><br><span class="line">    s[<span class="number">1</span>] = <span class="string">'I'</span>;</span><br><span class="line">    s[<span class="number">2</span>] = <span class="string">'!'</span>;</span><br><span class="line">    s[<span class="number">3</span>] = <span class="string">'\0'</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%s\n"</span>, s);</span><br><span class="line">    <span class="comment">// 應該加上 free(s);</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Garbage-values"><a href="#Garbage-values" class="headerlink" title="Garbage values"></a>Garbage values</h2><p>在我們將變數放進記憶體前，我們都不應該相信記憶體中已存在的東西，因為記憶體空間會被重複使用，曾經使用過記憶體空間不會被 reset，所以會存有所謂的 <strong>Garbage values</strong>，如果我們嘗試 dereference 還沒有被初始化過的 value，程式可能會發生 Segmentation fault，即我們觸碰了不該觸碰的記憶體空間。</p>
+<p>這邊讓我想到 Ruby Conf Taiwan 2019 的時候 Aaron Patterson 大大演講的 <a href="https://www.youtube.com/watch?v=0ypPiULlKfQ&list=PLhKZ4RWngmpBgD6t068O_EZ4grSlUtl3Y&index=3" target="_blank" rel="noopener">Compacting GC for MRI</a>，順便懷念一下我菜逼巴的<a href="https://cindyliu923.medium.com/ruby-conf-taiwan-2019-d49c2add4ba5" target="_blank" rel="noopener">心得</a>。</p>
+<h2 id="swap"><a href="#swap" class="headerlink" title="swap"></a>swap</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> x = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> y = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"x is %i, y is %i\n"</span>, x, y);</span><br><span class="line">    swap(x, y);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"x is %i, y is %i\n"</span>, x, y);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> tmp = a;</span><br><span class="line">    a = b;</span><br><span class="line">    b = tmp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面這段程式碼實際上不會交換 x 和 y，原因如下：</p>
+<h3 id="Memory-Layout"><a href="#Memory-Layout" class="headerlink" title="Memory Layout"></a>Memory Layout</h3><p>記憶體的空間配置如下：</p>
+<ul>
+<li>machine code</li>
+<li>globals</li>
+<li>heap 往下 (每當我們使用 malloc 會從這個區域分配空間)<br> |</li>
+<li>stack 往上 (當我們 call function 的時候，使用的是這個區域的空間)</li>
+</ul>
+<p>swap function 和 main function 會分別存在 stack 中的不同位置，當 swap 執行完畢時，交換的是 a 和 b，而不是 x 和 y，即 a 和 b 只是 x 和 y 複製而成的值，所以我們改成將 x y 的位置傳進去 swap，修改後的程式碼如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span> *a, <span class="keyword">int</span> *b)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> x = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> y = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"x is %i, y is %i\n"</span>, x, y);</span><br><span class="line">    swap(&amp;x, &amp;y);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"x is %i, y is %i\n"</span>, x, y);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span> *a, <span class="keyword">int</span> *b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> tmp = *a;</span><br><span class="line">    *a = *b;</span><br><span class="line">    *b = tmp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Heap-overflow-amp-Stack-overflow"><a href="#Heap-overflow-amp-Stack-overflow" class="headerlink" title="Heap overflow &amp; Stack overflow"></a>Heap overflow &amp; Stack overflow</h3><p>當 call function 的時候在記憶中 stack 的區域不停的往上使用空間，直到碰到了正在使用的 heap 區域，就被稱為 <strong>Stack overflow</strong>。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cs50.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">draw</span><span class="params">(<span class="keyword">int</span> h)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> <span class="built_in">height</span> = get_int(<span class="string">"Height: "</span>);</span><br><span class="line">    draw(<span class="built_in">height</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">draw</span><span class="params">(<span class="keyword">int</span> h)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    draw(h - <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; h; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"#"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>當我們使用 recursion 時要特別注意，因為當我們不停的 call 自己的 function 時，而沒有給他停下來條件的話，程式會不停的往上使用 stack 的空間，最後出現 Segmentation fault，所以要將上面的程式碼改成下面這段程式碼：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">draw</span><span class="params">(<span class="keyword">int</span> h)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (h == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    draw(h - <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; h; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"#"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>也就是說迭代(Iteration)可以確定不會發生 Stack overflow 的問題，但遞歸(Recursion)就要特別小心這個問題。</p>
+<h3 id="Buffer-Overflow"><a href="#Buffer-Overflow" class="headerlink" title="Buffer Overflow"></a>Buffer Overflow</h3><p>表示我們使用了超過 Buffer 的記憶體空間。</p>
+<h2 id="scanf"><a href="#scanf" class="headerlink" title="scanf"></a>scanf</h2><p>當我們想要使用用戶輸入的值，可以使用 scanf，範例如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> x;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"x: "</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%i"</span>, &amp;x);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"x: %i\n"</span>, x);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> s[<span class="number">4</span>];</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"s: "</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%s"</span>, s);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"s: %s\n"</span>, s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="File-I-O"><a href="#File-I-O" class="headerlink" title="File I/O"></a>File I/O</h2><p>範例如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cs50.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    FILE *file = fopen(<span class="string">"phonebook.csv"</span>, <span class="string">"a"</span>);</span><br><span class="line">    <span class="keyword">if</span> (file == <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span> *name = get_string(<span class="string">"Name: "</span>);</span><br><span class="line">    <span class="keyword">char</span> *number = get_string(<span class="string">"Number: "</span>);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">fprintf</span>(file, <span class="string">"%s,%s\n"</span>, name, number);</span><br><span class="line"></span><br><span class="line">    fclose(file);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>特殊檔案例如 jpeg 有特殊的開頭(BYTE)，可以查文件。</p>
+
+  </div>
+</article>
+<script type="text/javascript" src="//js1.bloggerads.net/ShowBanner.aspx?blogid=20201206000001" async></script>
+
+
+<section id="comments">
+<div class="fb-like" data-href="
+https://cindyliu923.com/2021/01/10/cs50-week-4-notes/" data-width="" data-layout="button_count" data-action="like" data-size="large" data-share="true""></div>
+<div class="fb-comments" data-href="
+https://cindyliu923.com/2021/01/10/cs50-week-4-notes/" data-numposts="10" data-width="100%"></div>
+</section>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/posts/">Writing</a></li>
+         
+          <li><a href="https://github.com/cindyliu923" target="_blank" rel="noopener">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a href="/atom.xml">RSS</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#十六進位-Hexadecimal"><span class="toc-number">1.</span> <span class="toc-text">十六進位(Hexadecimal)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RGB"><span class="toc-number">2.</span> <span class="toc-text">RGB</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#記憶體位址"><span class="toc-number">3.</span> <span class="toc-text">記憶體位址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pointers"><span class="toc-number">4.</span> <span class="toc-text">Pointers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Strings"><span class="toc-number">5.</span> <span class="toc-text">Strings</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#compare"><span class="toc-number">5.1.</span> <span class="toc-text">compare</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#copy"><span class="toc-number">5.2.</span> <span class="toc-text">copy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#malloc-amp-free"><span class="toc-number">5.3.</span> <span class="toc-text">malloc &amp; free</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#valgrind"><span class="toc-number">6.</span> <span class="toc-text">valgrind</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Garbage-values"><span class="toc-number">7.</span> <span class="toc-text">Garbage values</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#swap"><span class="toc-number">8.</span> <span class="toc-text">swap</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Memory-Layout"><span class="toc-number">8.1.</span> <span class="toc-text">Memory Layout</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Heap-overflow-amp-Stack-overflow"><span class="toc-number">8.2.</span> <span class="toc-text">Heap overflow &amp; Stack overflow</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Buffer-Overflow"><span class="toc-number">8.3.</span> <span class="toc-text">Buffer Overflow</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#scanf"><span class="toc-number">9.</span> <span class="toc-text">scanf</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#File-I-O"><span class="toc-number">10.</span> <span class="toc-text">File I&#x2F;O</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://cindyliu923.com/2021/01/10/cs50-week-4-notes/" target="_blank" rel="noopener"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://cindyliu923.com/2021/01/10/cs50-week-4-notes/&text=CS50 week 4 - Memory 筆記" target="_blank" rel="noopener"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://cindyliu923.com/2021/01/10/cs50-week-4-notes/&title=CS50 week 4 - Memory 筆記" target="_blank" rel="noopener"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cindyliu923.com/2021/01/10/cs50-week-4-notes/&is_video=false&description=CS50 week 4 - Memory 筆記" target="_blank" rel="noopener"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=CS50 week 4 - Memory 筆記&body=Check out this article: https://cindyliu923.com/2021/01/10/cs50-week-4-notes/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://cindyliu923.com/2021/01/10/cs50-week-4-notes/&title=CS50 week 4 - Memory 筆記" target="_blank" rel="noopener"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://cindyliu923.com/2021/01/10/cs50-week-4-notes/&title=CS50 week 4 - Memory 筆記" target="_blank" rel="noopener"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://cindyliu923.com/2021/01/10/cs50-week-4-notes/&title=CS50 week 4 - Memory 筆記" target="_blank" rel="noopener"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://cindyliu923.com/2021/01/10/cs50-week-4-notes/&title=CS50 week 4 - Memory 筆記" target="_blank" rel="noopener"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://cindyliu923.com/2021/01/10/cs50-week-4-notes/&name=CS50 week 4 - Memory 筆記&description=" target="_blank" rel="noopener"><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2021 Cindy Liu <a href='/Privacy-Policy'>Privacy Policy</a>
+  </div>
+  <div class="footer-left">
+    . Some links are affiliated
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/posts/">Writing</a></li>
+        
+          <li><a href="https://github.com/cindyliu923" target="_blank" rel="noopener">Projects</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+          <li><a href="/atom.xml">RSS</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+
+<!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-80238614-3', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+
+
