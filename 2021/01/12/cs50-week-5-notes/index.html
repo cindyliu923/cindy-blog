@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="google-site-verification" content="yE1jgc5Tv8iV5DSEVyofU-gRWHhi7jbA3b1Q2qvS-gI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="大家好，我是 Cindy，最近跟同事小夥伴相約一起看 CS50 的課程，CS50 (Introduction to Computer Science）是一堂美國哈佛大學知名的通識課程，完全免費，在 edx 或 youtube 或 CS50-Study-Group github 都可以非常容易地看到。 這系列的文章會是我的個人筆記，歡迎有興趣的人一定要自己去看看 CS50 的課程歐。 今天這篇是 C">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CS50 week 5 - Data Structures 筆記">
+<meta property="og:url" content="https://cindyliu923.com/2021/01/12/cs50-week-5-notes/index.html">
+<meta property="og:site_name" content="Cindy&#39;s Blog">
+<meta property="og:description" content="大家好，我是 Cindy，最近跟同事小夥伴相約一起看 CS50 的課程，CS50 (Introduction to Computer Science）是一堂美國哈佛大學知名的通識課程，完全免費，在 edx 或 youtube 或 CS50-Study-Group github 都可以非常容易地看到。 這系列的文章會是我的個人筆記，歡迎有興趣的人一定要自己去看看 CS50 的課程歐。 今天這篇是 C">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2021-01-12T14:45:41.000Z">
+<meta property="article:modified_time" content="2021-01-24T12:48:06.955Z">
+<meta property="article:author" content="Cindy Liu">
+<meta property="article:tag" content="CS50">
+<meta property="article:tag" content="Computer Science">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/mstile-150x150.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <div id="fb-root"></div>
+<script>(function(d, s, id) {
+var js, fjs = d.getElementsByTagName(s)[0];
+if (d.getElementById(id)) return;
+js = d.createElement(s); js.id = id;
+js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v7.0&appId=3074485109285192&autoLogAppEvents=1&colorscheme=light&order_by=time";
+fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+    <!-- title -->
+    <title>CS50 week 5 - Data Structures 筆記</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- rss -->
+    
+      
+    
+    
+      <link rel="alternate" href="/atom.xml" title="Cindy&#39;s Blog" type="application/atom+xml" />
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/posts/">Writing</a></li>
+         
+          <li><a href="https://github.com/cindyliu923" target="_blank" rel="noopener">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a href="/atom.xml">RSS</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2021/01/10/cs50-week-4-notes/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://cindyliu923.com/2021/01/12/cs50-week-5-notes/" target="_blank" rel="noopener"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://cindyliu923.com/2021/01/12/cs50-week-5-notes/&text=CS50 week 5 - Data Structures 筆記" target="_blank" rel="noopener"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://cindyliu923.com/2021/01/12/cs50-week-5-notes/&title=CS50 week 5 - Data Structures 筆記" target="_blank" rel="noopener"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cindyliu923.com/2021/01/12/cs50-week-5-notes/&is_video=false&description=CS50 week 5 - Data Structures 筆記" target="_blank" rel="noopener"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=CS50 week 5 - Data Structures 筆記&body=Check out this article: https://cindyliu923.com/2021/01/12/cs50-week-5-notes/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://cindyliu923.com/2021/01/12/cs50-week-5-notes/&title=CS50 week 5 - Data Structures 筆記" target="_blank" rel="noopener"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://cindyliu923.com/2021/01/12/cs50-week-5-notes/&title=CS50 week 5 - Data Structures 筆記" target="_blank" rel="noopener"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://cindyliu923.com/2021/01/12/cs50-week-5-notes/&title=CS50 week 5 - Data Structures 筆記" target="_blank" rel="noopener"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://cindyliu923.com/2021/01/12/cs50-week-5-notes/&title=CS50 week 5 - Data Structures 筆記" target="_blank" rel="noopener"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://cindyliu923.com/2021/01/12/cs50-week-5-notes/&name=CS50 week 5 - Data Structures 筆記&description=" target="_blank" rel="noopener"><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Data-Structures"><span class="toc-number">1.</span> <span class="toc-text">Data Structures</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Arrays"><span class="toc-number">1.1.</span> <span class="toc-text">Arrays</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Linked-Lists"><span class="toc-number">1.2.</span> <span class="toc-text">Linked Lists</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Binary-Search-Trees"><span class="toc-number">1.3.</span> <span class="toc-text">Binary Search Trees</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hash-Tables"><span class="toc-number">1.4.</span> <span class="toc-text">Hash Tables</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tries"><span class="toc-number">1.5.</span> <span class="toc-text">Tries</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Queues"><span class="toc-number">1.6.</span> <span class="toc-text">Queues</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Stacks"><span class="toc-number">1.7.</span> <span class="toc-text">Stacks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dictionaries"><span class="toc-number">1.8.</span> <span class="toc-text">Dictionaries</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其他"><span class="toc-number">1.9.</span> <span class="toc-text">其他</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        CS50 week 5 - Data Structures 筆記
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Cindy's Blog</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2021-01-12T14:45:41.000Z" itemprop="datePublished">2021-01-12</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/CS50/" rel="tag">CS50</a>, <a class="tag-link" href="/tags/Computer-Science/" rel="tag">Computer Science</a>
+    </div>
+
+
+    </div>
+    <div class="meta">
+      <span class="post-count">👀 3 min read 👀</span>
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>大家好，我是 Cindy，最近跟同事小夥伴相約一起看 CS50 的課程，CS50 (Introduction to Computer Science）是一堂美國哈佛大學知名的通識課程，完全免費，在 <a href="https://www.edx.org/course/cs50s-introduction-to-computer-science" target="_blank" rel="noopener">edx</a> 或 <a href="https://www.youtube.com/watch?t=671&v=r15JIzFHbbM&feature=youtu.be" target="_blank" rel="noopener">youtube</a> 或 <a href="https://github.com/athena-xcy/CS50-Study-Group" target="_blank" rel="noopener">CS50-Study-Group github</a> 都可以非常容易地看到。</p>
+<p>這系列的文章會是我的個人筆記，歡迎有興趣的人一定要自己去看看 CS50 的課程歐。</p>
+<p>今天這篇是 CS50 week 5 筆記，想先看之前筆記的人可以點選下面連結：</p>
+<ul>
+<li><a href="/2020/09/12/cs50-week-0-notes">week 0</a></li>
+<li><a href="/2020/09/19/cs50-week-1-notes">week 1</a></li>
+<li><a href="/2020/09/27/cs50-week-2-notes">week 2</a></li>
+<li><a href="/2020/10/10/cs50-week-3-notes">week 3</a></li>
+<li><a href="/2021/01/10/cs50-week-4-notes">week 4</a></li>
+</ul>
+<h1 id="Data-Structures"><a href="#Data-Structures" class="headerlink" title="Data Structures"></a>Data Structures</h1><h2 id="Arrays"><a href="#Arrays" class="headerlink" title="Arrays"></a>Arrays</h2><p>Array 在記憶體中是連續存在的，當我們要在 array 新增一個值，本來儲存的記憶體位置可能會因為空間不夠而不能繼續存下去，這時候我們就會需要去換記憶體位子，將原本的 array 複製到記憶體的另一個長度夠的位子並插入新值，會<strong>花時間</strong>。</p>
+<ul>
+<li><code>realloc</code> 可以改變已配置的記憶體大小。</li>
+</ul>
+<h2 id="Linked-Lists"><a href="#Linked-Lists" class="headerlink" title="Linked Lists"></a>Linked Lists</h2><p>Linked Lists 在記憶體中是不連續，利用紀錄下一個 address 的方式連接，因為需要紀錄下一個 node 的 address，所以會<strong>花空間</strong>。</p>
+<p>資料結構如下，每個 node 除了要記錄的值以外，還要記錄下一個 node 的 address。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> number;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">node</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125;</span><br><span class="line">node;</span><br></pre></td></tr></table></figure>
+
+<p>產生一個 node 的範例如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">node *n = <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(node));</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (n != <span class="literal">NULL</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 這和 (*n).number = 1; 是一樣意思</span></span><br><span class="line">    n-&gt;number = <span class="number">1</span>;</span><br><span class="line">    n-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>當我們想要在 linked list 裡插入另一個值時，操作的順序相當重要，必須讓要插入的值先指向 next 的 address，接著再讓前一個 node 的 next 改為新插入的值，範例如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 假設我們已經有 linked list(變數名稱叫做 list)，我們想要在 list 的最前面插入一個 node(變數名稱為 n)</span></span><br><span class="line">n-&gt;next = <span class="built_in">list</span>;</span><br><span class="line"><span class="built_in">list</span> = n;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Binary-Search-Trees"><a href="#Binary-Search-Trees" class="headerlink" title="Binary Search Trees"></a>Binary Search Trees</h2><pre><code>       4
+    /     \
+   2       6
+ /   \   /   \
+1     3 5     7</code></pre><p>我們可以用更抽象的樹狀結構的方式表示 Binary Search，每個節點的左邊都會小於節點，右邊會大於節點。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> number;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">node</span> *<span class="title">left</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">node</span> *<span class="title">right</span>;</span></span><br><span class="line">&#125;</span><br><span class="line">node;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Hash-Tables"><a href="#Hash-Tables" class="headerlink" title="Hash Tables"></a>Hash Tables</h2><p>是 linked list 和 array 的結合，我們透過 <strong>Hash function</strong> 實現，最後可以讓我們用 input 找到特定的 output，只需要花費時間幾乎恆定的 O(1)，在設計程式的時候要注意 Collision 的問題。</p>
+<p>我們在 Hash 做搜尋的時候，最糟糕的情況會花費 O(n)，例如我們先用分類的方式將資料放在不同的 bucket 裡，每個 bucket 的搜尋時間都會是 O(n)。</p>
+<p>其他參考資料：</p>
+<ul>
+<li><a href="http://alrightchiu.github.io/SecondRound/hash-tableintrojian-jie.html" target="_blank" rel="noopener">Hash Table：Intro(簡介)</a></li>
+<li><a href="https://medium.com/@lukabaramishvili/data-structure-hash-table-big-o-notation-a2ee869be861" target="_blank" rel="noopener">Data Structure: Hash Table &amp; Big O Notation</a></li>
+</ul>
+<h2 id="Tries"><a href="#Tries" class="headerlink" title="Tries"></a>Tries</h2><p>可以想成是一種樹狀結構，每個 node 都是一個 array 且指向下一個 node。搜尋或插入都會是 O(1) 一個常數的 Step，但這個做法會耗費大量的記憶體空間。</p>
+<h2 id="Queues"><a href="#Queues" class="headerlink" title="Queues"></a>Queues</h2><p>抽象的數據結構，First in first out(FIFO) 稱為 queue，<code>enqueue</code> 表示進入排隊的隊伍，<code>dequeue</code>表示已處理完離開排隊的隊伍。</p>
+<h2 id="Stacks"><a href="#Stacks" class="headerlink" title="Stacks"></a>Stacks</h2><p>抽象的數據結構，Last in first out(LIFO) 稱為 stack，<code>push</code> 表示將值加入 stack，<code>pop</code> 表示從 stack 將值取出。</p>
+<h2 id="Dictionaries"><a href="#Dictionaries" class="headerlink" title="Dictionaries"></a>Dictionaries</h2><p>抽象的數據結構，就像字典一樣可以透過 key 找到 value。</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>這堂課教授說的一句話我覺得很好，就把它記下來分享給大家，<strong>Nothing is absolutely better than anything else</strong>，課程中教授不停的問學生這個資料結構付出的代價是什麼，大多數來說會是時間和空間的權衡，沒有任何一個完美的做法，只有當下最適合的選擇。</p>
+
+  </div>
+</article>
+<script type="text/javascript" src="//js1.bloggerads.net/ShowBanner.aspx?blogid=20201206000001" async></script>
+
+
+<section id="comments">
+<div class="fb-like" data-href="
+https://cindyliu923.com/2021/01/12/cs50-week-5-notes/" data-width="" data-layout="button_count" data-action="like" data-size="large" data-share="true""></div>
+<div class="fb-comments" data-href="
+https://cindyliu923.com/2021/01/12/cs50-week-5-notes/" data-numposts="10" data-width="100%"></div>
+</section>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/posts/">Writing</a></li>
+         
+          <li><a href="https://github.com/cindyliu923" target="_blank" rel="noopener">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a href="/atom.xml">RSS</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Data-Structures"><span class="toc-number">1.</span> <span class="toc-text">Data Structures</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Arrays"><span class="toc-number">1.1.</span> <span class="toc-text">Arrays</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Linked-Lists"><span class="toc-number">1.2.</span> <span class="toc-text">Linked Lists</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Binary-Search-Trees"><span class="toc-number">1.3.</span> <span class="toc-text">Binary Search Trees</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hash-Tables"><span class="toc-number">1.4.</span> <span class="toc-text">Hash Tables</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tries"><span class="toc-number">1.5.</span> <span class="toc-text">Tries</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Queues"><span class="toc-number">1.6.</span> <span class="toc-text">Queues</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Stacks"><span class="toc-number">1.7.</span> <span class="toc-text">Stacks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dictionaries"><span class="toc-number">1.8.</span> <span class="toc-text">Dictionaries</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其他"><span class="toc-number">1.9.</span> <span class="toc-text">其他</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://cindyliu923.com/2021/01/12/cs50-week-5-notes/" target="_blank" rel="noopener"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://cindyliu923.com/2021/01/12/cs50-week-5-notes/&text=CS50 week 5 - Data Structures 筆記" target="_blank" rel="noopener"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://cindyliu923.com/2021/01/12/cs50-week-5-notes/&title=CS50 week 5 - Data Structures 筆記" target="_blank" rel="noopener"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cindyliu923.com/2021/01/12/cs50-week-5-notes/&is_video=false&description=CS50 week 5 - Data Structures 筆記" target="_blank" rel="noopener"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=CS50 week 5 - Data Structures 筆記&body=Check out this article: https://cindyliu923.com/2021/01/12/cs50-week-5-notes/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://cindyliu923.com/2021/01/12/cs50-week-5-notes/&title=CS50 week 5 - Data Structures 筆記" target="_blank" rel="noopener"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://cindyliu923.com/2021/01/12/cs50-week-5-notes/&title=CS50 week 5 - Data Structures 筆記" target="_blank" rel="noopener"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://cindyliu923.com/2021/01/12/cs50-week-5-notes/&title=CS50 week 5 - Data Structures 筆記" target="_blank" rel="noopener"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://cindyliu923.com/2021/01/12/cs50-week-5-notes/&title=CS50 week 5 - Data Structures 筆記" target="_blank" rel="noopener"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://cindyliu923.com/2021/01/12/cs50-week-5-notes/&name=CS50 week 5 - Data Structures 筆記&description=" target="_blank" rel="noopener"><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2021 Cindy Liu <a href='/Privacy-Policy'>Privacy Policy</a>
+  </div>
+  <div class="footer-left">
+    . Some links are affiliated
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/posts/">Writing</a></li>
+        
+          <li><a href="https://github.com/cindyliu923" target="_blank" rel="noopener">Projects</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+          <li><a href="/atom.xml">RSS</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+
+<!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-80238614-3', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+
+
