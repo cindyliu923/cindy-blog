@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://cindyliu923.com/"/>
-  <updated>2021-03-06T13:54:39.583Z</updated>
+  <updated>2021-05-09T07:40:31.160Z</updated>
   <id>https://cindyliu923.com/</id>
   
   <author>
@@ -15,6 +15,37 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用 Burp Suite 模擬駭客進行 DoS 攻擊</title>
+    <link href="https://cindyliu923.com/2021/05/07/Burp-Suite-DoS-attack/"/>
+    <id>https://cindyliu923.com/2021/05/07/Burp-Suite-DoS-attack/</id>
+    <published>2021-05-07T15:54:50.000Z</published>
+    <updated>2021-05-09T07:40:31.160Z</updated>
+    
+    <content type="html"><![CDATA[<p>大家好，我是 Cindy，最近因為工作的關係知道了 <a href="https://portswigger.net/burp" target="_blank" rel="noopener">Burp Suite</a> 這套軟體，主要是可以對網站進行安全性測試的軟體，因為可以免費試用，所以當然要下載來用看看呀！(本篇不會介紹怎麼下載，因為跟著官網的步驟就可以完成囉！)</p><p>在開始模擬駭客之前，先幫大家科普一下什麼是 <a href="https://zh.wikipedia.org/wiki/%E9%98%BB%E6%96%B7%E6%9C%8D%E5%8B%99%E6%94%BB%E6%93%8A" target="_blank" rel="noopener">DoS 攻擊</a>？</p><ul><li>阻斷服務攻擊（英語：denial-of-service attack，簡稱 DoS 攻擊）亦稱洪水攻擊，是一種網路攻擊手法，其目的在於使目標電腦的網路或系統資源耗盡，使服務暫時中斷或停止，導致其正常使用者無法存取。</li></ul><p>其實維基百科就寫得很清楚了 XD</p><p>那麼知道 DoS 是什麼之後我們就要開始模擬駭客了，首先我的目標是要對我的網站進行攻擊，網站有忘記密碼的功能，在使用者輸入 email 之後會寄信給使用者，這邊先攔截第一次的 request，接著發送多筆相同的 request 進行攻擊，目的是讓使用者收到大量相同的信件，消耗攻擊目標信件的資源。</p><p>在開始之前先把要攻擊的網站做出來，最近發現工作久了實在是不常做 rails new，這樣好像不太好，趁現在來練一下？<br>大家可以用這個 <a href="https://github.com/cindyliu923/test_dos_attack" target="_blank" rel="noopener">測試用專案</a> 在本地端進行測試，因為已經在開發環境安裝 <a href="https://github.com/ryanb/letter_opener" target="_blank" rel="noopener">letter_opener</a> 這個套件，所以可以直接看到發送了幾封信。</p><h2 id="開始測試"><a href="#開始測試" class="headerlink" title="開始測試"></a>開始測試</h2><ol><li>打開 Burp Suite 的 Proxy 的 Intercept，點選 Open Browser</li><li>在 Browser 輸入要攻擊網站的網址，這邊要測試本地端的忘記密碼頁面，所以是 <code>http://localhost:3000/users/password/new</code></li><li>點選 Intercept is off，此按鈕會變藍色並顯示 Intercept is on 的文字，表示接下來在 Browser 的 request 會先被攔截下來，Burp Suite 和 Browser 的畫面如下：<br><img src="https://i.imgur.com/OWDNW9P.png" alt=""></li><li>點選 Send me reset password instructions 的按鈕，request 會被攔截，將 Host 反色後點選滑鼠右鍵 Send to Intruder，如下圖：<br><img src="https://i.imgur.com/hsCekas.png" alt=""></li><li>可以在 Intruder 的 Position 設定 payload 的範圍，接著到 Payloads 設定，這邊的設定會產生 9 個 request，畫面如下：<br><img src="https://i.imgur.com/tZzdNXB.png" alt=""></li></ol><ul><li>註：在 Position 設定中用符號 § 標記範圍</li></ul><ol start="6"><li>點選 Start attack，畫面上 302 有轉址的表示有成功寄出信件(這邊因為沒有調整 Position 所以有些是失敗的)<br><img src="https://i.imgur.com/OEilxGe.png" alt=""></li><li>最後回到 Proxy 點選 Intercept is on 的按鈕，讓攔截停止，這樣就完成了一次的攻擊了。</li></ol><p>用上面的方法就可以對自己的網站進行測試囉！</p><h2 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h2><ul><li><a href="https://www.choice-design.com.tw/article_detail99.html" target="_blank" rel="noopener">為什麼我的網站會被DDOS</a></li><li><a href="https://www.hackercat.org/burp-suite-tutorial/web-pentesting-burp-suite-total-tutorial" target="_blank" rel="noopener">Web滲透測試 – Burp Suite 完整教學系列</a></li><li><a href="https://medium.com/starbugs/%E8%BA%AB%E7%82%BA-web-%E5%B7%A5%E7%A8%8B%E5%B8%AB-%E4%BD%A0%E4%B8%80%E5%AE%9A%E8%A6%81%E7%9F%A5%E9%81%93%E7%9A%84%E5%B9%BE%E5%80%8B-web-%E8%B3%87%E8%A8%8A%E5%AE%89%E5%85%A8%E8%AD%B0%E9%A1%8C-29b8a4af6e13" target="_blank" rel="noopener">身為 Web 工程師，你一定要知道的幾個 Web 資訊安全議題</a></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;大家好，我是 Cindy，最近因為工作的關係知道了 &lt;a href=&quot;https://portswigger.net/burp&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Burp Suite&lt;/a&gt;
+        
+      
+    
+    </summary>
+    
+    
+    
+      <category term="Burp Suite" scheme="https://cindyliu923.com/tags/Burp-Suite/"/>
+    
+      <category term="DoS" scheme="https://cindyliu923.com/tags/DoS/"/>
+    
+      <category term="security" scheme="https://cindyliu923.com/tags/security/"/>
+    
+  </entry>
   
   <entry>
     <title>CS50 week 6 - Python 筆記</title>

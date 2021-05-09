@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="google-site-verification" content="yE1jgc5Tv8iV5DSEVyofU-gRWHhi7jbA3b1Q2qvS-gI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="大家好，我是 Cindy，最近因為工作的關係知道了 Burp Suite 這套軟體，主要是可以對網站進行安全性測試的軟體，因為可以免費試用，所以當然要下載來用看看呀！(本篇不會介紹怎麼下載，因為跟著官網的步驟就可以完成囉！) 在開始模擬駭客之前，先幫大家科普一下什麼是 DoS 攻擊？  阻斷服務攻擊（英語：denial-of-service attack，簡稱 DoS 攻擊）亦稱洪水攻擊，是一種網">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 Burp Suite 模擬駭客進行 DoS 攻擊">
+<meta property="og:url" content="https://cindyliu923.com/2021/05/07/Burp-Suite-DoS-attack/index.html">
+<meta property="og:site_name" content="Cindy&#39;s Blog">
+<meta property="og:description" content="大家好，我是 Cindy，最近因為工作的關係知道了 Burp Suite 這套軟體，主要是可以對網站進行安全性測試的軟體，因為可以免費試用，所以當然要下載來用看看呀！(本篇不會介紹怎麼下載，因為跟著官網的步驟就可以完成囉！) 在開始模擬駭客之前，先幫大家科普一下什麼是 DoS 攻擊？  阻斷服務攻擊（英語：denial-of-service attack，簡稱 DoS 攻擊）亦稱洪水攻擊，是一種網">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/OWDNW9P.png">
+<meta property="og:image" content="https://i.imgur.com/hsCekas.png">
+<meta property="og:image" content="https://i.imgur.com/tZzdNXB.png">
+<meta property="og:image" content="https://i.imgur.com/OEilxGe.png">
+<meta property="article:published_time" content="2021-05-07T15:54:50.000Z">
+<meta property="article:modified_time" content="2021-05-09T07:40:31.160Z">
+<meta property="article:author" content="Cindy Liu">
+<meta property="article:tag" content="Burp Suite">
+<meta property="article:tag" content="DoS">
+<meta property="article:tag" content="security">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/OWDNW9P.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/mstile-150x150.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <div id="fb-root"></div>
+<script>(function(d, s, id) {
+var js, fjs = d.getElementsByTagName(s)[0];
+if (d.getElementById(id)) return;
+js = d.createElement(s); js.id = id;
+js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v7.0&appId=3074485109285192&autoLogAppEvents=1&colorscheme=light&order_by=time";
+fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+    <!-- title -->
+    <title>使用 Burp Suite 模擬駭客進行 DoS 攻擊</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- rss -->
+    
+      
+    
+    
+      <link rel="alternate" href="/atom.xml" title="Cindy&#39;s Blog" type="application/atom+xml" />
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/posts/">Writing</a></li>
+         
+          <li><a href="https://github.com/cindyliu923" target="_blank" rel="noopener">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a href="/atom.xml">RSS</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2021/02/13/cs50-week-6-notes/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://cindyliu923.com/2021/05/07/Burp-Suite-DoS-attack/" target="_blank" rel="noopener"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://cindyliu923.com/2021/05/07/Burp-Suite-DoS-attack/&text=使用 Burp Suite 模擬駭客進行 DoS 攻擊" target="_blank" rel="noopener"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://cindyliu923.com/2021/05/07/Burp-Suite-DoS-attack/&title=使用 Burp Suite 模擬駭客進行 DoS 攻擊" target="_blank" rel="noopener"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cindyliu923.com/2021/05/07/Burp-Suite-DoS-attack/&is_video=false&description=使用 Burp Suite 模擬駭客進行 DoS 攻擊" target="_blank" rel="noopener"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=使用 Burp Suite 模擬駭客進行 DoS 攻擊&body=Check out this article: https://cindyliu923.com/2021/05/07/Burp-Suite-DoS-attack/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://cindyliu923.com/2021/05/07/Burp-Suite-DoS-attack/&title=使用 Burp Suite 模擬駭客進行 DoS 攻擊" target="_blank" rel="noopener"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://cindyliu923.com/2021/05/07/Burp-Suite-DoS-attack/&title=使用 Burp Suite 模擬駭客進行 DoS 攻擊" target="_blank" rel="noopener"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://cindyliu923.com/2021/05/07/Burp-Suite-DoS-attack/&title=使用 Burp Suite 模擬駭客進行 DoS 攻擊" target="_blank" rel="noopener"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://cindyliu923.com/2021/05/07/Burp-Suite-DoS-attack/&title=使用 Burp Suite 模擬駭客進行 DoS 攻擊" target="_blank" rel="noopener"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://cindyliu923.com/2021/05/07/Burp-Suite-DoS-attack/&name=使用 Burp Suite 模擬駭客進行 DoS 攻擊&description=" target="_blank" rel="noopener"><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#開始測試"><span class="toc-number">1.</span> <span class="toc-text">開始測試</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#延伸閱讀"><span class="toc-number">2.</span> <span class="toc-text">延伸閱讀</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        使用 Burp Suite 模擬駭客進行 DoS 攻擊
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Cindy's Blog</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2021-05-07T15:54:50.000Z" itemprop="datePublished">2021-05-07</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Burp-Suite/" rel="tag">Burp Suite</a>, <a class="tag-link" href="/tags/DoS/" rel="tag">DoS</a>, <a class="tag-link" href="/tags/security/" rel="tag">security</a>
+    </div>
+
+
+    </div>
+    <div class="meta">
+      <span class="post-count">👀 2 min read 👀</span>
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>大家好，我是 Cindy，最近因為工作的關係知道了 <a href="https://portswigger.net/burp" target="_blank" rel="noopener">Burp Suite</a> 這套軟體，主要是可以對網站進行安全性測試的軟體，因為可以免費試用，所以當然要下載來用看看呀！(本篇不會介紹怎麼下載，因為跟著官網的步驟就可以完成囉！)</p>
+<p>在開始模擬駭客之前，先幫大家科普一下什麼是 <a href="https://zh.wikipedia.org/wiki/%E9%98%BB%E6%96%B7%E6%9C%8D%E5%8B%99%E6%94%BB%E6%93%8A" target="_blank" rel="noopener">DoS 攻擊</a>？</p>
+<ul>
+<li>阻斷服務攻擊（英語：denial-of-service attack，簡稱 DoS 攻擊）亦稱洪水攻擊，是一種網路攻擊手法，其目的在於使目標電腦的網路或系統資源耗盡，使服務暫時中斷或停止，導致其正常使用者無法存取。</li>
+</ul>
+<p>其實維基百科就寫得很清楚了 XD</p>
+<p>那麼知道 DoS 是什麼之後我們就要開始模擬駭客了，首先我的目標是要對我的網站進行攻擊，網站有忘記密碼的功能，在使用者輸入 email 之後會寄信給使用者，這邊先攔截第一次的 request，接著發送多筆相同的 request 進行攻擊，目的是讓使用者收到大量相同的信件，消耗攻擊目標信件的資源。</p>
+<p>在開始之前先把要攻擊的網站做出來，最近發現工作久了實在是不常做 rails new，這樣好像不太好，趁現在來練一下？<br>大家可以用這個 <a href="https://github.com/cindyliu923/test_dos_attack" target="_blank" rel="noopener">測試用專案</a> 在本地端進行測試，因為已經在開發環境安裝 <a href="https://github.com/ryanb/letter_opener" target="_blank" rel="noopener">letter_opener</a> 這個套件，所以可以直接看到發送了幾封信。</p>
+<h2 id="開始測試"><a href="#開始測試" class="headerlink" title="開始測試"></a>開始測試</h2><ol>
+<li>打開 Burp Suite 的 Proxy 的 Intercept，點選 Open Browser</li>
+<li>在 Browser 輸入要攻擊網站的網址，這邊要測試本地端的忘記密碼頁面，所以是 <code>http://localhost:3000/users/password/new</code></li>
+<li>點選 Intercept is off，此按鈕會變藍色並顯示 Intercept is on 的文字，表示接下來在 Browser 的 request 會先被攔截下來，Burp Suite 和 Browser 的畫面如下：<br><img src="https://i.imgur.com/OWDNW9P.png" alt=""></li>
+<li>點選 Send me reset password instructions 的按鈕，request 會被攔截，將 Host 反色後點選滑鼠右鍵 Send to Intruder，如下圖：<br><img src="https://i.imgur.com/hsCekas.png" alt=""></li>
+<li>可以在 Intruder 的 Position 設定 payload 的範圍，接著到 Payloads 設定，這邊的設定會產生 9 個 request，畫面如下：<br><img src="https://i.imgur.com/tZzdNXB.png" alt=""></li>
+</ol>
+<ul>
+<li>註：在 Position 設定中用符號 § 標記範圍</li>
+</ul>
+<ol start="6">
+<li>點選 Start attack，畫面上 302 有轉址的表示有成功寄出信件(這邊因為沒有調整 Position 所以有些是失敗的)<br><img src="https://i.imgur.com/OEilxGe.png" alt=""></li>
+<li>最後回到 Proxy 點選 Intercept is on 的按鈕，讓攔截停止，這樣就完成了一次的攻擊了。</li>
+</ol>
+<p>用上面的方法就可以對自己的網站進行測試囉！</p>
+<h2 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h2><ul>
+<li><a href="https://www.choice-design.com.tw/article_detail99.html" target="_blank" rel="noopener">為什麼我的網站會被DDOS</a></li>
+<li><a href="https://www.hackercat.org/burp-suite-tutorial/web-pentesting-burp-suite-total-tutorial" target="_blank" rel="noopener">Web滲透測試 – Burp Suite 完整教學系列</a></li>
+<li><a href="https://medium.com/starbugs/%E8%BA%AB%E7%82%BA-web-%E5%B7%A5%E7%A8%8B%E5%B8%AB-%E4%BD%A0%E4%B8%80%E5%AE%9A%E8%A6%81%E7%9F%A5%E9%81%93%E7%9A%84%E5%B9%BE%E5%80%8B-web-%E8%B3%87%E8%A8%8A%E5%AE%89%E5%85%A8%E8%AD%B0%E9%A1%8C-29b8a4af6e13" target="_blank" rel="noopener">身為 Web 工程師，你一定要知道的幾個 Web 資訊安全議題</a></li>
+</ul>
+
+  </div>
+</article>
+<script type="text/javascript" src="//js1.bloggerads.net/ShowBanner.aspx?blogid=20201206000001" async></script>
+
+
+<section id="comments">
+<div class="fb-like" data-href="
+https://cindyliu923.com/2021/05/07/Burp-Suite-DoS-attack/" data-width="" data-layout="button_count" data-action="like" data-size="large" data-share="true""></div>
+<div class="fb-comments" data-href="
+https://cindyliu923.com/2021/05/07/Burp-Suite-DoS-attack/" data-numposts="10" data-width="100%"></div>
+</section>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/posts/">Writing</a></li>
+         
+          <li><a href="https://github.com/cindyliu923" target="_blank" rel="noopener">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a href="/atom.xml">RSS</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#開始測試"><span class="toc-number">1.</span> <span class="toc-text">開始測試</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#延伸閱讀"><span class="toc-number">2.</span> <span class="toc-text">延伸閱讀</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://cindyliu923.com/2021/05/07/Burp-Suite-DoS-attack/" target="_blank" rel="noopener"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://cindyliu923.com/2021/05/07/Burp-Suite-DoS-attack/&text=使用 Burp Suite 模擬駭客進行 DoS 攻擊" target="_blank" rel="noopener"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://cindyliu923.com/2021/05/07/Burp-Suite-DoS-attack/&title=使用 Burp Suite 模擬駭客進行 DoS 攻擊" target="_blank" rel="noopener"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cindyliu923.com/2021/05/07/Burp-Suite-DoS-attack/&is_video=false&description=使用 Burp Suite 模擬駭客進行 DoS 攻擊" target="_blank" rel="noopener"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=使用 Burp Suite 模擬駭客進行 DoS 攻擊&body=Check out this article: https://cindyliu923.com/2021/05/07/Burp-Suite-DoS-attack/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://cindyliu923.com/2021/05/07/Burp-Suite-DoS-attack/&title=使用 Burp Suite 模擬駭客進行 DoS 攻擊" target="_blank" rel="noopener"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://cindyliu923.com/2021/05/07/Burp-Suite-DoS-attack/&title=使用 Burp Suite 模擬駭客進行 DoS 攻擊" target="_blank" rel="noopener"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://cindyliu923.com/2021/05/07/Burp-Suite-DoS-attack/&title=使用 Burp Suite 模擬駭客進行 DoS 攻擊" target="_blank" rel="noopener"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://cindyliu923.com/2021/05/07/Burp-Suite-DoS-attack/&title=使用 Burp Suite 模擬駭客進行 DoS 攻擊" target="_blank" rel="noopener"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://cindyliu923.com/2021/05/07/Burp-Suite-DoS-attack/&name=使用 Burp Suite 模擬駭客進行 DoS 攻擊&description=" target="_blank" rel="noopener"><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2021 Cindy Liu <a href='/Privacy-Policy'>Privacy Policy</a>
+  </div>
+  <div class="footer-left">
+    . Some links are affiliated
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/posts/">Writing</a></li>
+        
+          <li><a href="https://github.com/cindyliu923" target="_blank" rel="noopener">Projects</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+          <li><a href="/atom.xml">RSS</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+
+<!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-80238614-3', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+
+
