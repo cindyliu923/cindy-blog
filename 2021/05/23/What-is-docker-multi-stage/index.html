@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="google-site-verification" content="yE1jgc5Tv8iV5DSEVyofU-gRWHhi7jbA3b1Q2qvS-gI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="大家好，我是 Cindy，前一陣子因爲工作夥伴們遇到的問題，而研究了一下 Docker 的 multi-stage build，故事是這樣的： 小夥伴們開發了一個 gem，push 到客戶的 GitLab，遇到了兩次 pipelines 失敗的情況：  第一次，在 GitLab runner 開始進行 test stage 的 bundle install 的時候，因為沒有 pull GitLab">
+<meta property="og:type" content="article">
+<meta property="og:title" content="什麼是 Docker multi stage?">
+<meta property="og:url" content="https://cindyliu923.com/2021/05/23/What-is-docker-multi-stage/index.html">
+<meta property="og:site_name" content="Cindy&#39;s Blog">
+<meta property="og:description" content="大家好，我是 Cindy，前一陣子因爲工作夥伴們遇到的問題，而研究了一下 Docker 的 multi-stage build，故事是這樣的： 小夥伴們開發了一個 gem，push 到客戶的 GitLab，遇到了兩次 pipelines 失敗的情況：  第一次，在 GitLab runner 開始進行 test stage 的 bundle install 的時候，因為沒有 pull GitLab">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/5CMh3zG.png">
+<meta property="og:image" content="https://i.imgur.com/bGYGJKE.png">
+<meta property="og:image" content="https://i.imgur.com/IUv5ONd.png">
+<meta property="article:published_time" content="2021-05-23T12:04:48.000Z">
+<meta property="article:modified_time" content="2021-05-25T15:42:42.244Z">
+<meta property="article:author" content="Cindy Liu">
+<meta property="article:tag" content="Docker">
+<meta property="article:tag" content="docker multi stage">
+<meta property="article:tag" content="docker layer">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/5CMh3zG.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/mstile-150x150.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <div id="fb-root"></div>
+<script>(function(d, s, id) {
+var js, fjs = d.getElementsByTagName(s)[0];
+if (d.getElementById(id)) return;
+js = d.createElement(s); js.id = id;
+js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v7.0&appId=3074485109285192&autoLogAppEvents=1&colorscheme=light&order_by=time";
+fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+    <!-- title -->
+    <title>什麼是 Docker multi stage?</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- rss -->
+    
+      
+    
+    
+      <link rel="alternate" href="/atom.xml" title="Cindy&#39;s Blog" type="application/atom+xml" />
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/posts/">Writing</a></li>
+         
+          <li><a href="https://github.com/cindyliu923" target="_blank" rel="noopener">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a href="/atom.xml">RSS</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2021/05/07/Burp-Suite-DoS-attack/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://cindyliu923.com/2021/05/23/What-is-docker-multi-stage/" target="_blank" rel="noopener"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://cindyliu923.com/2021/05/23/What-is-docker-multi-stage/&text=什麼是 Docker multi stage?" target="_blank" rel="noopener"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://cindyliu923.com/2021/05/23/What-is-docker-multi-stage/&title=什麼是 Docker multi stage?" target="_blank" rel="noopener"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cindyliu923.com/2021/05/23/What-is-docker-multi-stage/&is_video=false&description=什麼是 Docker multi stage?" target="_blank" rel="noopener"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=什麼是 Docker multi stage?&body=Check out this article: https://cindyliu923.com/2021/05/23/What-is-docker-multi-stage/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://cindyliu923.com/2021/05/23/What-is-docker-multi-stage/&title=什麼是 Docker multi stage?" target="_blank" rel="noopener"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://cindyliu923.com/2021/05/23/What-is-docker-multi-stage/&title=什麼是 Docker multi stage?" target="_blank" rel="noopener"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://cindyliu923.com/2021/05/23/What-is-docker-multi-stage/&title=什麼是 Docker multi stage?" target="_blank" rel="noopener"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://cindyliu923.com/2021/05/23/What-is-docker-multi-stage/&title=什麼是 Docker multi stage?" target="_blank" rel="noopener"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://cindyliu923.com/2021/05/23/What-is-docker-multi-stage/&name=什麼是 Docker multi stage?&description=" target="_blank" rel="noopener"><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#先說結論：用-multi-stage-build-可以解決-key-被記錄下來的問題，但-multi-stage-想要解決的主要問題其實是因為-build-image-太大。"><span class="toc-number">1.</span> <span class="toc-text">先說結論：用 multi-stage build 可以解決 key 被記錄下來的問題，但 multi-stage 想要解決的主要問題其實是因為 build image 太大。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Docker-image-layers"><span class="toc-number">2.</span> <span class="toc-text">Docker image layers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#multi-stage-builds"><span class="toc-number">3.</span> <span class="toc-text">multi-stage builds</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#結論"><span class="toc-number">4.</span> <span class="toc-text">結論</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        什麼是 Docker multi stage?
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Cindy's Blog</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2021-05-23T12:04:48.000Z" itemprop="datePublished">2021-05-23</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Docker/" rel="tag">Docker</a>, <a class="tag-link" href="/tags/docker-layer/" rel="tag">docker layer</a>, <a class="tag-link" href="/tags/docker-multi-stage/" rel="tag">docker multi stage</a>
+    </div>
+
+
+    </div>
+    <div class="meta">
+      <span class="post-count">👀 6 min read 👀</span>
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>大家好，我是 Cindy，前一陣子因爲工作夥伴們遇到的問題，而研究了一下 <a href="https://docs.docker.com" target="_blank" rel="noopener">Docker</a> 的 multi-stage build，<br>故事是這樣的：</p>
+<p>小夥伴們開發了一個 gem，push 到客戶的 GitLab，遇到了兩次 pipelines 失敗的情況：</p>
+<ul>
+<li>第一次，在 GitLab runner 開始進行 test stage 的 bundle install 的時候，因為沒有 pull GitLab repository 的權限，而無法下載客製化的 gem。<ul>
+<li>解決方法：在 <code>.gitlab-ci.yml</code> 的 before_script 做 GitLab runner ssh 的設定，並將 <code>$SSH_PRIVATE_KEY</code> 放在 GitLab runner 的環境變數中，詳細可參考 <a href="https://docs.gitlab.com/ee/ci/ssh_keys" target="_blank" rel="noopener">Using SSH keys with GitLab CI/CD</a>。</li>
+</ul>
+</li>
+<li>第二次，在 GitLab runner 要進行部署的時候，現況 GitLab runner 會進行 docker build 將 Rails 打包成 image 之後，再 push 到 <a href="https://aws.amazon.com/tw/ecr" target="_blank" rel="noopener">AWS 的 ECR</a>，接著會用 <a href="https://github.com/silinternational/ecs-deploy" target="_blank" rel="noopener">ecs-deploy</a> 的指令進行部署，將先前 push 到 ECR 上的 Rails image 部署到 <a href="https://aws.amazon.com/tw/ecs" target="_blank" rel="noopener">AWS 的 ECS</a>，這邊在進行 docker build 的時候，會在 Dockerfile 中執行 bundle install，因為 Dockerfile 沒有 pull GitLab repository 的權限，而無法下載客製化的 gem。<ul>
+<li>解決方法：在 GitLab runner 執行 docker build 的時候，將 GitLab runner 的 <code>$SSH_PRIVATE_KEY</code> 當作參數傳進 Dockerfile 中。</li>
+</ul>
+</li>
+</ul>
+<p>到這邊大概是整個故事，但 docker multi stage 還沒出現噎，讓我娓娓道來，上面提到的 <strong>在 GitLab runner 執行 docker build 的時候，將 GitLab runner 的 <code>$SSH_PRIVATE_KEY</code> 當作參數傳進 Dockerfile 中。</strong> 這個解決方法有一個前提，就是我們必須確定 <code>$SSH_PRIVATE_KEY</code> 的傳遞是安全的！也就是說這把 key 不應該出現在 image  的任何記錄之中，否則只要拿到 image 就拿到 key 了。</p>
+<h2 id="先說結論：用-multi-stage-build-可以解決-key-被記錄下來的問題，但-multi-stage-想要解決的主要問題其實是因為-build-image-太大。"><a href="#先說結論：用-multi-stage-build-可以解決-key-被記錄下來的問題，但-multi-stage-想要解決的主要問題其實是因為-build-image-太大。" class="headerlink" title="先說結論：用 multi-stage build 可以解決 key 被記錄下來的問題，但 multi-stage 想要解決的主要問題其實是因為 build image 太大。"></a>先說結論：用 multi-stage build 可以解決 key 被記錄下來的問題，但 multi-stage 想要解決的主要問題其實是因為 build image 太大。</h2><p>想知道為什麼就繼續往下看吧～</p>
+<h2 id="Docker-image-layers"><a href="#Docker-image-layers" class="headerlink" title="Docker image layers"></a>Docker image layers</h2><p>先跟大家介紹個名詞，<strong><a href="https://docs.docker.com/storage/storagedriver/#images-and-layers" target="_blank" rel="noopener">Docker image layers</a></strong>，在 Dockerfile 中的每個指令會產生一個 image layer，且每層 image layer 會記錄比上一個 image layer 有哪些檔案的差異，層層堆疊上去，然後把檔案加總起來，我們可以從這些 layers 中查看 build image 的所有檔案紀錄。</p>
+<p>接下來示範一下要怎麼看這些檔案裡面的全部內容，例如我已經有一個叫做 railsapp 的 image，執行以下步驟可觀察 image 的全貌：</p>
+<ol>
+<li><p>執行 <code>docker save -o railsapp.tar railsapp</code> 用 <a href="https://docs.docker.com/engine/reference/commandline/save" target="_blank" rel="noopener">docker save</a> 的指令將 image 存成一個壓縮檔。</p>
+</li>
+<li><p>執行 <code>tar -zxvf railsapp.tar</code> 進行解壓縮。</p>
+<p><img src="https://i.imgur.com/5CMh3zG.png" alt=""></p>
+</li>
+<li><p>打開 manifest.json，到這邊就可以看到 image 有幾個 layer 了！</p>
+<p><img src="https://i.imgur.com/bGYGJKE.png" alt=""></p>
+</li>
+<li><p>打開 Config  a2a3bd208cd4fc2d2c847f2cc0cd241d6171c9b432db844f00bd47dc681df436.json，順道一提我們看到的這些檔案就是符合 <a href="https://github.com/opencontainers/image-spec/blob/master/spec.md#open-container-initiative" target="_blank" rel="noopener">OCI 的格式</a>(可以簡單理解成容器化技術開放出的一定格式)，可以從這個 json 檔看到有很多的紀錄，包含了環境變數、執行過的 command 等等。</p>
+</li>
+<li><p><code>cd e14687248cea12d8112c3102c8d16604829553403933cda75612e49d5724d027</code> 進去其中一層 layer，然後 <code>tar -zxvf layer.tar</code> 解壓縮看看，結果如下：</p>
+<p><img src="https://i.imgur.com/IUv5ONd.png" alt=""></p>
+<p>可以看到這邊就是一些資料夾和檔案，也就是我們在執行 image 的時候裡面的資料夾和檔案。</p>
+</li>
+</ol>
+<p>到這邊跟大家說明了，docker image 裡面包含的東西，接下來才是這篇文章的主角(<del>鋪成也太長</del>)。</p>
+<h2 id="multi-stage-builds"><a href="#multi-stage-builds" class="headerlink" title="multi-stage builds"></a>multi-stage builds</h2><p>在 Docker 的文件中的 <a href="https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#use-multi-stage-builds" target="_blank" rel="noopener">Best practices for writing Dockerfiles</a> 這篇文章就有建議大家使用 multi-stage builds，那麼究竟什麼是 multi-stage builds 呢？ <a href="https://docs.docker.com/develop/develop-images/multistage-build" target="_blank" rel="noopener">Use multi-stage builds</a> 的文章中提到，在 multi-stage 之前，如果我們有需要兩個 image 的情況，可能會需要寫一個 script 先 build 第一個 image，產生一個 container 將需要的資料夾或檔案複製出來，然後再 build 第二個 image，最後再刪掉中間使用到的資料夾或檔案。</p>
+<p>multi-stage 解決了上述麻煩的步驟，讓我們可以在同一個 Dockerfile 撰寫數個中間會用到的 image，而不會被保存下來，文件的範例如下：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># syntax=docker/dockerfile:1</span></span><br><span class="line"><span class="keyword">FROM</span> golang:<span class="number">1.16</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> /go/src/github.com/alexellis/href-counter/</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> go get -d -v golang.org/x/net/html</span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> app.go .</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app .</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">FROM</span> alpine:latest</span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> apk --no-cache add ca-certificates</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> /root/</span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> --from=0 /go/src/github.com/alexellis/href-counter/app .</span></span><br><span class="line"><span class="keyword">CMD</span><span class="bash"> [<span class="string">"./app"</span>]</span></span><br></pre></td></tr></table></figure>
+
+<p>第 2 到 6 行其實就是第一個要 build 的 image，而第 8 到 12 行就是第二個要 build 的 image，而 <code>COPY --from=0 /go/src/github.com/alexellis/href-counter/app .</code> 就是將我們需要的第一個 image 的資料夾複製到第二個 image 之中，而第一個 image 因為是中間使用到的 image，所以並不會在最後生成的 image layers 之中！</p>
+<p>大家發現了嗎？先前有提到 image layers 中有各種紀錄，而 multi-stage 中的中間 image 不會產生 layer 也就是不會有紀錄的意思囉！所以我們可以用 multi-stage 的方式在中間的 image 拿到 key 之後進行 bundle install，而將需要的檔案複製到最後產生的 image 之中，就不用擔心 image 裡會有 key 了！就像先前提到的，這並不是 multi-stage 想要解決的問題，主要是因為少了這些中間 image layers 也就意味著 image 的 size 是會變小的！</p>
+<h2 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h2><ul>
+<li><p>小技巧：利用 multi-stage 可以傳遞 key 而不會被記錄在 image 紀錄之中，善用 multi-stage 可以大幅降低 image 的 size。</p>
+</li>
+<li><p>其他 Docker 傳遞私密資訊的方式：</p>
+<ul>
+<li><p><a href="https://docs.docker.com/develop/develop-images/build_enhancements/#new-docker-build-secret-information" target="_blank" rel="noopener"><code>--secret</code></a><br>在新版 Docker Engine API (v1.39+) 中，可將外部檔案的 secret 帶進 Dockerfile 之中而不會被存在紀錄之中，但前提是要用 <a href="https://docs.docker.com/develop/develop-images/build_enhancements" target="_blank" rel="noopener"><strong>BuildKit</strong></a> 才可以使用。使用方式如下：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># syntax=docker/dockerfile:1.0.0-experimental</span></span><br><span class="line"><span class="keyword">FROM</span> alpine</span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> --mount=<span class="built_in">type</span>=secret,id=mysite.key <span class="built_in">command</span>-to-run</span></span><br></pre></td></tr></table></figure>
+
+<p><code>docker build --secret id=mysite.key,src=path/to/mysite.key .</code></p>
+</li>
+<li><p><a href="https://docs.docker.com/develop/develop-images/build_enhancements/#using-ssh-to-access-private-data-in-builds" target="_blank" rel="noopener"><code>--ssh</code></a><br>在新版 Docker Engine API (v1.39+) 中，可以將現有的 SSH agent connection 或 key 傳遞進 Dockerfile，跟上面一樣要是 <a href="https://docs.docker.com/develop/develop-images/build_enhancements" target="_blank" rel="noopener"><strong>BuildKit</strong></a> 才可以用。使用方式如下：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># syntax=docker/dockerfile:experimental</span></span><br><span class="line"><span class="keyword">FROM</span> alpine</span><br><span class="line"><span class="comment"># install ssh client and git</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> apk add --no-cache openssh-client git</span></span><br><span class="line"><span class="comment"># download public key for github.com</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> mkdir -p -m 0600 ~/.ssh &amp;&amp; ssh-keyscan github.com &gt;&gt; ~/.ssh/known_hosts</span></span><br><span class="line"><span class="comment"># clone our private repository</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> --mount=<span class="built_in">type</span>=ssh git <span class="built_in">clone</span> git@github.com:myorg/myproject.git myproject</span></span><br></pre></td></tr></table></figure>
+
+<p><code>docker build --ssh default .</code></p>
+</li>
+</ul>
+<p>詳細可參考：</p>
+<ul>
+<li><a href="https://medium.com/@tonistiigi/build-secrets-and-ssh-forwarding-in-docker-18-09-ae8161d066" target="_blank" rel="noopener">Build secrets and SSH forwarding in Docker 18.09</a></li>
+<li><a href="https://blog.wu-boy.com/2020/04/speed-up-docker-build-using-docker-buildkit" target="_blank" rel="noopener">使用 Docker BuildKit 加速編譯 Image</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+</article>
+<script type="text/javascript" src="//js1.bloggerads.net/ShowBanner.aspx?blogid=20201206000001" async></script>
+
+
+<section id="comments">
+<div class="fb-like" data-href="
+https://cindyliu923.com/2021/05/23/What-is-docker-multi-stage/" data-width="" data-layout="button_count" data-action="like" data-size="large" data-share="true""></div>
+<div class="fb-comments" data-href="
+https://cindyliu923.com/2021/05/23/What-is-docker-multi-stage/" data-numposts="10" data-width="100%"></div>
+</section>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/posts/">Writing</a></li>
+         
+          <li><a href="https://github.com/cindyliu923" target="_blank" rel="noopener">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a href="/atom.xml">RSS</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#先說結論：用-multi-stage-build-可以解決-key-被記錄下來的問題，但-multi-stage-想要解決的主要問題其實是因為-build-image-太大。"><span class="toc-number">1.</span> <span class="toc-text">先說結論：用 multi-stage build 可以解決 key 被記錄下來的問題，但 multi-stage 想要解決的主要問題其實是因為 build image 太大。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Docker-image-layers"><span class="toc-number">2.</span> <span class="toc-text">Docker image layers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#multi-stage-builds"><span class="toc-number">3.</span> <span class="toc-text">multi-stage builds</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#結論"><span class="toc-number">4.</span> <span class="toc-text">結論</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://cindyliu923.com/2021/05/23/What-is-docker-multi-stage/" target="_blank" rel="noopener"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://cindyliu923.com/2021/05/23/What-is-docker-multi-stage/&text=什麼是 Docker multi stage?" target="_blank" rel="noopener"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://cindyliu923.com/2021/05/23/What-is-docker-multi-stage/&title=什麼是 Docker multi stage?" target="_blank" rel="noopener"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cindyliu923.com/2021/05/23/What-is-docker-multi-stage/&is_video=false&description=什麼是 Docker multi stage?" target="_blank" rel="noopener"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=什麼是 Docker multi stage?&body=Check out this article: https://cindyliu923.com/2021/05/23/What-is-docker-multi-stage/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://cindyliu923.com/2021/05/23/What-is-docker-multi-stage/&title=什麼是 Docker multi stage?" target="_blank" rel="noopener"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://cindyliu923.com/2021/05/23/What-is-docker-multi-stage/&title=什麼是 Docker multi stage?" target="_blank" rel="noopener"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://cindyliu923.com/2021/05/23/What-is-docker-multi-stage/&title=什麼是 Docker multi stage?" target="_blank" rel="noopener"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://cindyliu923.com/2021/05/23/What-is-docker-multi-stage/&title=什麼是 Docker multi stage?" target="_blank" rel="noopener"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://cindyliu923.com/2021/05/23/What-is-docker-multi-stage/&name=什麼是 Docker multi stage?&description=" target="_blank" rel="noopener"><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2021 Cindy Liu <a href='/Privacy-Policy'>Privacy Policy</a>
+  </div>
+  <div class="footer-left">
+    . Some links are affiliated
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/posts/">Writing</a></li>
+        
+          <li><a href="https://github.com/cindyliu923" target="_blank" rel="noopener">Projects</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+          <li><a href="/atom.xml">RSS</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+
+<!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-80238614-3', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+
+
