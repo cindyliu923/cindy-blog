@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="google-site-verification" content="yE1jgc5Tv8iV5DSEVyofU-gRWHhi7jbA3b1Q2qvS-gI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="大家好，我是 Cindy，勇者我最近換了 MacBook Pro M1，想把各種安裝過程記錄下來，也希望可以幫助到大家 :)不過因為是紀錄可能蠻瑣碎的，有需要的人可以直接跳到自己有需要的段落歐，另外如果之後還有遇到其他問題，這篇應該會持續更新。  目錄 安裝各種 APP iTerm 安裝 for m1(arm) 的 homebrew 安裝 for intel(x86) 的 homebrew 安裝">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MacBook Pro M1 開箱使用紀錄">
+<meta property="og:url" content="https://cindyliu923.com/2021/07/17/macbook-pro-m1/index.html">
+<meta property="og:site_name" content="Cindy&#39;s Blog">
+<meta property="og:description" content="大家好，我是 Cindy，勇者我最近換了 MacBook Pro M1，想把各種安裝過程記錄下來，也希望可以幫助到大家 :)不過因為是紀錄可能蠻瑣碎的，有需要的人可以直接跳到自己有需要的段落歐，另外如果之後還有遇到其他問題，這篇應該會持續更新。  目錄 安裝各種 APP iTerm 安裝 for m1(arm) 的 homebrew 安裝 for intel(x86) 的 homebrew 安裝">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/02o6t9x.png">
+<meta property="og:image" content="https://i.imgur.com/7R6oaIW.png">
+<meta property="og:image" content="https://i.imgur.com/CjmzaDr.png">
+<meta property="og:image" content="https://i.imgur.com/e9OeLRT.png">
+<meta property="article:published_time" content="2021-07-17T15:45:02.000Z">
+<meta property="article:modified_time" content="2021-07-17T17:25:01.962Z">
+<meta property="article:author" content="Cindy Liu">
+<meta property="article:tag" content="macbook">
+<meta property="article:tag" content="m1">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/02o6t9x.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/mstile-150x150.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <div id="fb-root"></div>
+<script>(function(d, s, id) {
+var js, fjs = d.getElementsByTagName(s)[0];
+if (d.getElementById(id)) return;
+js = d.createElement(s); js.id = id;
+js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v7.0&appId=3074485109285192&autoLogAppEvents=1&colorscheme=light&order_by=time";
+fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+    <!-- title -->
+    <title>MacBook Pro M1 開箱使用紀錄</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- rss -->
+    
+      
+    
+    
+      <link rel="alternate" href="/atom.xml" title="Cindy&#39;s Blog" type="application/atom+xml" />
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/posts/">Writing</a></li>
+         
+          <li><a href="https://github.com/cindyliu923" target="_blank" rel="noopener">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a href="/atom.xml">RSS</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2021/05/23/What-is-docker-multi-stage/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://cindyliu923.com/2021/07/17/macbook-pro-m1/" target="_blank" rel="noopener"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://cindyliu923.com/2021/07/17/macbook-pro-m1/&text=MacBook Pro M1 開箱使用紀錄" target="_blank" rel="noopener"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://cindyliu923.com/2021/07/17/macbook-pro-m1/&title=MacBook Pro M1 開箱使用紀錄" target="_blank" rel="noopener"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cindyliu923.com/2021/07/17/macbook-pro-m1/&is_video=false&description=MacBook Pro M1 開箱使用紀錄" target="_blank" rel="noopener"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=MacBook Pro M1 開箱使用紀錄&body=Check out this article: https://cindyliu923.com/2021/07/17/macbook-pro-m1/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://cindyliu923.com/2021/07/17/macbook-pro-m1/&title=MacBook Pro M1 開箱使用紀錄" target="_blank" rel="noopener"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://cindyliu923.com/2021/07/17/macbook-pro-m1/&title=MacBook Pro M1 開箱使用紀錄" target="_blank" rel="noopener"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://cindyliu923.com/2021/07/17/macbook-pro-m1/&title=MacBook Pro M1 開箱使用紀錄" target="_blank" rel="noopener"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://cindyliu923.com/2021/07/17/macbook-pro-m1/&title=MacBook Pro M1 開箱使用紀錄" target="_blank" rel="noopener"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://cindyliu923.com/2021/07/17/macbook-pro-m1/&name=MacBook Pro M1 開箱使用紀錄&description=" target="_blank" rel="noopener"><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#目錄"><span class="toc-number">1.</span> <span class="toc-text">目錄</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安裝各種-APP"><span class="toc-number">2.</span> <span class="toc-text">安裝各種 APP</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#iTerm"><span class="toc-number">3.</span> <span class="toc-text">iTerm</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安裝-for-m1-arm-的-homebrew"><span class="toc-number">4.</span> <span class="toc-text">安裝 for m1(arm) 的 homebrew</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安裝-for-intel-x86-的-homebrew"><span class="toc-number">5.</span> <span class="toc-text">安裝 for intel(x86) 的 homebrew</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安裝-oh-my-zsh"><span class="toc-number">6.</span> <span class="toc-text">安裝 oh my zsh</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#設定-Sublime-Text"><span class="toc-number">7.</span> <span class="toc-text">設定 Sublime Text</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安裝-rbenv"><span class="toc-number">8.</span> <span class="toc-text">安裝 rbenv</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安裝-nvm"><span class="toc-number">9.</span> <span class="toc-text">安裝 nvm</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安裝-yarn"><span class="toc-number">10.</span> <span class="toc-text">安裝 yarn</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安裝-MySQL-amp-PostgreSQL-amp-Redis"><span class="toc-number">11.</span> <span class="toc-text">安裝 MySQL &amp; PostgreSQL &amp; Redis</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安裝-rails"><span class="toc-number">12.</span> <span class="toc-text">安裝 rails</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安裝其他套件"><span class="toc-number">13.</span> <span class="toc-text">安裝其他套件</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        MacBook Pro M1 開箱使用紀錄
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Cindy's Blog</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2021-07-17T15:45:02.000Z" itemprop="datePublished">2021-07-17</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/m1/" rel="tag">m1</a>, <a class="tag-link" href="/tags/macbook/" rel="tag">macbook</a>
+    </div>
+
+
+    </div>
+    <div class="meta">
+      <span class="post-count">👀 9 min read 👀</span>
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>大家好，我是 Cindy，勇者我最近換了 MacBook Pro M1，想把各種安裝過程記錄下來，也希望可以幫助到大家 :)<br>不過因為是紀錄可能蠻瑣碎的，有需要的人可以直接跳到自己有需要的段落歐，另外如果之後還有遇到其他問題，這篇應該會持續更新。</p>
+<p><img src="https://i.imgur.com/02o6t9x.png" alt=""></p>
+<h1 id="目錄"><a href="#目錄" class="headerlink" title="目錄"></a>目錄</h1><ul>
+<li><a href="/2021/07/17/macbook-pro-m1/#安裝各種-APP">安裝各種 APP</a></li>
+<li><a href="/2021/07/17/macbook-pro-m1/#iTerm">iTerm</a><ul>
+<li><a href="/2021/07/17/macbook-pro-m1/#安裝-for-m1-arm-的-homebrew">安裝 for m1(arm) 的 homebrew</a></li>
+<li><a href="/2021/07/17/macbook-pro-m1/#安裝-for-intel-x86-的-homebrew">安裝 for intel(x86) 的 homebrew</a></li>
+<li><a href="/2021/07/17/macbook-pro-m1/#安裝-oh-my-zsh">安裝 oh my zsh</a></li>
+<li><a href="/2021/07/17/macbook-pro-m1/#設定-Sublime-Text">設定 Sublime Text</a></li>
+<li><a href="/2021/07/17/macbook-pro-m1/#安裝-rbenv">安裝 rbenv</a></li>
+<li><a href="/2021/07/17/macbook-pro-m1/#安裝-nvm">安裝 nvm</a></li>
+<li><a href="/2021/07/17/macbook-pro-m1/#安裝-yarn">安裝 yarn</a></li>
+<li><a href="/2021/07/17/macbook-pro-m1/#安裝-MySQL-amp-PostgreSQL-amp-Redis">安裝 MySQL &amp; PostgreSQL &amp; Redis</a></li>
+<li><a href="/2021/07/17/macbook-pro-m1/#安裝-rails">安裝 rails</a></li>
+<li><a href="/2021/07/17/macbook-pro-m1/#安裝其他套件">安裝其他套件</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="安裝各種-APP"><a href="#安裝各種-APP" class="headerlink" title="安裝各種 APP"></a>安裝各種 APP</h1><ul>
+<li>瀏覽器<ul>
+<li><a href="https://www.google.com/intl/zh-TW/chrome/?brand=FKPE&gclid=EAIaIQobChMIhd2atdG08QIVjX0rCh2pVA9wEAAYASAAEgJyBvD_BwE&gclsrc=aw.ds" target="_blank" rel="noopener">chrome</a></li>
+</ul>
+</li>
+<li>通訊用<ul>
+<li><a href="https://apps.apple.com/tw/app/slack-for-desktop/id803453959?mt=12" target="_blank" rel="noopener">slack</a></li>
+<li><a href="https://apps.apple.com/tw/app/line/id539883307?mt=12" target="_blank" rel="noopener">line</a></li>
+<li><a href="https://apps.apple.com/tw/app/telegram/id747648890?mt=12" target="_blank" rel="noopener">telegram</a></li>
+<li><a href="https://discord.com/download" target="_blank" rel="noopener">discord</a></li>
+<li><a href="https://mattermost.com/download" target="_blank" rel="noopener">mattermost</a></li>
+<li><a href="https://www.skype.com/zh-Hant/get-skype/" target="_blank" rel="noopener">skype</a></li>
+<li>視訊用<ul>
+<li><a href="https://zoom.us/download" target="_blank" rel="noopener">zoom</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>聽音樂<ul>
+<li><a href="https://www.spotify.com/tw/download/mac/" target="_blank" rel="noopener">stopify</a><ul>
+<li>遇到畫面全黑無法使用的問題，解決辦法：<ol>
+<li>前往 <code>~/資源庫/Application Support/Spotify</code></li>
+<li>打開 <code>prefs</code></li>
+<li>將 <code>language=&quot;zh-TW&quot;</code> 放進檔案中，存擋</li>
+<li>重開 Spotify</li>
+</ol>
+</li>
+<li>參考文章: <a href="https://pttweb.tw/s/1lPJZG" target="_blank" rel="noopener">[求救] MacBook Air 2020 Spotify開啟黑畫面</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>文件用<ul>
+<li><a href="https://typora.io/#download" target="_blank" rel="noopener">typora</a></li>
+</ul>
+</li>
+<li>繪圖<ul>
+<li><a href="https://github.com/jgraph/drawio-desktop/releases" target="_blank" rel="noopener">draw.io</a></li>
+</ul>
+</li>
+<li>開發用<ul>
+<li>API<ul>
+<li><a href="https://www.postman.com/downloads" target="_blank" rel="noopener">postman</a></li>
+</ul>
+</li>
+<li>Database<ul>
+<li><a href="https://tableplus.com" target="_blank" rel="noopener">tableplus</a></li>
+</ul>
+</li>
+<li>Git<ul>
+<li><a href="https://www.sourcetreeapp.com" target="_blank" rel="noopener">sourcetree</a></li>
+</ul>
+</li>
+<li>編輯器<ul>
+<li><a href="https://www.sublimetext.com" target="_blank" rel="noopener">sublime</a></li>
+<li><a href="https://code.visualstudio.com/download" target="_blank" rel="noopener">VSCode</a></li>
+</ul>
+</li>
+<li>終端機(terminal)<ul>
+<li><a href="https://iterm2.com/downloads.html" target="_blank" rel="noopener">iTerm2</a></li>
+</ul>
+</li>
+<li><a href="https://docs.docker.com/docker-for-mac/apple-silicon" target="_blank" rel="noopener">Docker</a><ul>
+<li><a href="https://docs.docker.com/docker-for-mac/apple-silicon/#known-issues" target="_blank" rel="noopener">已知問題</a></li>
+</ul>
+</li>
+<li>影片錄製及播放<ul>
+<li><a href="https://obsproject.com/download" target="_blank" rel="noopener">OBS</a></li>
+<li><a href="https://apps.apple.com/tw/app/mkplayer-mkv-media-player/id1335612105?mt=12" target="_blank" rel="noopener">MKPlayer</a></li>
+</ul>
+</li>
+<li><a href="https://apps.apple.com/tw/app/xcode/id497799835?mt=12" target="_blank" rel="noopener">Xcode</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="iTerm"><a href="#iTerm" class="headerlink" title="iTerm"></a>iTerm</h1><p>m1 的 shell 預設是 zsh</p>
+<ul>
+<li>安裝 <a href="https://brew.sh/index_zh-tw" target="_blank" rel="noopener">homebrew</a></li>
+<li><a href="https://docs.brew.sh/Installation" target="_blank" rel="noopener">Homebrew Documentation</a></li>
+</ul>
+<h1 id="安裝-for-m1-arm-的-homebrew"><a href="#安裝-for-m1-arm-的-homebrew" class="headerlink" title="安裝 for m1(arm) 的 homebrew"></a>安裝 for m1(arm) 的 homebrew</h1><ol>
+<li>在 terminal 執行以下指令 <figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 系統會將 homebrew 安裝在 /opt/homebrew</span></span><br><span class="line">/bin/bash -c <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)</span>"</span></span><br></pre></td></tr></table></figure></li>
+<li>在 terminal 執行以下指令，確認 path <figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="variable">$path</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># /usr/local/bin ...</span></span><br></pre></td></tr></table></figure></li>
+<li>在 terminal 執行以下指令，打開 .zshrc <figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">open ~/.zshrc</span><br></pre></td></tr></table></figure>
+<ul>
+<li>將以下新增至 .zshrc 檔案中  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 由於第 2 步驟已經確定此路徑不在 path 中，</span><br><span class="line"># 故需要加入此路徑才能讓用 brew 指令安裝的套件在執行的時候被找到</span><br><span class="line">export PATH&#x3D;&#x2F;opt&#x2F;homebrew&#x2F;bin:$PATH</span><br><span class="line"></span><br><span class="line"># 讓 brew 的指令會去找安裝在 &#x2F;opt&#x2F;homebrew&#x2F; 的 homebrew</span><br><span class="line">alias brew&#x3D;&#39;&#x2F;opt&#x2F;homebrew&#x2F;bin&#x2F;brew&#39;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>參考資料: <a href="https://www.spreered.com/bootstrap_iterm_zsh" target="_blank" rel="noopener">客製我的 CLI - 終於稍微搞懂 iTerm + ZSH</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>確認有成功安裝<ul>
+<li>command+T 重開一個分頁，或在 terminal 執行以下指令  <figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.zshrc</span><br><span class="line"><span class="comment"># or</span></span><br><span class="line"><span class="built_in">exec</span> <span class="variable">$SHELL</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>由於要確認 terminal 有吃到 .zshrc 最新的設定，所以需要做上面步驟<ul>
+<li>最後我還是都直接重開一個分頁，因為重新執行的時候，如果 path 改來改去，曾經有新增的 path 會一直加上去</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>在 terminal 執行 brew config 可正常執行  <figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">brew config</span><br><span class="line"></span><br><span class="line"><span class="comment">## ...</span></span><br><span class="line"><span class="comment">## macOS: 11.4-arm64</span></span><br><span class="line"><span class="comment">## ...</span></span><br><span class="line"><span class="comment">## Rosetta 2: false</span></span><br></pre></td></tr></table></figure></li>
+<li>確認 path 有被修改到，在 terminal 執行以下指令  <figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="variable">$path</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># /opt/homebrew/bin /usr/local/bin ...</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ol>
+<h1 id="安裝-for-intel-x86-的-homebrew"><a href="#安裝-for-intel-x86-的-homebrew" class="headerlink" title="安裝 for intel(x86) 的 homebrew"></a>安裝 for intel(x86) 的 homebrew</h1><p>由於舊的套件可能不支援 m1，所以另外透過 <a href="https://support.apple.com/zh-tw/HT211861" target="_blank" rel="noopener">Rosetta</a> 安裝一個 for intel 版本的 homebrew</p>
+<ol>
+<li>在 terminal 執行以下指令 <figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 系統會將 homebrew 安裝在 /usr/local</span></span><br><span class="line">arch -x86_64 /bin/bash -c <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)</span>"</span></span><br></pre></td></tr></table></figure></li>
+<li>在 terminal 執行以下指令，打開 .zshrc <figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">open ~/.zshrc</span><br></pre></td></tr></table></figure>
+<ul>
+<li>將以下新增至 .zshrc 檔案中  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 讓 ibrew 的指令會去找安裝在 &#x2F;usr&#x2F;local&#x2F; 的 homebrew</span><br><span class="line">alias ibrew&#x3D;&#39;arch -x86_64 &#x2F;usr&#x2F;local&#x2F;bin&#x2F;brew&#39;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>確認有成功安裝<ul>
+<li>在 terminal 執行 ibrew config 可正常執行  <figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ibrew config</span><br><span class="line"></span><br><span class="line"><span class="comment">## ...</span></span><br><span class="line"><span class="comment">## macOS: 11.4-x86_64</span></span><br><span class="line"><span class="comment">## ...</span></span><br><span class="line"><span class="comment">## Rosetta 2: true</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ol>
+<h1 id="安裝-oh-my-zsh"><a href="#安裝-oh-my-zsh" class="headerlink" title="安裝 oh my zsh"></a>安裝 <a href="https://github.com/ohmyzsh/ohmyzsh" target="_blank" rel="noopener">oh my zsh</a></h1><ol>
+<li><p>在 terminal 執行以下指令</p>
+ <figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh -c <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)</span>"</span></span><br></pre></td></tr></table></figure>
+<p> 完成的話就安裝好囉</p>
+</li>
+<li><p>安裝字型</p>
+<ul>
+<li>在 terminal 執行以下指令  <figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 先執行這行，才能用 homebrew 安裝字型。</span></span><br><span class="line"><span class="comment"># 曾經執行過的人可以跳過這個指令</span></span><br><span class="line"><span class="comment"># 舊指令：brew tap caskroom/fonts</span></span><br><span class="line">brew tap homebrew/cask-fonts</span><br><span class="line"></span><br><span class="line"><span class="comment"># 看有哪些 nerd 字型可以下載</span></span><br><span class="line">brew search nerd</span><br><span class="line"></span><br><span class="line"><span class="comment"># 挑一個字型來安裝</span></span><br><span class="line">brew install font-go-mono-nerd-font</span><br></pre></td></tr></table></figure></li>
+<li>修改字型<ul>
+<li>在 terminal 的 Preferences -&gt; Profiles -&gt; Text 修改(如圖圈起來的地方)，選剛剛下載的字型<br><img src="https://i.imgur.com/7R6oaIW.png" alt=""></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>在 terminal 執行以下指令，安裝主題套件 <a href="https://github.com/Powerlevel9k/powerlevel9k" target="_blank" rel="noopener">powerlevel9k</a></p>
+ <figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k</span><br></pre></td></tr></table></figure></li>
+<li><p>編輯 ~/.zshrc 檔案 (大家可以依照自己的喜好設定)</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">ZSH_THEME&#x3D;&quot;powerlevel9k&#x2F;powerlevel9k&quot;</span><br><span class="line"></span><br><span class="line">POWERLEVEL9K_MODE&#x3D;&#39;nerdfont-complete&#39;</span><br><span class="line"></span><br><span class="line">DEFAULT_USER&#x3D;&quot;cindy&quot;</span><br><span class="line"></span><br><span class="line"># command line 左邊想顯示的內容</span><br><span class="line">POWERLEVEL9K_LEFT_PROMPT_ELEMENTS&#x3D;(context dir dir_writable vcs vi_mode)</span><br><span class="line"></span><br><span class="line"># command line 右邊想顯示的內容</span><br><span class="line">POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS&#x3D;(status ram load time)</span><br></pre></td></tr></table></figure></li>
+<li><p>修改顏色</p>
+<ul>
+<li>在 terminal 的 Preferences &gt; Profiles &gt; Colors (如圖)，選自己想要的顏色<br><img src="https://i.imgur.com/CjmzaDr.png" alt=""></li>
+</ul>
+</li>
+<li><p>安裝 <a href="https://github.com/zsh-users/zsh-autosuggestions" target="_blank" rel="noopener">zsh-autosuggestions</a> 和 <a href="https://github.com/zsh-users/zsh-syntax-highlighting" target="_blank" rel="noopener">zsh-syntax-highlighting</a> 套件</p>
+<ul>
+<li>在 terminal 執行以下指令  <figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting</span><br></pre></td></tr></table></figure></li>
+<li>修改 .zshrc 檔案  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plugins&#x3D;(git zsh-autosuggestions zsh-syntax-highlighting)</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>成果<br><img src="https://i.imgur.com/e9OeLRT.png" alt=""></p>
+</li>
+</ol>
+<p>參考資料:</p>
+<ul>
+<li><a href="https://medium.com/statementdog-engineering/prettify-your-zsh-command-line-prompt-3ca2acc967f" target="_blank" rel="noopener">超簡單！十分鐘打造漂亮又好用的 zsh command line 環境</a></li>
+<li><a href="https://medium.com/%E6%95%B8%E6%93%9A%E4%B8%8D%E6%AD%A2-not-only-data/macos-%E7%9A%84-terminal-%E5%A4%A7%E6%94%B9%E9%80%A0-iterms-oh-my-zsh-%E5%85%A8%E6%94%BB%E7%95%A5-77d5aae87b10" target="_blank" rel="noopener">如何讓 Terminal 看起來好用又好看｜iTerms 2 + Oh-my-zsh 全攻略</a></li>
+</ul>
+<h1 id="設定-Sublime-Text"><a href="#設定-Sublime-Text" class="headerlink" title="設定 Sublime Text"></a>設定 Sublime Text</h1><ol>
+<li><p>在 sublime 的 Preferences -&gt; Settings 打開後右邊檔案加入個人設定</p>
+ <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"auto_complete"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"caret_extra_bottom"</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="attr">"caret_extra_top"</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="attr">"caret_extra_width"</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="attr">"copy_with_empty_selection"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"ensure_newline_at_eof_on_save"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"font_face"</span>: <span class="string">"Roboto Mono for Powerline"</span>,</span><br><span class="line">    <span class="attr">"font_size"</span>: <span class="number">19</span>,</span><br><span class="line">    <span class="attr">"highlight_line"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"ignored_packages"</span>: [<span class="string">"Vintage"</span>],</span><br><span class="line">    <span class="attr">"index_files"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"overlay_scroll_bars"</span>: <span class="string">"enabled"</span>,</span><br><span class="line">    <span class="attr">"rulers"</span>: [<span class="number">79</span>],</span><br><span class="line">    <span class="attr">"save_on_focus_lost"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"spell_check"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"tab_size"</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="attr">"theme"</span>: <span class="string">"auto"</span>,</span><br><span class="line">    <span class="attr">"translate_tabs_to_spaces"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"trim_trailing_white_space_on_save"</span>: <span class="string">"all"</span>,</span><br><span class="line">    <span class="attr">"color_scheme"</span>: <span class="string">"Packages/Color Scheme - Default/Monokai.sublime-color-scheme"</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安裝套件</p>
+<ul>
+<li><a href="https://packagecontrol.io" target="_blank" rel="noopener">Package Control</a> 預設已安裝<ul>
+<li>在 sublime 的 Preferences -&gt; Package Control</li>
+<li>點 Install Package 輸入以下要安裝的套件<ul>
+<li><a href="https://github.com/skuroda/Sublime-AdvancedNewFile" target="_blank" rel="noopener">AdvancedNewFile</a></li>
+<li><a href="https://github.com/seanliang/ConvertToUTF8" target="_blank" rel="noopener">ConvertToUTF8</a></li>
+<li><a href="https://emmet.io/" target="_blank" rel="noopener">Emmet</a></li>
+<li><a href="https://github.com/jisaacks/GitGutter" target="_blank" rel="noopener">GitGutter</a></li>
+<li><a href="https://github.com/dzhibas/SublimePrettyJson" target="_blank" rel="noopener">Pretty Json</a></li>
+<li><a href="https://github.com/titoBouzout/SideBarEnhancements" target="_blank" rel="noopener">SideBarEnhancements</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>在 terminal 執行以下指令，設定可直接在 terminal 用 subl 開啟 sublime</p>
+ <figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 建立軟連結</span></span><br><span class="line">ln -s /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl /usr/<span class="built_in">local</span>/bin/subl</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h1 id="安裝-rbenv"><a href="#安裝-rbenv" class="headerlink" title="安裝 rbenv"></a>安裝 <a href="https://github.com/rbenv/rbenv#choosing-the-ruby-version" target="_blank" rel="noopener">rbenv</a></h1><p>ruby 管理工具</p>
+<ol>
+<li><p>確認 <a href="https://formulae.brew.sh/formula/rbenv#default" target="_blank" rel="noopener">rbenv</a> 從 homebrew 安裝是否有支援 m1</p>
+</li>
+<li><p>在 terminal 執行以下指令</p>
+ <figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install rbenv</span><br></pre></td></tr></table></figure></li>
+<li><p>在 terminal 執行以下指令，會顯示要設定在 .zshrc 檔案中的指令</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rbenv init</span><br></pre></td></tr></table></figure></li>
+<li><p>編輯 .zshrc 檔案，想知道詳細做了什麼可以參考 <a href="https://github.com/rbenv/rbenv#how-rbenv-hooks-into-your-shell" target="_blank" rel="noopener">How rbenv hooks into your shell</a>，由於每次打開 terminal 都會執行一次 ~/.zshrc 所以可以將 rbenv 的路徑放到 path 中 (<a href="https://github.com/rbenv/rbenv#understanding-shims" target="_blank" rel="noopener">Understanding Shims</a>)</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eval &quot;$(rbenv init -)&quot;</span><br></pre></td></tr></table></figure></li>
+<li><p>在 terminal 開新分頁，執行以下指令確認有安裝成功</p>
+ <figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https://github.com/rbenv/rbenv-installer/raw/main/bin/rbenv-doctor | bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># 確認 rbenv 有被加到 path 中</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$path</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在 terminal 執行以下指令，安裝 ruby 3.0.1</p>
+ <figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 列出最後穩定版本</span></span><br><span class="line">rbenv install -l</span><br><span class="line"></span><br><span class="line"><span class="comment"># 列出所有 local 版本</span></span><br><span class="line">rbenv install -L</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安裝 3.0.1</span></span><br><span class="line">rbenv install 3.0.1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 確認已安裝的 ruby 版本</span></span><br><span class="line">rbenv versions</span><br></pre></td></tr></table></figure>
+<p> 參考資料: <a href="https://makandracards.com/makandra/21545-rbenv-how-to-switch-to-another-ruby-version-temporarily-per-project-or-globally" target="_blank" rel="noopener">rbenv: How to switch to another Ruby version (temporarily, per project, or globally)</a></p>
+</li>
+<li><p>在 terminal 執行以下指令，安裝 ruby 2.6.7</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CFLAGS&#x3D;&quot;-Wno-error&#x3D;implicit-function-declaration&quot; rbenv install 2.6.7</span><br></pre></td></tr></table></figure>
+<p> 遇到 <a href="https://github.com/rbenv/ruby-build/issues/1747" target="_blank" rel="noopener">Installing 2.6.7 on macOS 11.2.3 fails with implicit-function-declaration error</a> 問題</p>
+</li>
+<li><p>在 terminal 執行以下指令，安裝 ruby 2.3.7<br> 舊版的 ruby 在 arm64 下超級難裝，會遇到 <a href="https://github.com/rbenv/ruby-build/issues/1353" target="_blank" rel="noopener">openssl 要去抓舊版 1.0 但是已經抓不到的情況</a>，還會遇到 <a href="https://github.com/rbenv/ruby-build/issues/1691" target="_blank" rel="noopener">ffi 的問題</a>，所以這邊勇者做了各種嘗試 (不確定是否有可以省略的步驟)，最後終於成功了！<br> 註：</p>
+<ul>
+<li>聽同事說他是完全在 x86_64 的環境下安裝成功的，所以我做了以下步驟</li>
+<li>為了防止 arm64 版本安裝的套件被讀取到，所以我把 <code>export PATH=/opt/homebrew/bin:$PATH</code> 暫時先 hide 起來  <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">ibrew install openssl@1.<span class="number">0</span></span><br><span class="line">ibrew install readline</span><br><span class="line"></span><br><span class="line"><span class="comment"># 改用 x86_64 版的 homebrew 重新安裝 rbenv</span></span><br><span class="line">brew uninstall rbenv</span><br><span class="line">ibrew install rbenv</span><br><span class="line"></span><br><span class="line">brew uninstall ruby-build</span><br><span class="line">ibrew reinstall ruby-build</span><br><span class="line"></span><br><span class="line">export LDFLAGS=<span class="string">"-L/usr/local/opt/openssl@1.0/lib"</span></span><br><span class="line">export CPPFLAGS=<span class="string">"-I/usr/local/opt/openssl@1.0/include"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># RUBY_CFLAGS="-Wno-error=implicit-function-declaration" 解決 ffi 的問題</span></span><br><span class="line"><span class="comment"># CONFIGURE_OPTS="--with-openssl-dir=$(ibrew --prefix openssl@1.0)" RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(ibrew --prefix openssl@1.0)" 解決找不到 openssl 的問題</span></span><br><span class="line">RUBY_CFLAGS=<span class="string">"-Wno-error=implicit-function-declaration"</span> CONFIGURE_OPTS=<span class="string">"--with-openssl-dir=$(ibrew --prefix openssl@1.0)"</span> RUBY_CONFIGURE_OPTS=<span class="string">"--with-openssl-dir=$(ibrew --prefix openssl@1.0)"</span> arch -x86_64 rbenv install <span class="number">2.3</span>.<span class="number">7</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>安裝 bundler (如果沒有的話)</p>
+ <figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gem install bundler</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h1 id="安裝-nvm"><a href="#安裝-nvm" class="headerlink" title="安裝 nvm"></a>安裝 <a href="https://github.com/nvm-sh/nvm" target="_blank" rel="noopener">nvm</a></h1><p>nvm 是管理 Node.js 的套件，類似 Ruby 的 rbenv 或 rvm</p>
+<ol>
+<li>輸入以下指令進行安裝 <figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash</span><br></pre></td></tr></table></figure></li>
+<li>將以下新增至 .zshrc 檔案中 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export NVM_DIR&#x3D;&quot;$HOME&#x2F;.nvm&quot;</span><br><span class="line">[ -s &quot;$NVM_DIR&#x2F;nvm.sh&quot; ] &amp;&amp; \. &quot;$NVM_DIR&#x2F;nvm.sh&quot;  # This loads nvm</span><br><span class="line">[ -s &quot;$NVM_DIR&#x2F;bash_completion&quot; ] &amp;&amp; \. &quot;$NVM_DIR&#x2F;bash_completion&quot;  # This loads nvm bash_completion</span><br></pre></td></tr></table></figure></li>
+<li>安裝 Node.js<br> 安裝 v15 的時候會出現跑很久的情況，但等待之後會成功安裝，可參考<a href="https://github.com/nvm-sh/nvm/issues/2518" target="_blank" rel="noopener">這裡</a> <figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">nvm install v16</span><br><span class="line">nvm install v15</span><br><span class="line"></span><br><span class="line">nvm list</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h1 id="安裝-yarn"><a href="#安裝-yarn" class="headerlink" title="安裝 yarn"></a>安裝 yarn</h1><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install yarn</span><br></pre></td></tr></table></figure>
+
+<h1 id="安裝-MySQL-amp-PostgreSQL-amp-Redis"><a href="#安裝-MySQL-amp-PostgreSQL-amp-Redis" class="headerlink" title="安裝 MySQL &amp; PostgreSQL &amp; Redis"></a>安裝 MySQL &amp; PostgreSQL &amp; Redis</h1><p>直接用 homebrew 裝就可以囉，經查詢 <a href="https://formulae.brew.sh/formula/mysql" target="_blank" rel="noopener">MySQL</a> 5.7 和 <a href="https://formulae.brew.sh/formula/postgresql" target="_blank" rel="noopener">PostgreSQL</a> 9.5 以上目前都有支援 Apple Silicon 了</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">brew install mysql@5.7</span><br><span class="line">brew install mysql</span><br><span class="line"></span><br><span class="line">brew services start mysql@5.7</span><br><span class="line">brew services stop mysql@5.7</span><br><span class="line"></span><br><span class="line">brew install postgresql@9.6</span><br><span class="line">brew install postgresql</span><br><span class="line"></span><br><span class="line">brew services start postgresql@9.6</span><br><span class="line">brew services stop postgresql@9.6</span><br><span class="line"></span><br><span class="line">brew install redis</span><br><span class="line">brew services start redis</span><br><span class="line">redis-cli</span><br><span class="line"></span><br><span class="line">brew services list</span><br></pre></td></tr></table></figure>
+
+<h1 id="安裝-rails"><a href="#安裝-rails" class="headerlink" title="安裝 rails"></a>安裝 rails</h1><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gem install rails</span><br></pre></td></tr></table></figure>
+
+<h1 id="安裝其他套件"><a href="#安裝其他套件" class="headerlink" title="安裝其他套件"></a>安裝其他套件</h1><ul>
+<li><a href="[tree](https://formulae.brew.sh/formula/tree)">tree</a></li>
+<li><a href="https://formulae.brew.sh/formula/htop" target="_blank" rel="noopener">htop</a></li>
+<li>安裝 <a href="https://github.com/deepfryed/idn-ruby" target="_blank" rel="noopener">idn-ruby</a> 遇到問題<ul>
+<li><code>brew install libidn</code></li>
+<li><code>gem install idn-ruby -v &#39;0.1.0&#39; -- --with-idn-dir=/opt/homebrew/Cellar/libidn/1.37</code></li>
+</ul>
+</li>
+<li><a href="https://formulae.brew.sh/formula/imagemagick" target="_blank" rel="noopener">imagemagick</a></li>
+</ul>
+
+  </div>
+</article>
+<script type="text/javascript" src="//js1.bloggerads.net/ShowBanner.aspx?blogid=20201206000001" async></script>
+
+
+<section id="comments">
+<div class="fb-like" data-href="
+https://cindyliu923.com/2021/07/17/macbook-pro-m1/" data-width="" data-layout="button_count" data-action="like" data-size="large" data-share="true""></div>
+<div class="fb-comments" data-href="
+https://cindyliu923.com/2021/07/17/macbook-pro-m1/" data-numposts="10" data-width="100%"></div>
+</section>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/posts/">Writing</a></li>
+         
+          <li><a href="https://github.com/cindyliu923" target="_blank" rel="noopener">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a href="/atom.xml">RSS</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#目錄"><span class="toc-number">1.</span> <span class="toc-text">目錄</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安裝各種-APP"><span class="toc-number">2.</span> <span class="toc-text">安裝各種 APP</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#iTerm"><span class="toc-number">3.</span> <span class="toc-text">iTerm</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安裝-for-m1-arm-的-homebrew"><span class="toc-number">4.</span> <span class="toc-text">安裝 for m1(arm) 的 homebrew</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安裝-for-intel-x86-的-homebrew"><span class="toc-number">5.</span> <span class="toc-text">安裝 for intel(x86) 的 homebrew</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安裝-oh-my-zsh"><span class="toc-number">6.</span> <span class="toc-text">安裝 oh my zsh</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#設定-Sublime-Text"><span class="toc-number">7.</span> <span class="toc-text">設定 Sublime Text</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安裝-rbenv"><span class="toc-number">8.</span> <span class="toc-text">安裝 rbenv</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安裝-nvm"><span class="toc-number">9.</span> <span class="toc-text">安裝 nvm</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安裝-yarn"><span class="toc-number">10.</span> <span class="toc-text">安裝 yarn</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安裝-MySQL-amp-PostgreSQL-amp-Redis"><span class="toc-number">11.</span> <span class="toc-text">安裝 MySQL &amp; PostgreSQL &amp; Redis</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安裝-rails"><span class="toc-number">12.</span> <span class="toc-text">安裝 rails</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安裝其他套件"><span class="toc-number">13.</span> <span class="toc-text">安裝其他套件</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://cindyliu923.com/2021/07/17/macbook-pro-m1/" target="_blank" rel="noopener"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://cindyliu923.com/2021/07/17/macbook-pro-m1/&text=MacBook Pro M1 開箱使用紀錄" target="_blank" rel="noopener"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://cindyliu923.com/2021/07/17/macbook-pro-m1/&title=MacBook Pro M1 開箱使用紀錄" target="_blank" rel="noopener"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cindyliu923.com/2021/07/17/macbook-pro-m1/&is_video=false&description=MacBook Pro M1 開箱使用紀錄" target="_blank" rel="noopener"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=MacBook Pro M1 開箱使用紀錄&body=Check out this article: https://cindyliu923.com/2021/07/17/macbook-pro-m1/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://cindyliu923.com/2021/07/17/macbook-pro-m1/&title=MacBook Pro M1 開箱使用紀錄" target="_blank" rel="noopener"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://cindyliu923.com/2021/07/17/macbook-pro-m1/&title=MacBook Pro M1 開箱使用紀錄" target="_blank" rel="noopener"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://cindyliu923.com/2021/07/17/macbook-pro-m1/&title=MacBook Pro M1 開箱使用紀錄" target="_blank" rel="noopener"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://cindyliu923.com/2021/07/17/macbook-pro-m1/&title=MacBook Pro M1 開箱使用紀錄" target="_blank" rel="noopener"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://cindyliu923.com/2021/07/17/macbook-pro-m1/&name=MacBook Pro M1 開箱使用紀錄&description=" target="_blank" rel="noopener"><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2021 Cindy Liu <a href='/Privacy-Policy'>Privacy Policy</a>
+  </div>
+  <div class="footer-left">
+    . Some links are affiliated
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/posts/">Writing</a></li>
+        
+          <li><a href="https://github.com/cindyliu923" target="_blank" rel="noopener">Projects</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+          <li><a href="/atom.xml">RSS</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+
+<!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-80238614-3', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+
+
