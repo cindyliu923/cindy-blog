@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="google-site-verification" content="yE1jgc5Tv8iV5DSEVyofU-gRWHhi7jbA3b1Q2qvS-gI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="大家好，我是 Cindy，最近有做了 Rails Websocket 的功能，想說做個紀錄，以下文章重點會放在實作面，雖然是這麼說，但還是查一下什麼是 Websocket 好像比較正確。 WebsocketWebSocket 是一種網路傳輸協定，簡單講就是早期網路通訊只考慮到由 client 端發送請求給 server 端，這種單向的傳輸，當有雙向傳輸的需求(ex: 推播功能)實作上會變得比較複雜">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Rails Websocket 後端實作紀錄">
+<meta property="og:url" content="https://cindyliu923.com/2021/10/03/rails-websocket/index.html">
+<meta property="og:site_name" content="Cindy&#39;s Blog">
+<meta property="og:description" content="大家好，我是 Cindy，最近有做了 Rails Websocket 的功能，想說做個紀錄，以下文章重點會放在實作面，雖然是這麼說，但還是查一下什麼是 Websocket 好像比較正確。 WebsocketWebSocket 是一種網路傳輸協定，簡單講就是早期網路通訊只考慮到由 client 端發送請求給 server 端，這種單向的傳輸，當有雙向傳輸的需求(ex: 推播功能)實作上會變得比較複雜">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/hOYXyAF.png">
+<meta property="og:image" content="https://i.imgur.com/kqvkhOb.png">
+<meta property="article:published_time" content="2021-10-03T07:39:13.000Z">
+<meta property="article:modified_time" content="2021-10-06T14:08:57.276Z">
+<meta property="article:author" content="Cindy Liu">
+<meta property="article:tag" content="Ruby">
+<meta property="article:tag" content="Rails">
+<meta property="article:tag" content="Websocket">
+<meta property="article:tag" content="ActionCable">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/hOYXyAF.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/mstile-150x150.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <div id="fb-root"></div>
+<script>(function(d, s, id) {
+var js, fjs = d.getElementsByTagName(s)[0];
+if (d.getElementById(id)) return;
+js = d.createElement(s); js.id = id;
+js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v7.0&appId=3074485109285192&autoLogAppEvents=1&colorscheme=light&order_by=time";
+fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+    <!-- title -->
+    <title>Rails Websocket 後端實作紀錄</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- rss -->
+    
+      
+    
+    
+      <link rel="alternate" href="/atom.xml" title="Cindy&#39;s Blog" type="application/atom+xml" />
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/posts/">Writing</a></li>
+         
+          <li><a href="https://github.com/cindyliu923" target="_blank" rel="noopener">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a href="/atom.xml">RSS</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2021/07/17/macbook-pro-m1/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://cindyliu923.com/2021/10/03/rails-websocket/" target="_blank" rel="noopener"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://cindyliu923.com/2021/10/03/rails-websocket/&text=Rails Websocket 後端實作紀錄" target="_blank" rel="noopener"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://cindyliu923.com/2021/10/03/rails-websocket/&title=Rails Websocket 後端實作紀錄" target="_blank" rel="noopener"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cindyliu923.com/2021/10/03/rails-websocket/&is_video=false&description=Rails Websocket 後端實作紀錄" target="_blank" rel="noopener"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Rails Websocket 後端實作紀錄&body=Check out this article: https://cindyliu923.com/2021/10/03/rails-websocket/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://cindyliu923.com/2021/10/03/rails-websocket/&title=Rails Websocket 後端實作紀錄" target="_blank" rel="noopener"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://cindyliu923.com/2021/10/03/rails-websocket/&title=Rails Websocket 後端實作紀錄" target="_blank" rel="noopener"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://cindyliu923.com/2021/10/03/rails-websocket/&title=Rails Websocket 後端實作紀錄" target="_blank" rel="noopener"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://cindyliu923.com/2021/10/03/rails-websocket/&title=Rails Websocket 後端實作紀錄" target="_blank" rel="noopener"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://cindyliu923.com/2021/10/03/rails-websocket/&name=Rails Websocket 後端實作紀錄&description=" target="_blank" rel="noopener"><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Websocket"><span class="toc-number">1.</span> <span class="toc-text">Websocket</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Rails-6-實作-Websocket"><span class="toc-number">2.</span> <span class="toc-text">Rails 6 實作 Websocket</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#需要注意的地方"><span class="toc-number">3.</span> <span class="toc-text">需要注意的地方</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#參考資料"><span class="toc-number">4.</span> <span class="toc-text">參考資料</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Rails Websocket 後端實作紀錄
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Cindy's Blog</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2021-10-03T07:39:13.000Z" itemprop="datePublished">2021-10-03</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/ActionCable/" rel="tag">ActionCable</a>, <a class="tag-link" href="/tags/Rails/" rel="tag">Rails</a>, <a class="tag-link" href="/tags/Ruby/" rel="tag">Ruby</a>, <a class="tag-link" href="/tags/Websocket/" rel="tag">Websocket</a>
+    </div>
+
+
+    </div>
+    <div class="meta">
+      <span class="post-count">👀 4 min read 👀</span>
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>大家好，我是 Cindy，最近有做了 Rails Websocket 的功能，想說做個紀錄，以下文章重點會放在實作面，雖然是這麼說，但還是查一下什麼是 Websocket 好像比較正確。</p>
+<h2 id="Websocket"><a href="#Websocket" class="headerlink" title="Websocket"></a>Websocket</h2><p>WebSocket 是一種網路傳輸協定，簡單講就是早期網路通訊只考慮到由 client 端發送請求給 server 端，這種單向的傳輸，當有雙向傳輸的需求(ex: 推播功能)實作上會變得比較複雜，所以後來就出現 WebSocket 的通訊協定了！(當然詳細過程並不是這麼簡單 XD)，可以參考<a href="https://zh.wikipedia.org/wiki/WebSocket" target="_blank" rel="noopener">維基百科</a>的說明。</p>
+<h2 id="Rails-6-實作-Websocket"><a href="#Rails-6-實作-Websocket" class="headerlink" title="Rails 6 實作 Websocket"></a>Rails 6 實作 Websocket</h2><p>在 Rails 5 之後有了 ActionCable 讓我們可以更方便的在 Rails 中做 Websocket 的應用。</p>
+<ol>
+<li><p>首先 new 一個新的 Rails 專案，並進行前置作業</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rails new test-action-cable-api --database=postgresql -T --api</span><br></pre></td></tr></table></figure>
+<p>在 output 中其實就會看到 rails 自動幫我們產生了一些跟 ActionCable 有關的檔案</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">      create  app/channels/application_cable/channel.rb</span><br><span class="line">      create  app/channels/application_cable/connection.rb</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">      create  config/cable.yml</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<ul>
+<li>建立 User model &amp; db schema<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rails generate model User name email password_digest</span><br><span class="line">rails db:create</span><br><span class="line">rails db:migrate</span><br></pre></td></tr></table></figure></li>
+<li>修改 User model<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span> &lt; ApplicationRecord</span></span><br><span class="line">  has_secure_password</span><br><span class="line"></span><br><span class="line">  validates <span class="symbol">:name</span>, <span class="symbol">presence:</span> <span class="literal">true</span></span><br><span class="line">  validates <span class="symbol">:email</span>, <span class="symbol">presence:</span> <span class="literal">true</span>, <span class="symbol">uniqueness:</span> <span class="literal">true</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></li>
+<li>在 <code>Gemfile</code> uncomment redis 和 bcrypt，接著執行 bundle install 進行套件安裝<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Use Redis adapter to run Action Cable in production</span></span><br><span class="line">gem <span class="string">'redis'</span>, <span class="string">'~&gt; 4.0'</span></span><br><span class="line"><span class="comment"># Use Active Model has_secure_password</span></span><br><span class="line">gem <span class="string">'bcrypt'</span>, <span class="string">'~&gt; 3.1.7'</span></span><br></pre></td></tr></table></figure></li>
+<li>在 rails c 先 create 一個測試的 user<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">User.create!(<span class="symbol">name:</span> <span class="string">"cindy"</span>, <span class="symbol">email:</span> <span class="string">"cindy@test.com"</span>, <span class="symbol">password:</span> <span class="string">"12345678"</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>打開 <code>config/cable.yml</code>，修改 adapter，參考<a href="https://guides.rubyonrails.org/action_cable_overview.html#subscription-adapter" target="_blank" rel="noopener">文件</a>，我們可以使用 redis 當作 adapter。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">development:</span></span><br><span class="line">  <span class="attr">adapter:</span> <span class="string">redis</span></span><br><span class="line">  <span class="attr">url:</span> &lt;%=<span class="ruby"> ENV.fetch(<span class="string">"REDIS_URL"</span>) &#123; <span class="string">"redis://localhost:6379/1"</span> &#125; </span>%&gt;</span><br><span class="line"></span><br><span class="line"><span class="attr">test:</span></span><br><span class="line">  <span class="attr">adapter:</span> <span class="string">test</span></span><br><span class="line"></span><br><span class="line"><span class="attr">production:</span></span><br><span class="line">  <span class="attr">adapter:</span> <span class="string">redis</span></span><br><span class="line">  <span class="attr">url:</span> &lt;%=<span class="ruby"> ENV.fetch(<span class="string">"REDIS_URL"</span>) &#123; <span class="string">"redis://localhost:6379/1"</span> &#125; </span>%&gt;</span><br><span class="line">  <span class="attr">channel_prefix:</span> <span class="string">test_action_cable_api_production</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>打開 <code>config/application.rb</code>，新增 ActionCable 的 mount path，也就是要進行 Websocket 連線時的 path。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">config.action_cable.mount_path = <span class="string">'/cable'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>打開 <code>config/environments/development.rb</code>，在開發環境將同源限制移除。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Uncomment if you wish to allow Action Cable access from any origin.</span></span><br><span class="line">config.action_cable.disable_request_forgery_protection = <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>打開 <code>config/environments/production.rb</code>，設定 allowed request origins。(有需要跨不同源網站互動的時候再設定)</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">config.action_cable.allowed_request_origins = [ <span class="string">'http://example.com'</span>, <span class="regexp">/http:\/\/example.*/</span> ]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>打開 <code>app/channels/application_cable/connection.rb</code>，作為建立 connection 時身份認證使用</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">module</span> <span class="title">ApplicationCable</span></span></span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">Connection</span> &lt; ActionCable::Connection::<span class="title">Base</span></span></span><br><span class="line">    identified_by <span class="symbol">:current_user</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">connect</span></span></span><br><span class="line">      <span class="keyword">self</span>.current_user = find_verified_user</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    private</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 通常不太會直接把 user id 放在 cookies，只是方便暫時這樣寫歐</span></span><br><span class="line">    <span class="comment"># 暫時測試時也可以先直接寫死 id</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">find_verified_user</span></span></span><br><span class="line">      <span class="keyword">if</span> verified_user = User.find_by(<span class="symbol">id:</span> cookies[<span class="symbol">:user_id</span>])</span><br><span class="line">        verified_user</span><br><span class="line">      <span class="keyword">else</span></span><br><span class="line">        reject_unauthorized_connection</span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>新增一個 channel</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rails g channel test</span><br></pre></td></tr></table></figure>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestChannel</span> &lt; ApplicationCable::Channel</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">subscribed</span></span></span><br><span class="line">    stream_from <span class="string">'test_channel'</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">unsubscribed</span></span></span><br><span class="line">    stop_all_streams</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>簡單地進行測試<br>先在 terminal 輸入 rails s，將 Rails server run 起來，接著可以在瀏覽器 DevTools 的 console 使用 <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_client_applications" target="_blank" rel="noopener">WebSocket API</a> 或 <a href="https://blog.postman.com/postman-supports-websocket-apis" target="_blank" rel="noopener">postman</a> 進行 websocket 連線，接著進行頻道的訂閱</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"command"</span>: <span class="string">"subscribe"</span>,</span><br><span class="line">    <span class="attr">"identifier"</span>: <span class="string">"&#123;\"channel\":\"TestChannel\"&#125;"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>rails log 如下表示有成功訂閱 test 頻道</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">TestChannel is transmitting the subscription confirmation</span><br><span class="line">TestChannel is streaming from test_channel</span><br></pre></td></tr></table></figure>
+
+<p>接著在 rails console 用以下程式碼發送通知到 test channel</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ActionCable.server.broadcast(<span class="string">'test_channel'</span>, <span class="string">'test'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>rails log</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TestChannel transmitting &quot;test&quot; (via streamed from test_channel)</span><br></pre></td></tr></table></figure>
+
+<p>postman 會收到訊息<br><img src="https://i.imgur.com/hOYXyAF.png" alt=""></p>
+<p>如此一來就可以將 broadcast 寫在需要發送訊息到 channel 的任何地方囉(通常可能是 Job 裡)。</p>
+<p>另外若使用 js WebSocket API 加上 cookies 測試範例如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.cookie = <span class="string">'user_id='</span> + <span class="number">1</span> + <span class="string">'; path=/'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> ws = <span class="keyword">new</span> WebSocket(</span><br><span class="line">    <span class="string">'ws://localhost:3000/cable'</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>從 Network 觀看結果<br><img src="https://i.imgur.com/kqvkhOb.png" alt=""></p>
+</li>
+</ol>
+<h2 id="需要注意的地方"><a href="#需要注意的地方" class="headerlink" title="需要注意的地方"></a>需要注意的地方</h2><ul>
+<li>在做身份認證的其中一個方式是可以放 token 在 header，但對瀏覽器來說用 JavaScript 在 Websocket 傳送客製化的 header 是困難的，參考: <a href="https://stackoverflow.com/questions/4361173/http-headers-in-websockets-client-api" target="_blank" rel="noopener">HTTP headers in Websockets client API</a>。</li>
+<li>用 cookie 做身份認證的話，如果說前後端不同源也是會有問題。</li>
+<li>如果用 postman 測試 production 環境，也是會遇到不同源的問題。</li>
+</ul>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
+<li><a href="https://ihower.tw/rails/actioncable.html" target="_blank" rel="noopener">Action Cable 即時通訊</a></li>
+<li><a href="https://guides.rubyonrails.org/action_cable_overview.html" target="_blank" rel="noopener">Action Cable Overview</a></li>
+<li><a href="https://medium.com/@the.asantiagojr/how-to-setup-actioncable-with-a-rails-api-backend-1f1807c2d908" target="_blank" rel="noopener">How to Setup ActionCable with a Rails API Backend</a></li>
+<li><a href="https://medium.com/codequest/actioncable-in-rails-api-f087b65c860d" target="_blank" rel="noopener">ActionCable in Rails API</a></li>
+<li><a href="https://ruby-china.org/topics/30494" target="_blank" rel="noopener">Rails 聊一聊ActionCable 背后的技术</a></li>
+<li><a href="https://pastleo.me/post/20210115-web-p2p-chatroom" target="_blank" rel="noopener">在 Web 上建構半分散式網路、聊天室 - 使用 WebRTC &amp; WebSocket</a> (西瓜大大的文章，貼在這裡與大家分享 XD)</li>
+<li><a href="https://github.com/cindyliu923/test-action-cable-api" target="_blank" rel="noopener">這篇文章的範例程式碼</a></li>
+</ul>
+
+  </div>
+</article>
+<script type="text/javascript" src="//js1.bloggerads.net/ShowBanner.aspx?blogid=20201206000001" async></script>
+
+
+<section id="comments">
+<div class="fb-like" data-href="
+https://cindyliu923.com/2021/10/03/rails-websocket/" data-width="" data-layout="button_count" data-action="like" data-size="large" data-share="true""></div>
+<div class="fb-comments" data-href="
+https://cindyliu923.com/2021/10/03/rails-websocket/" data-numposts="10" data-width="100%"></div>
+</section>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/posts/">Writing</a></li>
+         
+          <li><a href="https://github.com/cindyliu923" target="_blank" rel="noopener">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a href="/atom.xml">RSS</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Websocket"><span class="toc-number">1.</span> <span class="toc-text">Websocket</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Rails-6-實作-Websocket"><span class="toc-number">2.</span> <span class="toc-text">Rails 6 實作 Websocket</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#需要注意的地方"><span class="toc-number">3.</span> <span class="toc-text">需要注意的地方</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#參考資料"><span class="toc-number">4.</span> <span class="toc-text">參考資料</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://cindyliu923.com/2021/10/03/rails-websocket/" target="_blank" rel="noopener"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://cindyliu923.com/2021/10/03/rails-websocket/&text=Rails Websocket 後端實作紀錄" target="_blank" rel="noopener"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://cindyliu923.com/2021/10/03/rails-websocket/&title=Rails Websocket 後端實作紀錄" target="_blank" rel="noopener"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cindyliu923.com/2021/10/03/rails-websocket/&is_video=false&description=Rails Websocket 後端實作紀錄" target="_blank" rel="noopener"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Rails Websocket 後端實作紀錄&body=Check out this article: https://cindyliu923.com/2021/10/03/rails-websocket/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://cindyliu923.com/2021/10/03/rails-websocket/&title=Rails Websocket 後端實作紀錄" target="_blank" rel="noopener"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://cindyliu923.com/2021/10/03/rails-websocket/&title=Rails Websocket 後端實作紀錄" target="_blank" rel="noopener"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://cindyliu923.com/2021/10/03/rails-websocket/&title=Rails Websocket 後端實作紀錄" target="_blank" rel="noopener"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://cindyliu923.com/2021/10/03/rails-websocket/&title=Rails Websocket 後端實作紀錄" target="_blank" rel="noopener"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://cindyliu923.com/2021/10/03/rails-websocket/&name=Rails Websocket 後端實作紀錄&description=" target="_blank" rel="noopener"><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2021 Cindy Liu <a href='/Privacy-Policy'>Privacy Policy</a>
+  </div>
+  <div class="footer-left">
+    . Some links are affiliated
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/posts/">Writing</a></li>
+        
+          <li><a href="https://github.com/cindyliu923" target="_blank" rel="noopener">Projects</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+          <li><a href="/atom.xml">RSS</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+
+<!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-80238614-3', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+
+
