@@ -7,6 +7,7 @@
     <meta name="HandheldFriendly" content="True">
     <meta name="google-site-verification" content="yE1jgc5Tv8iV5DSEVyofU-gRWHhi7jbA3b1Q2qvS-gI" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta property="fb:app_id" content="3074485109285192" />
     <meta name="description" content="大家好，我是 Cindy，幾天前公司早上例會的時候，討論了關於 Ruby 的指標，這次的討論讓我明白原來 Ruby 是用 rvalue 來實作，是 pass by value 但如果說超過特定長度的話這個 value 會有一個在 C 語言中實做的參考，讓我想到去年我在公司的官網也有寫過一篇關於這件事情的文章，所以決定將這篇文章也分享在我自己的部落格裡，以下是原文。  大家好，今天要來跟大家說一個如">
 <meta property="og:type" content="article">
 <meta property="og:title" content="新手不小心會踩到的坑：我真的複製出物件了嗎？">
@@ -57,7 +58,15 @@
 <body>
     
       <div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v12.0&appId=3074485109285192&autoLogAppEvents=1" nonce=KQTwz0Ab></script>
+<script>(function(d, s, id) {
+var js, fjs = d.getElementsByTagName(s)[0];
+if (d.getElementById(id)) return;
+js = d.createElement(s); js.id = id;
+js.nonce ="KQTwz0Ab";
+js.src = "https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v12.0&appId=3074485109285192&autoLogAppEvents=1&colorscheme=light&order_by=time";
+fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
 <div id="header-post">
   <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
   <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
