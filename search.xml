@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>Git 小技巧分享</title>
+      <link href="/2021/11/06/About-git-skill/"/>
+      <url>/2021/11/06/About-git-skill/</url>
+      
+        <content type="html"><![CDATA[<p>大家好，我是 Cindy，今天想記錄一下我曾經用的 Git 小技巧，分享給大家，也歡迎大家留言跟我分享其他小技巧唷～<br>Git 是現今軟體開發常用的分散式版本控制系統，主要會將檔案的修改記錄(類似 snapshot)下來，讓我們可以在修改之間穿梭，想知道更詳細的朋友們可以參考<a href="https://gitbook.tw" target="_blank" rel="noopener">為你自己學 Git</a>這本書 (純分享無業配 XD)</p><h2 id="情境一"><a href="#情境一" class="headerlink" title="情境一"></a>情境一</h2><p>開發模式： <code>alpha 內部測試環境 -&gt; beta 外部測試環境 -&gt; production 正式環境</code></p><p>某天某重要人士(可能是客戶之類的)希望直接從 beta 先拿掉某個功能，將 beta 已經測試完成剩下的功能全都上 production，這邊先不討論 feature flag，單純指如果使用 git 可以怎麼達成這樣的需求呢？</p><p>這個時候，<a href="https://git-scm.com/docs/git-revert" target="_blank" rel="noopener">git revert</a> 就是個好用的指令拉，當我們使用 git revert 的時候我們會得到跟被 revert 那顆 commit 完全相反的一顆新的 commit，例如 commit SHA1 是 <em>新增 hello</em>，<code>git revert SHA1</code> 就會得到一顆新的 commit 是 <em>刪除 hello</em>，但是如果今天某功能的修改有很多顆 commit 不是會非常麻煩嗎？大家也不用擔心，我們可以直接 revert merge 的那顆 commit 唷，但這邊會需要注意 merge 的那顆 commit 會有兩個 parent，假如今天是 A branch merge into B branch，這顆 merge 的 commit 的 parent 一個是 B branch 的上一顆 commit(圖1 的 P1)，另一個則是 A branch 自己的上一顆 commit(圖1 的 P2)，<code>git log --oneline --graph</code> 類似下圖1，這時如果我們是輸入 <code>git revert SHA1</code> 就會出現錯誤，因為 git 不知道我們想要 revert 的是跟哪一個 parent 比較之後的結果，這時候我們只要輸入 <code>git revert SHA1 -m 1</code> 這樣的話就會是 revert 掉跟 B branch 上一顆 commit 比較之後的結果囉，反之亦然。</p><p>圖1：<br><img src="https://i.imgur.com/CTrXDAd.png" alt="example" width="200"/></p><h2 id="情境二"><a href="#情境二" class="headerlink" title="情境二"></a>情境二</h2><p>開發模式： <code>測試環境 -&gt; production 正式環境</code></p><p>某個已經上測試環境的功能需要緊急上線到 production，但其中測試環境中還有尚未完成測試的其他功能，這時候可以從 production 分支(可能是 main 或 master，或先開一個分支做再發 pr)，執行 <a href="https://git-scm.com/docs/git-cherry-pick" target="_blank" rel="noopener">git cherry-pick</a> 可以將需要緊急上線的功能撿起來，這邊跟情境一一樣如果覺得 commit 太多顆很麻煩，可以直接 cherry-pick merge 的那顆 commit，一樣要跟 git 說我們要比較的 parent 是 1 還是 2 囉！所以指令會是 <code>git cherry-pick SHA1 -m 1</code> 或 <code>git cherry-pick SHA1 -m 2</code>。</p><h2 id="衝突"><a href="#衝突" class="headerlink" title="衝突"></a>衝突</h2><p>在執行 git 指令的時候如果有衝突發生的話也不用擔心，不知道要怎麼做的時候可以先 <code>git status</code> 會看到很多提示唷！想當年第一次執行 <a href="https://git-scm.com/docs/git-rebase" target="_blank" rel="noopener">git rebase</a> 之後還真不知道要怎麼辦呢！簡單說一下，發生衝突大概會是 <code>git status</code>看哪些檔案有衝突 -&gt; 解衝突 -&gt; git add 解衝突的檔案(或如果要刪除就是執行 rm) -&gt; 解完衝突的話通常是 <code>git xxx --continue</code>(例如 <code>git rebase --continue</code> 等等)。</p><h2 id="感想"><a href="#感想" class="headerlink" title="感想"></a>感想</h2><p>Git 其實很好上手，但真的要熟練其實也不是那麼簡單，因為很多時候我們都只會需要會 <code>git add</code>、<code>git commit</code>、<code>git push</code>、<code>git pull</code>、<code>git checkout</code> 幾個常用的指令就好了，遇到特殊問題還是會需要想一下，因為很多時候其實是有很多方式可以解決，可能也會不確定怎麼做才會是當下最適合的做法，顆顆。</p><h2 id="其他參考資料"><a href="#其他參考資料" class="headerlink" title="其他參考資料"></a>其他參考資料</h2><ul><li><a href="https://gitbook.tw/chapters/rewrite-history/reset-revert-and-rebase.html" target="_blank" rel="noopener">Reset、Revert 跟 Rebase 指令有什麼差別？</a></li><li><a href="https://gitbook.tw/chapters/branch/fix-conflict.html" target="_blank" rel="noopener">合併發生衝突了，怎麼辦？</a></li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Git </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Rails Websocket 後端實作紀錄</title>
       <link href="/2021/10/03/rails-websocket/"/>
       <url>/2021/10/03/rails-websocket/</url>
