@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>無瑕的程式碼番外篇 - 測試驅動開發 / 練習</title>
+      <link href="/2022/02/04/the-clean-coder-five-six/"/>
+      <url>/2022/02/04/the-clean-coder-five-six/</url>
+      
+        <content type="html"><![CDATA[<p><img src="image.jpg" alt="image"><br>大家好，我是 Cindy，最近發現無暇程式碼的番外篇蠻好看的，適合在職場打滾的工程師們看，比起 clean code，<a href="https://www.books.com.tw/products/0010598217" target="_blank" rel="noopener">the clean coder</a> 比較算是軟實力的部分，主要是在說身為一個專業的工程師應該要有怎麼樣的態度、原則與行動。</p><p>今天這篇是這篇會是第五、六章節的重點及心得整理，想先看之前章節的人可以點選下面連結：</p><ul><li><a href="/2022/01/28/the-clean-coder-one">無瑕的程式碼番外篇 - 專業主義</a></li><li><a href="/2022/01/31/the-clean-coder-two-three">無瑕的程式碼番外篇 - 説「不」/ 説 「是」</a></li><li><a href="/2022/02/02/the-clean-coder-four">無瑕的程式碼番外篇 - 寫程式</a></li></ul><h2 id="測試驅動開發"><a href="#測試驅動開發" class="headerlink" title="測試驅動開發"></a>測試驅動開發</h2><p>在開始之前推薦大家看看這個影片 - <a href="https://www.youtube.com/watch?v=HFVjTFy42hI" target="_blank" rel="noopener">測試驅動開發 : 3 大法則 + 5 大好處 | 程式 x 開發 | 撰寫 單元測試 速度更快 【Gamma Ray 軟體工作室】</a>，我覺得蠻好看的，很清楚的說明什麼是 TDD，並教大家如何實作，看了這部影片之後我也發現，過去自己在做程式碼重構的時候，也是有用這樣的方式，主要重點在於<strong>先有測試</strong>，可以更快的測試我們所寫的程式碼，更快的修改就可以更快速的開發，形成一個良好的循環，用這樣的方式也可以盡量避免自己寫出高耦合的程式碼，越是方便獨立測試的程式碼越是高聚合、低耦合。</p><h3 id="畫重點"><a href="#畫重點" class="headerlink" title="畫重點"></a>畫重點</h3><ul><li>如果缺乏極高覆蓋率的自動化單元測試，如何能夠做到每次修改程式碼後都對程式碼進行測試？</li><li>TDD 三大法則<ul><li>在撰寫一個單元測試(測試失敗的單元測試)前，不可撰寫任何產品程式</li><li>只撰寫剛好無法通過的單元測試，不能編譯也算無法通過</li><li>只撰寫剛好能通過當前測試失敗的產品程式</li></ul></li><li>優勢<ul><li>勇氣<blockquote><p>讓我們有修改程式碼的勇氣，有了這樣的勇氣，才能相信程式碼可以越改越好。</p></blockquote></li><li>文件<ul><li>單元測試就是文件。它們描述了系統的最底層設計細節。</li></ul></li><li>設計<ul><li>基於測試先行的需要，會迫使你去思考什麼才是<strong>好的設計</strong>。</li></ul></li></ul></li><li>不使用 TDD 就說明你可能還不夠專業<blockquote><p>派(兇)</p></blockquote></li></ul><h2 id="練習"><a href="#練習" class="headerlink" title="練習"></a>練習</h2><p>專業人士都需要借助專門的訓練來提升自己的技能，無一例外。例如音樂家、運動員等等。</p><h3 id="畫重點-1"><a href="#畫重點-1" class="headerlink" title="畫重點"></a>畫重點</h3><ul><li>現在我們有更好的工具，更好的語言。可是，敘述的本質並沒有隨著時間而改變。20 世紀 60 年代的程式設計師完全可以看懂 2012 年的程式碼。<blockquote><p>這裡我想到，這也是我們為什麼要學習前人知識的原因。</p></blockquote></li><li>作者的練習<ul><li><a href="http://www.butunclebob.com/ArticleS.UncleBob.TheBowlingGameKata" target="_blank" rel="noopener">The Bowling Game Kata</a></li><li><a href="http://www.butunclebob.com/ArticleS.UncleBob.ThePrimeFactorsKata" target="_blank" rel="noopener">The Prime Factors Kata</a></li><li><a href="https://thecleancoder.blogspot.com/2010/10/craftsman-62-dark-path.html" target="_blank" rel="noopener">The Craftsman 62, The Dark Path.</a></li></ul></li><li>保持不落伍的方法是為開放原始碼貢獻程式碼，就像律師和醫生參加公益活動一樣。</li><li>如果你是 Java 程式設計師，請為 Rails 專案做點貢獻。如果你為老闆寫了很多 C++，可以找個 Python 專案貢獻程式碼。<blockquote><p>這邊我覺得作者的觀點蠻有趣的，用這樣的方式可以拓展自身的經驗。</p></blockquote></li><li>專業程式設計師用『自己的時間』來練習。</li><li>『練習』的時候你是賺不到錢的，但是練習之後，你會獲得回報，而且是豐厚的回報。</li></ul><blockquote><p>如果有在看這類文章的人，恭喜你踏出了一步，我們一起加油吧！嗚嗚</p></blockquote>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Clean Coder </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>無瑕的程式碼番外篇 - 寫程式</title>
       <link href="/2022/02/02/the-clean-coder-four/"/>
       <url>/2022/02/02/the-clean-coder-four/</url>

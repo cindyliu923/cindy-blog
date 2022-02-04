@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="google-site-verification" content="yE1jgc5Tv8iV5DSEVyofU-gRWHhi7jbA3b1Q2qvS-gI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta property="fb:app_id" content="3074485109285192" />
+    <meta name="description" content="大家好，我是 Cindy，最近發現無暇程式碼的番外篇蠻好看的，適合在職場打滾的工程師們看，比起 clean code，the clean coder 比較算是軟實力的部分，主要是在說身為一個專業的工程師應該要有怎麼樣的態度、原則與行動。 今天這篇是這篇會是第五、六章節的重點及心得整理，想先看之前章節的人可以點選下面連結：  無瑕的程式碼番外篇 - 專業主義 無瑕的程式碼番外篇 - 説「不」&#x2F; 説">
+<meta property="og:type" content="article">
+<meta property="og:title" content="無瑕的程式碼番外篇 - 測試驅動開發 &#x2F; 練習">
+<meta property="og:url" content="https://cindyliu923.com/2022/02/04/the-clean-coder-five-six/index.html">
+<meta property="og:site_name" content="Cindy&#39;s Blog">
+<meta property="og:description" content="大家好，我是 Cindy，最近發現無暇程式碼的番外篇蠻好看的，適合在職場打滾的工程師們看，比起 clean code，the clean coder 比較算是軟實力的部分，主要是在說身為一個專業的工程師應該要有怎麼樣的態度、原則與行動。 今天這篇是這篇會是第五、六章節的重點及心得整理，想先看之前章節的人可以點選下面連結：  無瑕的程式碼番外篇 - 專業主義 無瑕的程式碼番外篇 - 説「不」&#x2F; 説">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://cindyliu923.com/2022/02/04/the-clean-coder-five-six/image.jpg">
+<meta property="article:published_time" content="2022-02-04T14:25:43.000Z">
+<meta property="article:modified_time" content="2022-02-04T16:20:17.258Z">
+<meta property="article:author" content="Cindy Liu">
+<meta property="article:tag" content="Clean Coder">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cindyliu923.com/2022/02/04/the-clean-coder-five-six/image.jpg">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/mstile-150x150.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>無瑕的程式碼番外篇 - 測試驅動開發 / 練習</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- rss -->
+    
+      
+    
+    
+      <link rel="alternate" href="/atom.xml" title="Cindy&#39;s Blog" type="application/atom+xml" />
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+    <div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/zh_TW/sdk/debug.js#xfbml=1&version=v12.0&appId=3074485109285192&autoLogAppEvents=1&colorscheme=light" nonce=Lh92L3Cq></script><script>(function(d, s, id) {
+var js, fjs = d.getElementsByTagName(s)[0];
+if (d.getElementById(id)) return;
+js = d.createElement(s); js.id = id;
+js.nonce ="Lh92L3Cq";
+js.src = "https://connect.facebook.net/zh_TW/sdk/debug.js#xfbml=1&version=v12.0&appId=3074485109285192&autoLogAppEvents=1&colorscheme=light&order_by=time";
+fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/posts/">Writing</a></li>
+         
+          <li><a href="https://github.com/cindyliu923" target="_blank" rel="noopener">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a href="/atom.xml">RSS</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2022/02/02/the-clean-coder-four/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://cindyliu923.com/2022/02/04/the-clean-coder-five-six/" target="_blank" rel="noopener"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://cindyliu923.com/2022/02/04/the-clean-coder-five-six/&text=無瑕的程式碼番外篇 - 測試驅動開發 / 練習" target="_blank" rel="noopener"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://cindyliu923.com/2022/02/04/the-clean-coder-five-six/&title=無瑕的程式碼番外篇 - 測試驅動開發 / 練習" target="_blank" rel="noopener"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cindyliu923.com/2022/02/04/the-clean-coder-five-six/&is_video=false&description=無瑕的程式碼番外篇 - 測試驅動開發 / 練習" target="_blank" rel="noopener"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=無瑕的程式碼番外篇 - 測試驅動開發 / 練習&body=Check out this article: https://cindyliu923.com/2022/02/04/the-clean-coder-five-six/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://cindyliu923.com/2022/02/04/the-clean-coder-five-six/&title=無瑕的程式碼番外篇 - 測試驅動開發 / 練習" target="_blank" rel="noopener"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://cindyliu923.com/2022/02/04/the-clean-coder-five-six/&title=無瑕的程式碼番外篇 - 測試驅動開發 / 練習" target="_blank" rel="noopener"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://cindyliu923.com/2022/02/04/the-clean-coder-five-six/&title=無瑕的程式碼番外篇 - 測試驅動開發 / 練習" target="_blank" rel="noopener"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://cindyliu923.com/2022/02/04/the-clean-coder-five-six/&title=無瑕的程式碼番外篇 - 測試驅動開發 / 練習" target="_blank" rel="noopener"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://cindyliu923.com/2022/02/04/the-clean-coder-five-six/&name=無瑕的程式碼番外篇 - 測試驅動開發 / 練習&description=" target="_blank" rel="noopener"><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#測試驅動開發"><span class="toc-number">1.</span> <span class="toc-text">測試驅動開發</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#畫重點"><span class="toc-number">1.1.</span> <span class="toc-text">畫重點</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#練習"><span class="toc-number">2.</span> <span class="toc-text">練習</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#畫重點-1"><span class="toc-number">2.1.</span> <span class="toc-text">畫重點</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        無瑕的程式碼番外篇 - 測試驅動開發 / 練習
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Cindy's Blog</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2022-02-04T14:25:43.000Z" itemprop="datePublished">2022-02-04</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Clean-Coder/" rel="tag">Clean Coder</a>
+    </div>
+
+
+    </div>
+    <div class="meta">
+      <span class="post-count">👀 3 min read 👀</span>
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p><img src="image.jpg" alt="image"><br>大家好，我是 Cindy，最近發現無暇程式碼的番外篇蠻好看的，適合在職場打滾的工程師們看，比起 clean code，<a href="https://www.books.com.tw/products/0010598217" target="_blank" rel="noopener">the clean coder</a> 比較算是軟實力的部分，主要是在說身為一個專業的工程師應該要有怎麼樣的態度、原則與行動。</p>
+<p>今天這篇是這篇會是第五、六章節的重點及心得整理，想先看之前章節的人可以點選下面連結：</p>
+<ul>
+<li><a href="/2022/01/28/the-clean-coder-one">無瑕的程式碼番外篇 - 專業主義</a></li>
+<li><a href="/2022/01/31/the-clean-coder-two-three">無瑕的程式碼番外篇 - 説「不」/ 説 「是」</a></li>
+<li><a href="/2022/02/02/the-clean-coder-four">無瑕的程式碼番外篇 - 寫程式</a></li>
+</ul>
+<h2 id="測試驅動開發"><a href="#測試驅動開發" class="headerlink" title="測試驅動開發"></a>測試驅動開發</h2><p>在開始之前推薦大家看看這個影片 - <a href="https://www.youtube.com/watch?v=HFVjTFy42hI" target="_blank" rel="noopener">測試驅動開發 : 3 大法則 + 5 大好處 | 程式 x 開發 | 撰寫 單元測試 速度更快 【Gamma Ray 軟體工作室】</a>，我覺得蠻好看的，很清楚的說明什麼是 TDD，並教大家如何實作，看了這部影片之後我也發現，過去自己在做程式碼重構的時候，也是有用這樣的方式，主要重點在於<strong>先有測試</strong>，可以更快的測試我們所寫的程式碼，更快的修改就可以更快速的開發，形成一個良好的循環，用這樣的方式也可以盡量避免自己寫出高耦合的程式碼，越是方便獨立測試的程式碼越是高聚合、低耦合。</p>
+<h3 id="畫重點"><a href="#畫重點" class="headerlink" title="畫重點"></a>畫重點</h3><ul>
+<li>如果缺乏極高覆蓋率的自動化單元測試，如何能夠做到每次修改程式碼後都對程式碼進行測試？</li>
+<li>TDD 三大法則<ul>
+<li>在撰寫一個單元測試(測試失敗的單元測試)前，不可撰寫任何產品程式</li>
+<li>只撰寫剛好無法通過的單元測試，不能編譯也算無法通過</li>
+<li>只撰寫剛好能通過當前測試失敗的產品程式</li>
+</ul>
+</li>
+<li>優勢<ul>
+<li>勇氣<blockquote>
+<p>讓我們有修改程式碼的勇氣，有了這樣的勇氣，才能相信程式碼可以越改越好。</p>
+</blockquote>
+</li>
+<li>文件<ul>
+<li>單元測試就是文件。它們描述了系統的最底層設計細節。</li>
+</ul>
+</li>
+<li>設計<ul>
+<li>基於測試先行的需要，會迫使你去思考什麼才是<strong>好的設計</strong>。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>不使用 TDD 就說明你可能還不夠專業<blockquote>
+<p>派(兇)</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="練習"><a href="#練習" class="headerlink" title="練習"></a>練習</h2><p>專業人士都需要借助專門的訓練來提升自己的技能，無一例外。例如音樂家、運動員等等。</p>
+<h3 id="畫重點-1"><a href="#畫重點-1" class="headerlink" title="畫重點"></a>畫重點</h3><ul>
+<li>現在我們有更好的工具，更好的語言。可是，敘述的本質並沒有隨著時間而改變。20 世紀 60 年代的程式設計師完全可以看懂 2012 年的程式碼。<blockquote>
+<p>這裡我想到，這也是我們為什麼要學習前人知識的原因。</p>
+</blockquote>
+</li>
+<li>作者的練習<ul>
+<li><a href="http://www.butunclebob.com/ArticleS.UncleBob.TheBowlingGameKata" target="_blank" rel="noopener">The Bowling Game Kata</a></li>
+<li><a href="http://www.butunclebob.com/ArticleS.UncleBob.ThePrimeFactorsKata" target="_blank" rel="noopener">The Prime Factors Kata</a></li>
+<li><a href="https://thecleancoder.blogspot.com/2010/10/craftsman-62-dark-path.html" target="_blank" rel="noopener">The Craftsman 62, The Dark Path.</a></li>
+</ul>
+</li>
+<li>保持不落伍的方法是為開放原始碼貢獻程式碼，就像律師和醫生參加公益活動一樣。</li>
+<li>如果你是 Java 程式設計師，請為 Rails 專案做點貢獻。如果你為老闆寫了很多 C++，可以找個 Python 專案貢獻程式碼。<blockquote>
+<p>這邊我覺得作者的觀點蠻有趣的，用這樣的方式可以拓展自身的經驗。</p>
+</blockquote>
+</li>
+<li>專業程式設計師用『自己的時間』來練習。</li>
+<li>『練習』的時候你是賺不到錢的，但是練習之後，你會獲得回報，而且是豐厚的回報。</li>
+</ul>
+<blockquote>
+<p>如果有在看這類文章的人，恭喜你踏出了一步，我們一起加油吧！嗚嗚</p>
+</blockquote>
+
+  </div>
+</article>
+<script type="text/javascript" src="//js1.bloggerads.net/ShowBanner.aspx?blogid=20201206000001" async></script>
+
+
+<section id="comments">
+<div class="fb-like" data-href="
+https://cindyliu923.com/2022/02/04/the-clean-coder-five-six/" data-width="" data-layout="button_count" data-action="like" data-size="large" data-share="true""></div>
+<div class="fb-comments" data-href="
+https://cindyliu923.com/2022/02/04/the-clean-coder-five-six/" data-numposts="10" data-width="100%"></div>
+</section>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/posts/">Writing</a></li>
+         
+          <li><a href="https://github.com/cindyliu923" target="_blank" rel="noopener">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a href="/atom.xml">RSS</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#測試驅動開發"><span class="toc-number">1.</span> <span class="toc-text">測試驅動開發</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#畫重點"><span class="toc-number">1.1.</span> <span class="toc-text">畫重點</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#練習"><span class="toc-number">2.</span> <span class="toc-text">練習</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#畫重點-1"><span class="toc-number">2.1.</span> <span class="toc-text">畫重點</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://cindyliu923.com/2022/02/04/the-clean-coder-five-six/" target="_blank" rel="noopener"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://cindyliu923.com/2022/02/04/the-clean-coder-five-six/&text=無瑕的程式碼番外篇 - 測試驅動開發 / 練習" target="_blank" rel="noopener"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://cindyliu923.com/2022/02/04/the-clean-coder-five-six/&title=無瑕的程式碼番外篇 - 測試驅動開發 / 練習" target="_blank" rel="noopener"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cindyliu923.com/2022/02/04/the-clean-coder-five-six/&is_video=false&description=無瑕的程式碼番外篇 - 測試驅動開發 / 練習" target="_blank" rel="noopener"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=無瑕的程式碼番外篇 - 測試驅動開發 / 練習&body=Check out this article: https://cindyliu923.com/2022/02/04/the-clean-coder-five-six/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://cindyliu923.com/2022/02/04/the-clean-coder-five-six/&title=無瑕的程式碼番外篇 - 測試驅動開發 / 練習" target="_blank" rel="noopener"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://cindyliu923.com/2022/02/04/the-clean-coder-five-six/&title=無瑕的程式碼番外篇 - 測試驅動開發 / 練習" target="_blank" rel="noopener"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://cindyliu923.com/2022/02/04/the-clean-coder-five-six/&title=無瑕的程式碼番外篇 - 測試驅動開發 / 練習" target="_blank" rel="noopener"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://cindyliu923.com/2022/02/04/the-clean-coder-five-six/&title=無瑕的程式碼番外篇 - 測試驅動開發 / 練習" target="_blank" rel="noopener"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://cindyliu923.com/2022/02/04/the-clean-coder-five-six/&name=無瑕的程式碼番外篇 - 測試驅動開發 / 練習&description=" target="_blank" rel="noopener"><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2022 Cindy Liu <a href='/Privacy-Policy'>Privacy Policy</a>
+  </div>
+  <div class="footer-left">
+    . Some links are affiliated
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/posts/">Writing</a></li>
+        
+          <li><a href="https://github.com/cindyliu923" target="_blank" rel="noopener">Projects</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+          <li><a href="/atom.xml">RSS</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+
+<!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-80238614-3', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+
+
