@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="google-site-verification" content="yE1jgc5Tv8iV5DSEVyofU-gRWHhi7jbA3b1Q2qvS-gI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta property="fb:app_id" content="3074485109285192" />
+    <meta name="description" content="大家好，我是 Cindy，第一次參加 Webconf，每場演講都很精彩，所以要幫忙自己做一下紀錄，以免最會忘記的大腦忘光光，幫自己大腦外接一下 DB，以後還有這裡可以查看資料 XDDD 這次很多的主題都圍繞在這 10 年的變化，畢竟這次的 webconf 是時隔了 10 年的第二次 conference，是說我 10 年前還不會寫程式，這次參加感覺學到很多東西，感謝過去的自己讓我走到了這裡 (流淚">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WEBCONF 2023 Day 2 心得 &amp; 紀錄">
+<meta property="og:url" content="https://cindyliu923.com/2023/08/20/WEBCONF-2023-Day-2/index.html">
+<meta property="og:site_name" content="Cindy&#39;s Blog">
+<meta property="og:description" content="大家好，我是 Cindy，第一次參加 Webconf，每場演講都很精彩，所以要幫忙自己做一下紀錄，以免最會忘記的大腦忘光光，幫自己大腦外接一下 DB，以後還有這裡可以查看資料 XDDD 這次很多的主題都圍繞在這 10 年的變化，畢竟這次的 webconf 是時隔了 10 年的第二次 conference，是說我 10 年前還不會寫程式，這次參加感覺學到很多東西，感謝過去的自己讓我走到了這裡 (流淚">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2023-08-20T14:44:48.000Z">
+<meta property="article:modified_time" content="2023-08-29T15:41:35.359Z">
+<meta property="article:author" content="Cindy Liu">
+<meta property="article:tag" content="webconf">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/mstile-150x150.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>WEBCONF 2023 Day 2 心得 &amp; 紀錄</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- rss -->
+    
+      
+    
+    
+      <link rel="alternate" href="/atom.xml" title="Cindy&#39;s Blog" type="application/atom+xml" />
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+    <div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/zh_TW/sdk/debug.js#xfbml=1&version=v12.0&appId=3074485109285192&autoLogAppEvents=1&colorscheme=light" nonce=Lh92L3Cq></script><script>(function(d, s, id) {
+var js, fjs = d.getElementsByTagName(s)[0];
+if (d.getElementById(id)) return;
+js = d.createElement(s); js.id = id;
+js.nonce ="Lh92L3Cq";
+js.src = "https://connect.facebook.net/zh_TW/sdk/debug.js#xfbml=1&version=v12.0&appId=3074485109285192&autoLogAppEvents=1&colorscheme=light&order_by=time";
+fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/posts/">Writing</a></li>
+         
+          <li><a href="https://github.com/cindyliu923" target="_blank" rel="noopener">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a href="/atom.xml">RSS</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2023/08/13/WEBCONF-2023-Day-1/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://cindyliu923.com/2023/08/20/WEBCONF-2023-Day-2/" target="_blank" rel="noopener"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://cindyliu923.com/2023/08/20/WEBCONF-2023-Day-2/&text=WEBCONF 2023 Day 2 心得 &amp; 紀錄" target="_blank" rel="noopener"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://cindyliu923.com/2023/08/20/WEBCONF-2023-Day-2/&title=WEBCONF 2023 Day 2 心得 &amp; 紀錄" target="_blank" rel="noopener"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cindyliu923.com/2023/08/20/WEBCONF-2023-Day-2/&is_video=false&description=WEBCONF 2023 Day 2 心得 &amp; 紀錄" target="_blank" rel="noopener"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=WEBCONF 2023 Day 2 心得 &amp; 紀錄&body=Check out this article: https://cindyliu923.com/2023/08/20/WEBCONF-2023-Day-2/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://cindyliu923.com/2023/08/20/WEBCONF-2023-Day-2/&title=WEBCONF 2023 Day 2 心得 &amp; 紀錄" target="_blank" rel="noopener"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://cindyliu923.com/2023/08/20/WEBCONF-2023-Day-2/&title=WEBCONF 2023 Day 2 心得 &amp; 紀錄" target="_blank" rel="noopener"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://cindyliu923.com/2023/08/20/WEBCONF-2023-Day-2/&title=WEBCONF 2023 Day 2 心得 &amp; 紀錄" target="_blank" rel="noopener"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://cindyliu923.com/2023/08/20/WEBCONF-2023-Day-2/&title=WEBCONF 2023 Day 2 心得 &amp; 紀錄" target="_blank" rel="noopener"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://cindyliu923.com/2023/08/20/WEBCONF-2023-Day-2/&name=WEBCONF 2023 Day 2 心得 &amp; 紀錄&description=" target="_blank" rel="noopener"><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#目錄-8-12"><span class="toc-number">1.</span> <span class="toc-text">目錄 (8&#x2F;12)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#APM-的守破離-Norman"><span class="toc-number">2.</span> <span class="toc-text">APM 的守破離 - Norman</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#鳳‧極意？！-Paul-Li"><span class="toc-number">3.</span> <span class="toc-text">鳳‧極意？！ - Paul Li</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#為何技術老人這樣想那樣做？從技術前輩的視角理解技術決策-Caesar-Chi"><span class="toc-number">4.</span> <span class="toc-text">為何技術老人這樣想那樣做？從技術前輩的視角理解技術決策 - Caesar Chi</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#講事實沒用，顧客才不聽這個！-Akane-Lee"><span class="toc-number">5.</span> <span class="toc-text">講事實沒用，顧客才不聽這個！ - Akane Lee</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-年回顧：打造愛料理開發及營運團隊-Richard-Lee"><span class="toc-number">6.</span> <span class="toc-text">10 年回顧：打造愛料理開發及營運團隊 - Richard Lee</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#從-2013-到-2023-Web-Security-十年之進化及趨勢-Orange-Tsai"><span class="toc-number">7.</span> <span class="toc-text">從 2013 到 2023: Web Security 十年之進化及趨勢! - Orange Tsai</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#選擇適合你的技能組合-蒼時弦也"><span class="toc-number">8.</span> <span class="toc-text">選擇適合你的技能組合 - 蒼時弦也</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#解決方案-生態系決定選擇"><span class="toc-number">8.1.</span> <span class="toc-text">解決方案 (生態系決定選擇)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Beyond-Technology-技術之外-從個人身心安頓到人類福祉追求-蔡明哲"><span class="toc-number">9.</span> <span class="toc-text">Beyond Technology 技術之外 - 從個人身心安頓到人類福祉追求 - 蔡明哲</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-個職涯建議"><span class="toc-number">9.1.</span> <span class="toc-text">7 個職涯建議</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        WEBCONF 2023 Day 2 心得 &amp; 紀錄
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Cindy's Blog</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2023-08-20T14:44:48.000Z" itemprop="datePublished">2023-08-20</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/webconf/" rel="tag">webconf</a>
+    </div>
+
+
+    </div>
+    <div class="meta">
+      <span class="post-count">👀 11 min read 👀</span>
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>大家好，我是 Cindy，第一次參加 Webconf，每場演講都很精彩，所以要幫忙自己做一下紀錄，以免最會忘記的大腦忘光光，幫自己大腦外接一下 DB，以後還有這裡可以查看資料 XDDD</p>
+<p>這次很多的主題都圍繞在這 10 年的變化，畢竟這次的 webconf 是時隔了 10 年的第二次 conference，是說我 10 年前還不會寫程式，這次參加感覺學到很多東西，感謝過去的自己讓我走到了這裡 (流淚)，接下來紀錄一下我這次有聽的議程的小小心得，跟一些我自己的理解</p>
+<blockquote>
+<p>本來想一口氣寫完兩天的心得，想說只是想寫心得，比較有人性有點溫度的心得應該不用很久吧? 結果還是寫太久，加上因為忘記寫更久，所以還是分成兩篇好惹 QQ</p>
+</blockquote>
+<p>這篇是第二篇，想看第一篇的人可以點<a href="/2023/08/13/WEBCONF-2023-Day-1">這邊</a>。</p>
+<h2 id="目錄-8-12"><a href="#目錄-8-12" class="headerlink" title="目錄 (8/12)"></a>目錄 (8/12)</h2><ol>
+<li><a href="#APM-的守破離-Norman">APM 的守破離 - Norman</a><ul>
+<li><a href="https://hackmd.io/@webconf/BkImQ0Ds3/%2FQoWpXB7yRc-ImH1yX_2C7Q" target="_blank" rel="noopener">共筆</a></li>
+<li><a href="https://drive.google.com/file/d/1DBIV6tObjXPWin5NP1DDX8JUtiMF2uJg/view" target="_blank" rel="noopener">簡報</a></li>
+</ul>
+</li>
+<li><a href="#鳳‧極意？！-Paul-Li">鳳‧極意？！ - Paul Li</a><ul>
+<li><a href="https://hackmd.io/@webconf/BkImQ0Ds3/%2FSVsZ1haXR-2bUhfcf_OYnA" target="_blank" rel="noopener">共筆</a></li>
+<li><a href="https://blog.lalacube.com/mei/Reveal_phoenix_the_gokui.php" target="_blank" rel="noopener">簡報</a></li>
+</ul>
+</li>
+<li><a href="#為何技術老人這樣想那樣做？從技術前輩的視角理解技術決策-Caesar-Chi">為何技術老人這樣想那樣做？從技術前輩的視角理解技術決策 - Caesar Chi</a><ul>
+<li><a href="https://hackmd.io/@webconf/BkImQ0Ds3/%2FdTk44rdmRaGJOFVN5oB4pg" target="_blank" rel="noopener">共筆</a></li>
+<li><a href="https://speakerdeck.com/clonn/wei-he-ji-shu-lao-ren-zhe-yang-xiang-na-yang-zuo" target="_blank" rel="noopener">簡報</a></li>
+</ul>
+</li>
+<li><a href="#講事實沒用，顧客才不聽這個！-Akane-Lee">講事實沒用，顧客才不聽這個！ - Akane Lee</a><ul>
+<li><a href="https://hackmd.io/@webconf/BkImQ0Ds3/%2Fo2qdy0YySReFsx6Uf5pdDQ" target="_blank" rel="noopener">共筆</a></li>
+</ul>
+</li>
+<li><a href="#10-年回顧：打造愛料理開發及營運團隊-Richard-Lee">10 年回顧：打造愛料理開發及營運團隊 - Richard Lee</a><ul>
+<li><a href="https://hackmd.io/@webconf/BkImQ0Ds3/%2FVqSM6iJiRh6KqyIDTIeBiA" target="_blank" rel="noopener">共筆</a></li>
+<li><a href="https://drive.google.com/file/d/1kNPtdVPrCXoJ2Nok62xZA6ZhvVoZFDHE/view" target="_blank" rel="noopener">簡報</a></li>
+</ul>
+</li>
+<li><a href="#從-2013-到-2023-Web-Security-十年之進化及趨勢-Orange-Tsai">從 2013 到 2023: Web Security 十年之進化及趨勢! - Orange Tsai</a><ul>
+<li><a href="https://hackmd.io/@webconf/BkImQ0Ds3/%2FCyz5StjtTyibrKIf9b7RCA" target="_blank" rel="noopener">共筆</a></li>
+<li><a href="https://github.com/orangetw/My-Presentation-Slides/blob/main/data/2023-WEBCONF-from-2013-to-2023-the-Evolution-of-Web-Security.pdf" target="_blank" rel="noopener">簡報</a></li>
+<li><a href="https://blog.orange.tw/2023/08/2023-webconf-the-evolution-of-web-security.html" target="_blank" rel="noopener">文章</a></li>
+</ul>
+</li>
+<li><a href="#選擇適合你的技能組合-蒼時弦也">選擇適合你的技能組合 - 蒼時弦也</a><ul>
+<li><a href="https://hackmd.io/@webconf/BkImQ0Ds3/%2FTNzR66T8QX6WxEdWuXQb4w" target="_blank" rel="noopener">共筆</a></li>
+<li><a href="https://speakerdeck.com/elct9620/2023-webconf-xuan-ze-shi-he-ni-de-ji-neng-zu-he" target="_blank" rel="noopener">簡報</a></li>
+</ul>
+</li>
+<li><a href="#Beyond-Technology-技術之外-從個人身心安頓到人類福祉追求-蔡明哲">Beyond Technology 技術之外 - 從個人身心安頓到人類福祉追求 - 蔡明哲</a><ul>
+<li><a href="https://hackmd.io/@webconf/BkImQ0Ds3/%2Fpk7crlHPTQumx2NzjWTdBQ" target="_blank" rel="noopener">共筆</a></li>
+<li><a href="https://drive.google.com/file/d/1ZhMwaQ-fxj4QZ5k8qxnhC43iBPftoaqk/view" target="_blank" rel="noopener">簡報</a></li>
+</ul>
+</li>
+</ol>
+<h2 id="APM-的守破離-Norman"><a href="#APM-的守破離-Norman" class="headerlink" title="APM 的守破離 - Norman"></a>APM 的守破離 - Norman</h2><p>早上的時候我還是遲到了，到教室的時候滿人超滿，所以我前面也沒聽到，講者主要介紹他們在使用 <a href="https://www.elastic.co/observability/application-performance-monitoring" target="_blank" rel="noopener">Elastic APM</a> 的一些經驗分享。首先要建立可以收集資料的環境，有數據才知道哪裡有問題，接著追蹤有問題的地方，但講者也有要我們注意「區域效能瓶頸不一定是商業上的瓶頸」、「要關注解決的問題是否給技術或商業帶來價值」，所以有時候工程師如我覺得有問題其實不一定有問題的概念。另外這次參加 Webconf 遇到的 Kasa 小夥伴有跟我分享講者在 1 年前類似主題的分享<a href="https://www.youtube.com/watch?v=xskXc_e5lcY" target="_blank" rel="noopener">影片</a>，也放在這裡分享給大家。</p>
+<h2 id="鳳‧極意？！-Paul-Li"><a href="#鳳‧極意？！-Paul-Li" class="headerlink" title="鳳‧極意？！ - Paul Li"></a>鳳‧極意？！ - Paul Li</h2><p>這場演講從投影片就讓我在內心不停的驚呼講者前端的實力 XDD，身為一個在前端移動小物件都覺得煩的後端(為主?)工程師，真的相當佩服很會前端的大大們。這場演講主要在講前端 form 的各種原生標籤的使用技巧，盡可能的使用瀏覽器原生的 tag，盡可能避免預期外的錯誤，完美展示最簡單最困難的一場演講。我覺得這場演講除了技術面的 pickup 以外，像這樣對於原生探究的精神是可以用在其他地方的，像是使用某個套件會先去看套件的文件、source code，先想想有沒有比較簡單的方式，盡可能複雜的事情簡單化，是需要學習的，那些看起來越簡單其實越困難的概念呢。</p>
+<h2 id="為何技術老人這樣想那樣做？從技術前輩的視角理解技術決策-Caesar-Chi"><a href="#為何技術老人這樣想那樣做？從技術前輩的視角理解技術決策-Caesar-Chi" class="headerlink" title="為何技術老人這樣想那樣做？從技術前輩的視角理解技術決策 - Caesar Chi"></a>為何技術老人這樣想那樣做？從技術前輩的視角理解技術決策 - Caesar Chi</h2><p>這是一場偏軟實力的演講，講者句句名言? 像是「人生唯一不變的就是變」、「<font color="#f00">不是提案不好、是「你」不好</font>」、「如果發現了一個很棒的技術想要推廣，你該：思考如何達到目的，而不是<font color="#f00">我</font>如何達到目的」、「隨手清理程式債（垃圾），隨手做功德」。以後要跟大家說大家好，我是沒有人 XDDDD。</p>
+<h2 id="講事實沒用，顧客才不聽這個！-Akane-Lee"><a href="#講事實沒用，顧客才不聽這個！-Akane-Lee" class="headerlink" title="講事實沒用，顧客才不聽這個！ - Akane Lee"></a>講事實沒用，顧客才不聽這個！ - Akane Lee</h2><p>這場演講比較偏心理學層面的知識，講者一開始就帶大家一起思考，首先是「每個人的信念就一定是事實嗎? 」、「堅持自己與事實不符的信念那是說謊嗎? 」、「事實跟我所相信的事物，一點關係都沒有」，這讓我想到有些人會覺得自己講的就是事實，但真的是那樣嗎? 還是他講的是自己的信念呢? 大家都會有不同的認知。其中我覺得最有趣的地方在於我們每個人對於每件事情都會有一個接受區和拒絕區，來自於自己的信念，而在溝通的時候，兩個人的區域範圍重疊的地方，才是可以溝通的區間，也就是兩個極端想法的人其實是不能溝通的 XDDDDD，因為人都會有排斥心理，這很有趣，可以延伸很多，像是我們不可能讓世界上所有人喜歡，沒有一個世界上所有人都認同的方案，因為大家都會有不同的區間範圍，我在想這個樣子也就是為什麼有些公司會想找價值觀一樣的員工惹，因為這樣才能溝通 XD。另一個提到我覺得印象深刻的像是人會為自己找理由，我們喜歡做事情有個「理由」，講者舉例想要插隊列印東西的人，講了理由讓他先印的人比例就比較高，甚至講了一個像是廢話的理由比例更高。這場演講的結論是我們賣東西，賣的其實不是東西，是信仰。</p>
+<h2 id="10-年回顧：打造愛料理開發及營運團隊-Richard-Lee"><a href="#10-年回顧：打造愛料理開發及營運團隊-Richard-Lee" class="headerlink" title="10 年回顧：打造愛料理開發及營運團隊 - Richard Lee"></a>10 年回顧：打造愛料理開發及營運團隊 - Richard Lee</h2><p>講者分享這 10 年打造產品的經驗，主要對於 10 年前提出的想法做一個覆盤，有覺得好的，也有覺得不好的，好的像是盡早部署、時常驗證，不好的像是過程中迷信新東西可以解決問題，讓架構變得太過複雜。結論是「時時要去思考，到底是在解決問題還是創造問題。」，是很棒的經驗分享。</p>
+<h2 id="從-2013-到-2023-Web-Security-十年之進化及趨勢-Orange-Tsai"><a href="#從-2013-到-2023-Web-Security-十年之進化及趨勢-Orange-Tsai" class="headerlink" title="從 2013 到 2023: Web Security 十年之進化及趨勢! - Orange Tsai"></a>從 2013 到 2023: Web Security 十年之進化及趨勢! - Orange Tsai</h2><p>這場是我現在待的資安公司 <a href="https://devco.re" target="_blank" rel="noopener">DEVCORE</a> 的橘子大神演講，超多人來聽，還好有搶到位子? 講者分享了這 10 年來 Web Security 的進化，首先舉了一個 nginx 寫錯設定檔導致可以被攻擊的案例，「回報給 nginx 但他們覺得不算問題，因為是開發者寫錯 config」，所以各位開發者們不要再說資安太難拉 ＱＱ (雖然我也覺得很難，咦?)，不過覺得太難的也可以直接交給專業的來拉，突然變成業配文? 接著講者舉了 4 + 1 趨勢的例子如下：</p>
+<ol>
+<li>架構<ul>
+<li>Hop-by-Hop Attack (RFC 標準要好好讀)<blockquote>
+<p>覺得開發者如果開發到跟 http connection 相關的功能的時候要注意，如果有什麼像是為了方便開放 127.0.0.1 之類的情況也要特別注意漏洞的可能性。</p>
+</blockquote>
+</li>
+<li>Web Cache Deception (什麼時候該 Cache 什麼時候不該 Cache?)<blockquote>
+<p>開發者的思路應該會是，有權限問題的不應該 Cache 到所有人都可以得到。跟權限有關的東西都應該特別注意。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>底層<ul>
+<li>PHP 的 file_exists function<blockquote>
+<p>檔案相關的處理是不是安全的，如果使用者可以傳入 path，可能就要注意惹。</p>
+</blockquote>
+</li>
+<li>Prototype Pollution (因應 JavaScript 特性發展出的攻擊面)<blockquote>
+<p>除了關切使用者輸入的安全性外，對於底層出現的漏洞，覺得有一個開發者需要關注的部分，就是版本更新，不要說一直都用很舊的版本都不更新，這樣就算語言或套件本身修正了安全性問題，專案還是不安全。另外就是在開發的時候要盡可能避免重要資料被外部修改的可能性。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>不一致<ul>
+<li>URL Parser<blockquote>
+<p>網址是大家可以進入我們網站的入口，也會是駭客可以著手的地方，大門的保護也是很重要的，一個不小心就讓駭客走去你家廚房惹 QQ。</p>
+</blockquote>
+</li>
+<li>JSON Parser<blockquote>
+<p>因為對於輸入欄位的解析不一致而造成漏洞。感覺這類型的洞如果要根治的話似乎標準做法的統一也是一件事情，但好像很難的樣子嗎? 有種一個什麼各自解讀的感覺?</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>跨應用<ul>
+<li>用公開 email 註冊私人 space<blockquote>
+<p>注意公開資訊的權限設定。</p>
+</blockquote>
+</li>
+<li>HTTPoxy Attack (你的規範不只是你的規範)<blockquote>
+<p>發現 Ruby 有相對較早發現問題，表現不錯 XD</p>
+</blockquote>
+</li>
+<li>防毒軟體的利用<blockquote>
+<p>我們寫程式會用組合技巧，駭客也會用組合技巧 (不同意義) 攻擊啊 QQ</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>前端<blockquote>
+<p>覺得所有互動的地方都可能是危險的入口 QQ</p>
+</blockquote>
+</li>
+</ol>
+<p>最後感覺很多開發者想躺平惹，但大家我們還有一個選項，就是交給專業的來 XDDDDD 資安問題就跟保險想要保障的東西很像，沒發生事情的時候沒感覺，發生事情的時候可能就嚴重惹。我們可以持續學習 + 交給專業的來。</p>
+<h2 id="選擇適合你的技能組合-蒼時弦也"><a href="#選擇適合你的技能組合-蒼時弦也" class="headerlink" title="選擇適合你的技能組合 - 蒼時弦也"></a>選擇適合你的技能組合 - 蒼時弦也</h2><p>因為下午茶時間在攤位做測驗，這場晚惹一點點進去，前面有一點點沒聽到 QQ。講者先講了程式語言的歷史，原來 Ruby 的年紀比 C# 還老啊，以為有 C 就很老 (<del>Cindy：咦？</del>)，接者講了開發框架的歷史，Rails 很老誒 XD「從時間角度看，不同時期推出的語言、框架剛好對應當時面對的問題」，不同語言有不同的特性，例如型別、struct、interface、物件、Mixin、Pointer、框架。</p>
+<h3 id="解決方案-生態系決定選擇"><a href="#解決方案-生態系決定選擇" class="headerlink" title="解決方案 (生態系決定選擇)"></a>解決方案 (生態系決定選擇)</h3><ul>
+<li>AL/ML: Python</li>
+<li>快速製作產品原型: Ruby、PHP</li>
+<li>網路服務: Golang</li>
+<li>安全、系統底層: Rust</li>
+<li>遊戲: C#(Unity)、 C++、Ruby(日本的遊戲伺服器公司會用)</li>
+</ul>
+<p>除了 pickup 技術特徵的選擇外，考量當下環境也是很重要的，不知道為啥突然想到機會成本 XD，如果有相當明確的目標可以選擇往目標的方向前進，但目前覺得如果不知道怎麼選的時候可以考慮選擇成本較低的方案，因為成本低隨時想要轉向都容易，隨時調整也很 ok (吧)，不負責任心得。</p>
+<h2 id="Beyond-Technology-技術之外-從個人身心安頓到人類福祉追求-蔡明哲"><a href="#Beyond-Technology-技術之外-從個人身心安頓到人類福祉追求-蔡明哲" class="headerlink" title="Beyond Technology 技術之外 - 從個人身心安頓到人類福祉追求 - 蔡明哲"></a>Beyond Technology 技術之外 - 從個人身心安頓到人類福祉追求 - 蔡明哲</h2><p>「今天的第一課：對過去抱著感恩」講者自稱是阿北，主要是阿北人生歷程分享，一開始講對過去懷抱感恩，感謝一路上互助合作的同事跟夥伴，所以有現在的自己。我想大家何嘗不是如此，我覺得除了感謝大家，也要感謝自己，謝謝一路走到現在的自己。講者在說人的一輩子有兩個日子跟你有關的時候，我還以為他要說出生和死亡 XDDD 老實說我自己是沒有一定要找到人生意義的那種想法就是惹。「安頓自己是一輩子的功課，學習面對當下」，講者提到覺察內在焦慮，但不排斥它，我想也是一些心理學的書提到的，面對自己內心的情緒，接受他，他是我們的一部分。老實說這場演講真的超棒的，感覺很有溫度、很溫暖的一場演講，還記得小時候喜歡看的卡通玩偶遊戲有一句「我們逃走吧」的台詞，當時我覺得那台詞很棒，每次想逃走的時候就想一下，然後暫時逃走，整理好自己又可以繼續小步前進，總結要「過去感恩、現在安頓、未來設定目標，有目標才不會茫然。」</p>
+<h3 id="7-個職涯建議"><a href="#7-個職涯建議" class="headerlink" title="7 個職涯建議"></a>7 個職涯建議</h3><p>建議 1 – 向內看: 以自己為目標，不要把贏過所有人當作目標或壓力<br>建議 2 - 向外看: 對企業(行業)的熟悉度/適應力是重點<br>建議 3 – 不只人為中心，更要以人類福祉為中心<br>建議 4 - 不定著於科技，學習看得更廣<br>建議 5 - 不慌不忙，細細品嚐勝過囫圇吞棗<br>建議 6 - 面對問題，解決問題，不要等待他人<br>建議 7 - 不要死守你的角色與職稱</p>
+
+  </div>
+</article>
+<script type="text/javascript" src="//js1.bloggerads.net/ShowBanner.aspx?blogid=20201206000001" async></script>
+
+
+<section id="comments">
+<div class="fb-like" data-href="
+https://cindyliu923.com/2023/08/20/WEBCONF-2023-Day-2/" data-width="" data-layout="button_count" data-action="like" data-size="large" data-share="true""></div>
+<div class="fb-comments" data-href="
+https://cindyliu923.com/2023/08/20/WEBCONF-2023-Day-2/" data-numposts="10" data-width="100%"></div>
+</section>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/posts/">Writing</a></li>
+         
+          <li><a href="https://github.com/cindyliu923" target="_blank" rel="noopener">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a href="/atom.xml">RSS</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#目錄-8-12"><span class="toc-number">1.</span> <span class="toc-text">目錄 (8&#x2F;12)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#APM-的守破離-Norman"><span class="toc-number">2.</span> <span class="toc-text">APM 的守破離 - Norman</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#鳳‧極意？！-Paul-Li"><span class="toc-number">3.</span> <span class="toc-text">鳳‧極意？！ - Paul Li</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#為何技術老人這樣想那樣做？從技術前輩的視角理解技術決策-Caesar-Chi"><span class="toc-number">4.</span> <span class="toc-text">為何技術老人這樣想那樣做？從技術前輩的視角理解技術決策 - Caesar Chi</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#講事實沒用，顧客才不聽這個！-Akane-Lee"><span class="toc-number">5.</span> <span class="toc-text">講事實沒用，顧客才不聽這個！ - Akane Lee</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-年回顧：打造愛料理開發及營運團隊-Richard-Lee"><span class="toc-number">6.</span> <span class="toc-text">10 年回顧：打造愛料理開發及營運團隊 - Richard Lee</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#從-2013-到-2023-Web-Security-十年之進化及趨勢-Orange-Tsai"><span class="toc-number">7.</span> <span class="toc-text">從 2013 到 2023: Web Security 十年之進化及趨勢! - Orange Tsai</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#選擇適合你的技能組合-蒼時弦也"><span class="toc-number">8.</span> <span class="toc-text">選擇適合你的技能組合 - 蒼時弦也</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#解決方案-生態系決定選擇"><span class="toc-number">8.1.</span> <span class="toc-text">解決方案 (生態系決定選擇)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Beyond-Technology-技術之外-從個人身心安頓到人類福祉追求-蔡明哲"><span class="toc-number">9.</span> <span class="toc-text">Beyond Technology 技術之外 - 從個人身心安頓到人類福祉追求 - 蔡明哲</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-個職涯建議"><span class="toc-number">9.1.</span> <span class="toc-text">7 個職涯建議</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://cindyliu923.com/2023/08/20/WEBCONF-2023-Day-2/" target="_blank" rel="noopener"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://cindyliu923.com/2023/08/20/WEBCONF-2023-Day-2/&text=WEBCONF 2023 Day 2 心得 &amp; 紀錄" target="_blank" rel="noopener"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://cindyliu923.com/2023/08/20/WEBCONF-2023-Day-2/&title=WEBCONF 2023 Day 2 心得 &amp; 紀錄" target="_blank" rel="noopener"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cindyliu923.com/2023/08/20/WEBCONF-2023-Day-2/&is_video=false&description=WEBCONF 2023 Day 2 心得 &amp; 紀錄" target="_blank" rel="noopener"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=WEBCONF 2023 Day 2 心得 &amp; 紀錄&body=Check out this article: https://cindyliu923.com/2023/08/20/WEBCONF-2023-Day-2/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://cindyliu923.com/2023/08/20/WEBCONF-2023-Day-2/&title=WEBCONF 2023 Day 2 心得 &amp; 紀錄" target="_blank" rel="noopener"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://cindyliu923.com/2023/08/20/WEBCONF-2023-Day-2/&title=WEBCONF 2023 Day 2 心得 &amp; 紀錄" target="_blank" rel="noopener"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://cindyliu923.com/2023/08/20/WEBCONF-2023-Day-2/&title=WEBCONF 2023 Day 2 心得 &amp; 紀錄" target="_blank" rel="noopener"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://cindyliu923.com/2023/08/20/WEBCONF-2023-Day-2/&title=WEBCONF 2023 Day 2 心得 &amp; 紀錄" target="_blank" rel="noopener"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://cindyliu923.com/2023/08/20/WEBCONF-2023-Day-2/&name=WEBCONF 2023 Day 2 心得 &amp; 紀錄&description=" target="_blank" rel="noopener"><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2023 Cindy Liu <a href='/Privacy-Policy'>Privacy Policy</a>
+  </div>
+  <div class="footer-left">
+    . Some links are affiliated
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/posts/">Writing</a></li>
+        
+          <li><a href="https://github.com/cindyliu923" target="_blank" rel="noopener">Projects</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+          <li><a href="/atom.xml">RSS</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+
+<!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-80238614-3', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+
+
