@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="google-site-verification" content="yE1jgc5Tv8iV5DSEVyofU-gRWHhi7jbA3b1Q2qvS-gI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta property="fb:app_id" content="3074485109285192" />
+    <meta name="description" content="大家好，我是 Cindy，今年第一次參加日本的 RubyKaigi，第一次感覺研討會原來可以有慶典的感覺，覺得是很棒的體驗，所以決定記錄下來 (防止金魚腦的我忘記)，也希望大家看到我的分享也會有興趣有生之年可以體驗看看，這有趣的活動。 我在 Ruby Jam 有分享 RubyKaigi，所以做了簡報想看的人可以下載看看，下面內容也會大部分跟簡報一致，可能多一點簡報放不下的。 目標參加 RubyKa">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RubyKaigi 2024 心得 &amp; 紀錄">
+<meta property="og:url" content="https://cindyliu923.com/2024/06/02/RubyKaigi-2024/index.html">
+<meta property="og:site_name" content="Cindy&#39;s Blog">
+<meta property="og:description" content="大家好，我是 Cindy，今年第一次參加日本的 RubyKaigi，第一次感覺研討會原來可以有慶典的感覺，覺得是很棒的體驗，所以決定記錄下來 (防止金魚腦的我忘記)，也希望大家看到我的分享也會有興趣有生之年可以體驗看看，這有趣的活動。 我在 Ruby Jam 有分享 RubyKaigi，所以做了簡報想看的人可以下載看看，下面內容也會大部分跟簡報一致，可能多一點簡報放不下的。 目標參加 RubyKa">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://cindyliu923.com/2024/06/02/RubyKaigi-2024/image.jpg">
+<meta property="article:published_time" content="2024-06-02T07:36:32.000Z">
+<meta property="article:modified_time" content="2024-06-02T15:03:32.118Z">
+<meta property="article:author" content="Cindy Liu">
+<meta property="article:tag" content="RubyKaigi">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cindyliu923.com/2024/06/02/RubyKaigi-2024/image.jpg">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/mstile-150x150.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>RubyKaigi 2024 心得 &amp; 紀錄</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- rss -->
+    
+      
+    
+    
+      <link rel="alternate" href="/atom.xml" title="Cindy&#39;s Blog" type="application/atom+xml" />
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+    <div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/zh_TW/sdk/debug.js#xfbml=1&version=v12.0&appId=3074485109285192&autoLogAppEvents=1&colorscheme=light" nonce=Lh92L3Cq></script><script>(function(d, s, id) {
+var js, fjs = d.getElementsByTagName(s)[0];
+if (d.getElementById(id)) return;
+js = d.createElement(s); js.id = id;
+js.nonce ="Lh92L3Cq";
+js.src = "https://connect.facebook.net/zh_TW/sdk/debug.js#xfbml=1&version=v12.0&appId=3074485109285192&autoLogAppEvents=1&colorscheme=light&order_by=time";
+fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/posts/">Writing</a></li>
+         
+          <li><a href="https://github.com/cindyliu923" target="_blank" rel="noopener">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a href="/atom.xml">RSS</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2023/08/20/WEBCONF-2023-Day-2/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://cindyliu923.com/2024/06/02/RubyKaigi-2024/" target="_blank" rel="noopener"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://cindyliu923.com/2024/06/02/RubyKaigi-2024/&text=RubyKaigi 2024 心得 &amp; 紀錄" target="_blank" rel="noopener"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://cindyliu923.com/2024/06/02/RubyKaigi-2024/&title=RubyKaigi 2024 心得 &amp; 紀錄" target="_blank" rel="noopener"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cindyliu923.com/2024/06/02/RubyKaigi-2024/&is_video=false&description=RubyKaigi 2024 心得 &amp; 紀錄" target="_blank" rel="noopener"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=RubyKaigi 2024 心得 &amp; 紀錄&body=Check out this article: https://cindyliu923.com/2024/06/02/RubyKaigi-2024/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://cindyliu923.com/2024/06/02/RubyKaigi-2024/&title=RubyKaigi 2024 心得 &amp; 紀錄" target="_blank" rel="noopener"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://cindyliu923.com/2024/06/02/RubyKaigi-2024/&title=RubyKaigi 2024 心得 &amp; 紀錄" target="_blank" rel="noopener"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://cindyliu923.com/2024/06/02/RubyKaigi-2024/&title=RubyKaigi 2024 心得 &amp; 紀錄" target="_blank" rel="noopener"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://cindyliu923.com/2024/06/02/RubyKaigi-2024/&title=RubyKaigi 2024 心得 &amp; 紀錄" target="_blank" rel="noopener"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://cindyliu923.com/2024/06/02/RubyKaigi-2024/&name=RubyKaigi 2024 心得 &amp; 紀錄&description=" target="_blank" rel="noopener"><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#目標"><span class="toc-number">1.</span> <span class="toc-text">目標</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#事前攻略"><span class="toc-number">2.</span> <span class="toc-text">事前攻略</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#要做的事"><span class="toc-number">2.1.</span> <span class="toc-text">要做的事</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#活動網站"><span class="toc-number">2.2.</span> <span class="toc-text">活動網站</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#參加的活動"><span class="toc-number">3.</span> <span class="toc-text">參加的活動</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#會場"><span class="toc-number">4.</span> <span class="toc-text">會場</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#贊助商攤位"><span class="toc-number">5.</span> <span class="toc-text">贊助商攤位</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#考題類型"><span class="toc-number">5.1.</span> <span class="toc-text">考題類型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#可愛類型"><span class="toc-number">5.2.</span> <span class="toc-text">可愛類型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#遊戲互動類型"><span class="toc-number">5.3.</span> <span class="toc-text">遊戲互動類型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#議程"><span class="toc-number">6.</span> <span class="toc-text">議程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Writing-Weird-Code"><span class="toc-number">6.1.</span> <span class="toc-text">Writing Weird Code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Strings-Interpolation-Optimisation-amp-Bugs"><span class="toc-number">6.2.</span> <span class="toc-text">Strings! Interpolation, Optimisation &amp; Bugs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Let’s-use-LLMs-from-Ruby-〜-Refine-RBS-types-using-LLM-〜"><span class="toc-number">6.3.</span> <span class="toc-text">Let’s use LLMs from Ruby 〜 Refine RBS types using LLM 〜</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Exploring-Reline-Enhancing-Command-Line-Usability"><span class="toc-number">6.4.</span> <span class="toc-text">Exploring Reline: Enhancing Command Line Usability</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#An-adventure-of-Happy-Eyeballs"><span class="toc-number">6.5.</span> <span class="toc-text">An adventure of Happy Eyeballs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Leveraging-Falcon-and-Rails-for-Real-Time-Interactivity"><span class="toc-number">6.6.</span> <span class="toc-text">Leveraging Falcon and Rails for Real-Time Interactivity</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Finding-Memory-Leaks-in-the-Ruby-Ecosystem"><span class="toc-number">6.7.</span> <span class="toc-text">Finding Memory Leaks in the Ruby Ecosystem</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Embedding-it-into-Ruby-code"><span class="toc-number">6.8.</span> <span class="toc-text">Embedding it into Ruby code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reducing-Implicit-Allocations-During-Method-Calling"><span class="toc-number">6.9.</span> <span class="toc-text">Reducing Implicit Allocations During Method Calling</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RuboCop-LSP-and-Prism"><span class="toc-number">6.10.</span> <span class="toc-text">RuboCop: LSP and Prism</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#It’s-about-time-to-pack-Ruby-and-Ruby-scripts-in-one-binary"><span class="toc-number">6.11.</span> <span class="toc-text">It’s about time to pack Ruby and Ruby scripts in one binary</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Adding-Security-to-Microcontroller-Ruby"><span class="toc-number">6.12.</span> <span class="toc-text">Adding Security to Microcontroller Ruby</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Ruby-Committers-and-the-World"><span class="toc-number">6.13.</span> <span class="toc-text">Ruby Committers and the World</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#YJIT-Makes-Rails-1-7x-Faster"><span class="toc-number">6.14.</span> <span class="toc-text">YJIT Makes Rails 1.7x Faster</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Ruby-and-the-World-Record-Pi-Calculation"><span class="toc-number">6.15.</span> <span class="toc-text">Ruby and the World Record Pi Calculation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Using-Ruby-in-the-browser-is-wonderful"><span class="toc-number">6.16.</span> <span class="toc-text">Using Ruby in the browser is wonderful.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Matz-Keynote"><span class="toc-number">6.17.</span> <span class="toc-text">Matz Keynote</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#總結"><span class="toc-number">7.</span> <span class="toc-text">總結</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        RubyKaigi 2024 心得 &amp; 紀錄
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Cindy's Blog</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2024-06-02T07:36:32.000Z" itemprop="datePublished">2024-06-02</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/RubyKaigi/" rel="tag">RubyKaigi</a>
+    </div>
+
+
+    </div>
+    <div class="meta">
+      <span class="post-count">👀 15 min read 👀</span>
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p><img src="image.jpg" alt="image"><br>大家好，我是 Cindy，今年第一次參加日本的 RubyKaigi，第一次感覺研討會原來可以有慶典的感覺，覺得是很棒的體驗，所以決定記錄下來 (防止金魚腦的我忘記)，也希望大家看到我的分享也會有興趣有生之年可以體驗看看，這有趣的活動。</p>
+<p>我在 <a href="https://www.facebook.com/RubyJamTW/" target="_blank" rel="noopener">Ruby Jam</a> 有分享 RubyKaigi，所以做了<a href="/pdf/rubykaigi2024_cindyliu.pdf">簡報</a>想看的人可以下載看看，下面內容也會大部分跟簡報一致，可能多一點簡報放不下的。</p>
+<h2 id="目標"><a href="#目標" class="headerlink" title="目標"></a>目標</h2><p>參加 RubyKaigi 大家可以自己設定自己的目標，我只是很單純的想要體驗 Ruby 日本社群，可能其他人有其他目標，像是可以見到 Ruby Committer，跟大神們講講話之類的，聽大神們現場講議程，等等，都很棒。</p>
+<h2 id="事前攻略"><a href="#事前攻略" class="headerlink" title="事前攻略"></a>事前攻略</h2><h3 id="要做的事"><a href="#要做的事" class="headerlink" title="要做的事"></a>要做的事</h3><ul>
+<li>報名 <a href="https://rubykaigi.org" target="_blank" rel="noopener">RubyKaigi</a></li>
+<li>報名活動 (參考<a href="#活動網站">活動網站</a>)</li>
+<li>學日文 (有一定程度可以溝通的話會更好玩)</li>
+<li>有 <a href="https://x.com/cindyliu923" target="_blank" rel="noopener">X</a> 帳號 (大家都會交換 X)</li>
+</ul>
+<p>確定想去的話看到賣票就先買了因為超早鳥票真的便宜，RubyKaigi 除了官方的活動外，各家的贊助商都會舉辦各自的活動，如果想參加就要在事前多看看哪裡有活動，然後要搶報名的名額囉。</p>
+<h3 id="活動網站"><a href="#活動網站" class="headerlink" title="活動網站"></a>活動網站</h3><ul>
+<li>X 搜尋 #rubykaigi<br><a href="https://x.com/search?q=%23rubykaigi&amp;src=typeahead_click&amp;f=live" target="_blank" rel="noopener">https://x.com/search?q=%23rubykaigi&amp;src=typeahead_click&amp;f=live</a></li>
+<li>connpass 搜尋 rubykaigi + 活動期間<br><a href="https://connpass.com/search/?q=rubykaigi&amp;start_from=05%2F14%2F2024&amp;start_to=05%2F17%2F2024&amp;sort=" target="_blank" rel="noopener">https://connpass.com/search/?q=rubykaigi&amp;start_from=05%2F14%2F2024&amp;start_to=05%2F17%2F2024&amp;sort=</a></li>
+<li>官網/年份/events<br><a href="https://rubykaigi.org/2024/events/" target="_blank" rel="noopener">https://rubykaigi.org/2024/events/</a></li>
+</ul>
+<p>在 X 上很多人會分享活動，所以 X 上會是很棒的搜尋站囉，另外跟我一起去的小夥伴 Kasa 還做了 iphone 可以跳出 connpass 有活動的提醒通知小工具，厲害！官網的活動則是會比較晚才有，有些比較早跑的就可能會報不到，但比較晚出現的就沒問題，不只晚上有活動中午也有活動 (不確定是不是因為今年的便當是限量的所以有些贊助商就舉辦了午餐的活動)，另外除了上面列的之外 <a href="https://www.doorkeeper.jp/" target="_blank" rel="noopener">Doorkeeper</a> 也是有活動的網站，我們有報名到女子晚餐就是從這個網站報名到的囉。</p>
+<h2 id="參加的活動"><a href="#參加的活動" class="headerlink" title="參加的活動"></a>參加的活動</h2><p>接下來跟大家介紹我有參加的活動</p>
+<ul>
+<li><p><a href="https://tokyodev.doorkeeper.jp/events/172303" target="_blank" rel="noopener">TokyoDev x RailsGirls x WNB.rb: Women and Non-binary Dinner&amp;DrinkUp!</a><br>RubyKaigi 前一天晚上的女子晚餐，活動單位舉辦了一些前一天的活動，可以讓第一次參加的朋友在前一天就先認識一些人，真的很貼心，我還在這個晚餐認識了會中文的日本人，覺得好親切啊：）</p>
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">Day0のTokyoDev x RailsGirls x WNB.rb: Women and Non-binary DrinkUp! みんな来てくれて本当にありがとうございます！すごく楽しかった！RubyKaigiの3日、よろしくお願いします！<br><br>Thank you so much for coming! So happy to see so many making time for this gathering!! Let’s enjoy <a href="https://twitter.com/hashtag/RubyKaigi?src=hash&amp;ref_src=twsrc%5Etfw" target="_blank" rel="noopener">#RubyKaigi</a>! <a href="https://t.co/6uq2g8DMv2" target="_blank" rel="noopener">pic.twitter.com/6uq2g8DMv2</a></p>&mdash; mish (@mishmashtan) <a href="https://twitter.com/mishmashtan/status/1790402951695221174?ref_src=twsrc%5Etfw" target="_blank" rel="noopener">May 14, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</li>
+<li><p><a href="https://coubic.com/storesinc/3574197" target="_blank" rel="noopener">STORES CAFE for Women (Day 1)</a><br>第一天的女子午餐，中間還讓大家交換位子，不愧是很會辦活動的日本人，覺得尊敬，總是會顧慮到小細節，像是我跟我朋友是外國人，所以讓我們坐一起其他人換位子和我們聊天，雖然最後吃得有點趕，但總體而言是很棒的午餐，認識了日本女工程師外，還認識了 <a href="https://rubykaigi.org/2024/presentations/coe401_.html#day1" target="_blank" rel="noopener">An adventure of Happy Eyeballs</a> 演講的講者，最後還收了主辦給的小禮物：）</p>
+</li>
+<li><p><a href="https://mybest.connpass.com/event/316046/" target="_blank" rel="noopener">Yuntaku Night</a><br>第一天的晚餐，晚餐好吃，最特別的是沖繩傳統三味線表演，很好玩。表演者還叫大家一起喊 iyasasa (雖然我還問說這是什麼意思，讓大家困擾了一下，真是不好意思)，最後大家還很配合地站起來跳舞，有趣。據說 mybest 說是也有架台灣的<a href="https://tw.my-best.com/" target="_blank" rel="noopener">網站</a>。</p>
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/%E3%82%86%E3%82%93%E3%81%9F%E3%81%8FNight?src=hash&amp;ref_src=twsrc%5Etfw" target="_blank" rel="noopener">#ゆんたくNight</a> お越しの皆様ありがとうございました！たくさんの方にお越しいただけて嬉しかったです！楽しかったですね🙌<br>明日もお会いできること楽しみにしています〜！！<a href="https://twitter.com/hashtag/rubykaigi?src=hash&amp;ref_src=twsrc%5Etfw" target="_blank" rel="noopener">#rubykaigi</a> <a href="https://twitter.com/hashtag/rubykaigi2024?src=hash&amp;ref_src=twsrc%5Etfw" target="_blank" rel="noopener">#rubykaigi2024</a> <a href="https://twitter.com/hashtag/mybest?src=hash&amp;ref_src=twsrc%5Etfw" target="_blank" rel="noopener">#mybest</a> <a href="https://t.co/q0ciYs3TbP" target="_blank" rel="noopener">pic.twitter.com/q0ciYs3TbP</a></p>&mdash; Satoko Iwasa@mybest (@sachii1015) <a href="https://twitter.com/sachii1015/status/1790757970621735274?ref_src=twsrc%5Etfw" target="_blank" rel="noopener">May 15, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</li>
+<li><p><a href="https://andpad.connpass.com/event/315564/" target="_blank" rel="noopener">Code Party RubyKaigi 2024 Day 2</a><br>第二天的晚餐，參加了 Code Party，沒有參加過這類的活動我很緊張，活動一開始會讓大家選白板上的主題，然後加入有興趣主題的桌子，跟大家一起討論要做什麼。因為覺得 <code>rspec</code> <code>rubocop</code> 是我有在用的所以就選了這張桌子，一開始因為不知道要做什麼所以有點尷尬，後來還好有一位提出了他想要解決的問題，主要是想要部分提高 rspec-openapi gem 的輸出，所以我們 8 個人一起討論研究怎麼做，其中還遇到可能是因為測試程式碼內部啟動了一個單獨的進程，無法使用 <code>binging.irb</code> 或 <code>puts</code> 方法查看內部，後來有人想到可以用 <code>IO.write</code> 的方法把我們想查看的資訊寫在檔案裡，然後因為我日文不太好，大家還很用心地跟我說明發生什麼事情，覺得很感人，讓我有很棒的體驗，謝謝大家。</p>
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">コード懇親会/Code Party<br>rspec-openapi チーム！<a href="https://twitter.com/hashtag/rubykaigi?src=hash&amp;ref_src=twsrc%5Etfw" target="_blank" rel="noopener">#rubykaigi</a> <a href="https://t.co/DGCTGG9uaE" target="_blank" rel="noopener">pic.twitter.com/DGCTGG9uaE</a></p>&mdash; Shuto Tatebayashi / 舘林 秀和 (@shutooike) <a href="https://twitter.com/shutooike/status/1791085503875580007?ref_src=twsrc%5Etfw" target="_blank" rel="noopener">May 16, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</li>
+<li><p><a href="https://connpass.com/event/313947/" target="_blank" rel="noopener">RubyKaigi 2024 After Party</a><br>最後一天的晚餐，這次的贊助商是 mov，要先在會場換好飲料券，再換的時候工作人員還說我很快 XD (很前面搶到名額的意思)，活動前還有發解酒液 (真的貼心)，會場讓人很驚艷 (包了兩層樓好幾間餐廳)，基本上是餐廳大家隨便吃，然後要喝飲料或酒再用券去換，其中有些餐廳可以唱歌，所以可以看到大家熱唱的樣子，很好玩：）</p>
+</li>
+<li><p><a href="https://conference.pixiv.co.jp/2024/rubymusicmixin" target="_blank" rel="noopener">RubyMusicMixin 2024</a><br>最後的夜店活動，也很有趣，也是有飲料或酒券，雖然我是沒待滿待好，但去體驗一下也很不錯：）</p>
+<blockquote class="twitter-tweet"><p lang="zh" dir="ltr">認識了日本朋友們，很有趣的體驗！Rubyist 很酷！第一次去夜店XD <a href="https://twitter.com/hashtag/rubykaigi?src=hash&amp;ref_src=twsrc%5Etfw" target="_blank" rel="noopener">#rubykaigi</a> <a href="https://t.co/IILTDJDAPG" target="_blank" rel="noopener">pic.twitter.com/IILTDJDAPG</a></p>&mdash; Cindy Liu (@cindyliu923) <a href="https://twitter.com/cindyliu923/status/1791621124398497844?ref_src=twsrc%5Etfw" target="_blank" rel="noopener">May 18, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+</li>
+</ul>
+<h2 id="會場"><a href="#會場" class="headerlink" title="會場"></a>會場</h2><p>(會場內的詳細圖片直接看簡報惹 (懶得再貼一次的我)，會場佈置的很可愛，設計風格一致)</p>
+<p>建議大家可以在前一天 checkin，這樣議程開始的第一天可以不用太早起床。如果不想被拍照的人可以拿 White lanyards，又一個貼心的設計。詳細資訊有列在<a href="https://rubykaigi.org/2024/onsite/" target="_blank" rel="noopener">官網</a>上。不會日文也沒關係，有日翻英的即時翻譯，雖然有點延遲，但整體而言還是ｏｋ的。會場內的下午茶超激烈，因為人很多，所以如果有人群恐懼可能會有點怕 XD 但我還是有拍到一些照片，有吃到一點點水果跟布丁，除了甜的也有鹹的下午茶，但我沒吃到鹹的就是惹。平常時間的話有飲料可以拿，中午則是有限量的便當。想用電腦做自己事情的人還有一個用電腦區域，另外想徵才的話有個白板大家可以貼上自己公司在徵才的廣告，世界地圖區則是大家貼上自己來自哪個國家的環節，我在那邊捕捉到 Matz (Ruby 程式設計語言的主要設計者和實現者) 惹，太幸運惹。</p>
+  <blockquote class="twitter-tweet"><p lang="zh" dir="ltr">跟 ruby 爸爸的合照！感謝讓我有飯吃！日文聽說突飛猛進中 XD<a href="https://twitter.com/hashtag/rubykaigi?src=hash&amp;ref_src=twsrc%5Etfw" target="_blank" rel="noopener">#rubykaigi</a> <a href="https://t.co/q5HoLA30mj" target="_blank" rel="noopener">pic.twitter.com/q5HoLA30mj</a></p>&mdash; Cindy Liu (@cindyliu923) <a href="https://twitter.com/cindyliu923/status/1790680203133628573?ref_src=twsrc%5Etfw" target="_blank" rel="noopener">May 15, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<h2 id="贊助商攤位"><a href="#贊助商攤位" class="headerlink" title="贊助商攤位"></a>贊助商攤位</h2><p>我覺得每個攤位都可以感覺得到他們的用心，真的很厲害。</p>
+<h3 id="考題類型"><a href="#考題類型" class="headerlink" title="考題類型"></a>考題類型</h3><p>這類的攤位每天都會出題目給大家挑戰，很有趣，適合喜歡思考的工程師，也是其中我最喜歡的類型。</p>
+<ul>
+<li>Findy<br>Findy 的題目，我每天都去做答，三天都答對了超級開心的，主要是考對 Ruby 的熟悉程度，包含版本的變化等等。<ul>
+<li><a href="https://tech.findy.co.jp/entry/2024/05/21/102306" target="_blank" rel="noopener">題目與解答</a></li>
+</ul>
+</li>
+<li>Flatt Security<br>日本資安公司 Flatt Security 每天都出一題跟 yaml 解析有關的問題，主要是 Ruby 跟各家語言解析後是不同的結果，這可能就是一種不一致吧，我前兩天都答錯了，最扯的是第二天的題目蒼時有跟我說答案我還是答錯不知道在幹嘛，但最後一天有答對就是惹 QQ。<ul>
+<li><a href="https://blog.flatt.tech/entry/rubykaigi_2024" target="_blank" rel="noopener">題目跟解答</a></li>
+</ul>
+</li>
+<li>STORES<br>在女子會認識的工程師拿到了他們攤位的題目，然後我忘記做題目惹，啥眼。不過回台灣之後我有把它做完，但要拿到 1 分對我來說還是有些困難。<ul>
+<li><a href="https://ruby-quiz-2024.storesinc.tech/" target="_blank" rel="noopener">題目網站</a></li>
+<li><a href="https://product.st.inc/entry/2024/05/27/113038" target="_blank" rel="noopener">題目與解答</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="可愛類型"><a href="#可愛類型" class="headerlink" title="可愛類型"></a>可愛類型</h3><p>可愛就讚</p>
+<h3 id="遊戲互動類型"><a href="#遊戲互動類型" class="headerlink" title="遊戲互動類型"></a>遊戲互動類型</h3><p>有貼發票抽獎，或分享抽獎，或幫忙 code review 等等。</p>
+<blockquote class="twitter-tweet"><p lang="zh" dir="ltr">My first Ruby Kaigi was an enriching experience for my mind, heart, and hands. Thank you to everyone I met. I&#39;m eager to learn Japanese! <a href="https://twitter.com/hashtag/rubykaigi?src=hash&amp;ref_src=twsrc%5Etfw" target="_blank" rel="noopener">#rubykaigi</a> 收穫滿滿 😀 可以感覺到每個人的用心，很棒的活動體驗。 <a href="https://t.co/RXozYhWmOJ" target="_blank" rel="noopener">pic.twitter.com/RXozYhWmOJ</a></p>&mdash; Cindy Liu (@cindyliu923) <a href="https://twitter.com/cindyliu923/status/1792103843121250669?ref_src=twsrc%5Etfw" target="_blank" rel="noopener">May 19, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<h2 id="議程"><a href="#議程" class="headerlink" title="議程"></a>議程</h2><p>主要列幾場我有聽的議程 &amp; 沒那麼技術的心得 (如果我有寫錯歡迎大家告訴我唷)</p>
+<h3 id="Writing-Weird-Code"><a href="#Writing-Weird-Code" class="headerlink" title="Writing Weird Code"></a>Writing Weird Code</h3><p>記得前一天晚餐就有人跟我說這場演講的講者很有趣，所以很期待，第一天的 keynote 聽完之後真的覺得是很有意思的演講，寫得很奇怪的程式碼跑出各種神奇的動畫。很多人在 X 分享在車站附近看到的動畫，是用 ruby 做的，也是這場議程的講者的作品。從這場演講可以去反思平常沒有想過的問題，奇怪的問題，也許思考這些可以讓我們更理解 ruby。</p>
+<p>範例程式碼：<a href="https://github.com/tompng/selftrick2024" target="_blank" rel="noopener">https://github.com/tompng/selftrick2024</a></p>
+<blockquote class="twitter-tweet" data-media-max-width="560"><p lang="ja" dir="ltr">県庁前のrubykaigiのムービーFULLバージョン <a href="https://t.co/FfRCRLVCIJ" target="_blank" rel="noopener">pic.twitter.com/FfRCRLVCIJ</a></p>&mdash; すぎうり (@uproad3) <a href="https://twitter.com/uproad3/status/1790257572571975877?ref_src=twsrc%5Etfw" target="_blank" rel="noopener">May 14, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">Day1のキーノート Writing Weird Code の発表資料です。<br>My day1 keynote slide <a href="https://twitter.com/hashtag/rubykaigi?src=hash&amp;ref_src=twsrc%5Etfw" target="_blank" rel="noopener">#rubykaigi</a><a href="https://t.co/6rBDPjdX7P" target="_blank" rel="noopener">https://t.co/6rBDPjdX7P</a></p>&mdash; ぺん！ (@tompng) <a href="https://twitter.com/tompng/status/1792482001452425444?ref_src=twsrc%5Etfw" target="_blank" rel="noopener">May 20, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<h3 id="Strings-Interpolation-Optimisation-amp-Bugs"><a href="#Strings-Interpolation-Optimisation-amp-Bugs" class="headerlink" title="Strings! Interpolation, Optimisation &amp; Bugs"></a>Strings! Interpolation, Optimisation &amp; Bugs</h3><p>這場演講主要講字串在重新分布記憶體的時候出現的 bug，因為平常也不太會去追純 ruby 的執行過程的細節，所以把指令記下來 <code>ruby --dump=insns test.rb</code>，另外發現有人寫關於這場演講的<a href="https://developers.techouse.com/entry/RubyKaigi-2024-eightbitraptor-day1" target="_blank" rel="noopener">文章</a>，還蠻清楚的，可以參考。我覺得這個講者最後的結論蠻好的也記下來了：</p>
+<ul>
+<li>Any Changes can have Unexpected impacts</li>
+<li>Always question your assumptions</li>
+<li>Why was the change important?</li>
+<li>What was being achieved?</li>
+<li>How do we verify?</li>
+</ul>
+<h3 id="Let’s-use-LLMs-from-Ruby-〜-Refine-RBS-types-using-LLM-〜"><a href="#Let’s-use-LLMs-from-Ruby-〜-Refine-RBS-types-using-LLM-〜" class="headerlink" title="Let’s use LLMs from Ruby 〜 Refine RBS types using LLM 〜"></a>Let’s use LLMs from Ruby 〜 Refine RBS types using LLM 〜</h3><p>用 AI 產生 ruby 型別定義的方法，其中講者提到因為覺得有趣就去做了，我覺得很棒就記下來了。</p>
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/rubykaigi?src=hash&amp;ref_src=twsrc%5Etfw" target="_blank" rel="noopener">#rubykaigi</a> の登壇報告ブログ書きました！ 補足とかも載せてますー。 RubyKaigi 2024 で RBS と LLM の話をしました｜黒曜 <a href="https://t.co/3mTX5yH1KC" target="_blank" rel="noopener">https://t.co/3mTX5yH1KC</a> <a href="https://twitter.com/hashtag/zenn?src=hash&amp;ref_src=twsrc%5Etfw" target="_blank" rel="noopener">#zenn</a></p>&mdash; 黒曜@Leaner Technologies (@kokuyouwind) <a href="https://twitter.com/kokuyouwind/status/1792843050580099430?ref_src=twsrc%5Etfw" target="_blank" rel="noopener">May 21, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<h3 id="Exploring-Reline-Enhancing-Command-Line-Usability"><a href="#Exploring-Reline-Enhancing-Command-Line-Usability" class="headerlink" title="Exploring Reline: Enhancing Command Line Usability"></a>Exploring Reline: Enhancing Command Line Usability</h3><p>介紹 irb 中的 reline，如果大家有覺得 irb 怎麼越來越好用了，可以看看這個演講，其中印象比較深的是 Reline 可以直接編輯 command line 的輸入，以及 undo 的功能。</p>
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">Exploring Reline: Enhancing Command Line Usability のスライドです。ありがとうございました！ <a href="https://t.co/TRQ9ZAHKJW" target="_blank" rel="noopener">https://t.co/TRQ9ZAHKJW</a> <a href="https://twitter.com/hashtag/rubykaigi?src=hash&amp;ref_src=twsrc%5Etfw" target="_blank" rel="noopener">#rubykaigi</a> <a href="https://twitter.com/hashtag/rubykaigib?src=hash&amp;ref_src=twsrc%5Etfw" target="_blank" rel="noopener">#rubykaigib</a></p>&mdash; ima1zumi (@ima1zumi) <a href="https://twitter.com/ima1zumi/status/1790650187108765911?ref_src=twsrc%5Etfw" target="_blank" rel="noopener">May 15, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<h3 id="An-adventure-of-Happy-Eyeballs"><a href="#An-adventure-of-Happy-Eyeballs" class="headerlink" title="An adventure of Happy Eyeballs"></a>An adventure of Happy Eyeballs</h3><p>介紹 Ruby socket library 中當 IPV6 和 IPV4 同時存在的時候，IPV6 不能連線 IPV4 可以連線，卻繼續等待 IPV6 連線的問題。這場演講厲害的地方在於講者可以將相對困難的議題，用很簡單的圖片加上說明讓大家了解。</p>
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/rubykaigiB?src=hash&amp;ref_src=twsrc%5Etfw" target="_blank" rel="noopener">#rubykaigiB</a> にてこの後16:40よりお話しする「An adventure of Happy Eyeballs」の発表資料です。<br> This is a slide from my presentation at RubyKaigi 2024. <a href="https://t.co/ACPo6tHI0Z" target="_blank" rel="noopener">https://t.co/ACPo6tHI0Z</a><br> <br>よろしくお願いします! <a href="https://twitter.com/hashtag/rubykaigi?src=hash&amp;ref_src=twsrc%5Etfw" target="_blank" rel="noopener">#rubykaigi</a></p>&mdash; Misaki Shioi (しおい) (@coe401_) <a href="https://twitter.com/coe401_/status/1790638703851012401?ref_src=twsrc%5Etfw" target="_blank" rel="noopener">May 15, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<h3 id="Leveraging-Falcon-and-Rails-for-Real-Time-Interactivity"><a href="#Leveraging-Falcon-and-Rails-for-Real-Time-Interactivity" class="headerlink" title="Leveraging Falcon and Rails for Real-Time Interactivity"></a>Leveraging Falcon and Rails for Real-Time Interactivity</h3><p>講者是 ruby async 的作者並創建了 Falcon Web 伺服器，這場演講講了一段互動遊戲發展的歷史，最後也展示了將互動遊戲搬到瀏覽器上讓 Matz 上台玩看看，主要的重點是 server side render 的即時互動遊戲 (感謝蒼時提醒，上次分享沒有說到重點)。</p>
+<p>會眾很厲害的筆記：</p>
+<blockquote class="twitter-tweet"><p lang="qme" dir="ltr"><a href="https://twitter.com/hashtag/RubyKaigi?src=hash&amp;ref_src=twsrc%5Etfw" target="_blank" rel="noopener">#RubyKaigi</a><a href="https://t.co/cFPhPc1FZ1" target="_blank" rel="noopener">https://t.co/cFPhPc1FZ1</a> <a href="https://t.co/ODvhpPeRzP" target="_blank" rel="noopener">pic.twitter.com/ODvhpPeRzP</a></p>&mdash; りさきゃん🍉 (@_risacan_) <a href="https://twitter.com/_risacan_/status/1790931687989510181?ref_src=twsrc%5Etfw" target="_blank" rel="noopener">May 16, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>範例程式碼: <a href="https://github.com/socketry/lively" target="_blank" rel="noopener">https://github.com/socketry/lively</a></p>
+<p>Matz 上台玩遊戲：</p>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Matz playing a Flappy Bird written by <a href="https://twitter.com/ioquatix?ref_src=twsrc%5Etfw" target="_blank" rel="noopener">@ioquatix</a> in Ruby and running on the server at <a href="https://twitter.com/hashtag/RubyKaigi?src=hash&amp;ref_src=twsrc%5Etfw" target="_blank" rel="noopener">#RubyKaigi</a> <a href="https://t.co/bgiHO3g8iY" target="_blank" rel="noopener">pic.twitter.com/bgiHO3g8iY</a></p>&mdash; Benoit Daloze (@eregontp) <a href="https://twitter.com/eregontp/status/1790930428490379758?ref_src=twsrc%5Etfw" target="_blank" rel="noopener">May 16, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>最後我記下了覺得有道理的話：<br>We have made things too complex</p>
+<h3 id="Finding-Memory-Leaks-in-the-Ruby-Ecosystem"><a href="#Finding-Memory-Leaks-in-the-Ruby-Ecosystem" class="headerlink" title="Finding Memory Leaks in the Ruby Ecosystem"></a>Finding Memory Leaks in the Ruby Ecosystem</h3><p>這是一場雙人的演講，主要是深入研究 ruby 記憶體沒有被釋放的問題，如何在 ruby 中調查這類的問題。我們可以使用 Shopify 提供的<a href="https://github.com/Shopify/ruby_memcheck" target="_blank" rel="noopener">套件</a>來做記憶體檢查。<br>講者提供的 <a href="https://blog.peterzhu.ca/assets/rubykaigi_2024_slides.pdf" target="_blank" rel="noopener">簡報</a>。</p>
+<h3 id="Embedding-it-into-Ruby-code"><a href="#Embedding-it-into-Ruby-code" class="headerlink" title="Embedding it into Ruby code"></a>Embedding it into Ruby code</h3><p>主要在講將 ruby type 的裝飾。</p>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Uploaded my slides for <a href="https://twitter.com/hashtag/RubyKaigi?src=hash&amp;ref_src=twsrc%5Etfw" target="_blank" rel="noopener">#RubyKaigi</a> 2024. <a href="https://t.co/nx4YSJKsAG" target="_blank" rel="noopener">https://t.co/nx4YSJKsAG</a></p>&mdash; Soutaro Matsumoto (@soutaro) <a href="https://twitter.com/soutaro/status/1791108891243344091?ref_src=twsrc%5Etfw" target="_blank" rel="noopener">May 16, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<h3 id="Reducing-Implicit-Allocations-During-Method-Calling"><a href="#Reducing-Implicit-Allocations-During-Method-Calling" class="headerlink" title="Reducing Implicit Allocations During Method Calling"></a>Reducing Implicit Allocations During Method Calling</h3><p>Ruby 3.3 和 3.4 star operator 的差別，透過要記憶體位址的邏輯的調整讓 ruby 更有效率。</p>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Slides from my RubyKaigi 2024 talk &quot;Reducing Implicit Allocations During Method Calling&quot; are now available at <a href="https://t.co/mWDHHmB28h" target="_blank" rel="noopener">https://t.co/mWDHHmB28h</a></p>&mdash; Jeremy Evans (@jeremyevans0) <a href="https://twitter.com/jeremyevans0/status/1790983698818761083?ref_src=twsrc%5Etfw" target="_blank" rel="noopener">May 16, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<h3 id="RuboCop-LSP-and-Prism"><a href="#RuboCop-LSP-and-Prism" class="headerlink" title="RuboCop: LSP and Prism"></a>RuboCop: LSP and Prism</h3><p>Rubocop 引入內建的 language server，語言伺服器協定 Language Server Protocol (LSP) 為各種程式語言提供跨編輯器支援的現代標準。其中有提到目前兩大 ruby parser Lrama(LR) 和 Prism(Handcraft)，rubocop 關於 Prism parser 的支援。這場人超多多到滿出來。<br>作者的<a href="https://koic.hatenablog.com/entry/rubocop-lsp-and-prism" target="_blank" rel="noopener">文章</a></p>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">I&#39;ve published &quot;RuboCop: LSP and Prism&quot; slides. Thank you! <a href="https://twitter.com/hashtag/rubykaigi?src=hash&amp;ref_src=twsrc%5Etfw" target="_blank" rel="noopener">#rubykaigi</a> <a href="https://twitter.com/hashtag/rubykaigiB?src=hash&amp;ref_src=twsrc%5Etfw" target="_blank" rel="noopener">#rubykaigiB</a><a href="https://t.co/uawerJEgiX" target="_blank" rel="noopener">https://t.co/uawerJEgiX</a></p>&mdash; Koichi ITO (@koic) <a href="https://twitter.com/koic/status/1791007928096637206?ref_src=twsrc%5Etfw" target="_blank" rel="noopener">May 16, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<h3 id="It’s-about-time-to-pack-Ruby-and-Ruby-scripts-in-one-binary"><a href="#It’s-about-time-to-pack-Ruby-and-Ruby-scripts-in-one-binary" class="headerlink" title="It’s about time to pack Ruby and Ruby scripts in one binary"></a>It’s about time to pack Ruby and Ruby scripts in one binary</h3><blockquote class="twitter-tweet"><p lang="ja" dir="ltr">ギリギリ当日中に資料アップロードした！<a href="https://t.co/hzoCmBLkLD" target="_blank" rel="noopener">https://t.co/hzoCmBLkLD</a><a href="https://twitter.com/hashtag/rubykaigi?src=hash&amp;ref_src=twsrc%5Etfw" target="_blank" rel="noopener">#rubykaigi</a></p>&mdash; ahogappa (@ahogapParty) <a href="https://twitter.com/ahogapParty/status/1791104212790825357?ref_src=twsrc%5Etfw" target="_blank" rel="noopener">May 16, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<h3 id="Adding-Security-to-Microcontroller-Ruby"><a href="#Adding-Security-to-Microcontroller-Ruby" class="headerlink" title="Adding Security to Microcontroller Ruby"></a>Adding Security to Microcontroller Ruby</h3><blockquote class="twitter-tweet"><p lang="ja" dir="ltr">スライドこちらです / Slides are here <a href="https://t.co/JNmB5euUs9" target="_blank" rel="noopener">https://t.co/JNmB5euUs9</a> <a href="https://twitter.com/hashtag/rubykaigi?src=hash&amp;ref_src=twsrc%5Etfw" target="_blank" rel="noopener">#rubykaigi</a> <a href="https://twitter.com/hashtag/rubykaigiC?src=hash&amp;ref_src=twsrc%5Etfw" target="_blank" rel="noopener">#rubykaigiC</a></p>&mdash; sylph01 (@s01) <a href="https://twitter.com/s01/status/1791010806039240858?ref_src=twsrc%5Etfw" target="_blank" rel="noopener">May 16, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<h3 id="Ruby-Committers-and-the-World"><a href="#Ruby-Committers-and-the-World" class="headerlink" title="Ruby Committers and the World"></a>Ruby Committers and the World</h3><p>這是 RubyKaigi 的慣例，每年會有 Ruby Committer 上台，台上台下一起討論 Ruby 未來相關的議題，很酷的體驗。</p>
+<ul>
+<li>Literal sting will be frozen in the future<br>印象中有提到為了這項遇到了一些挑戰，但還是會計劃在未來達成。</li>
+<li>Embedded: RBS: WDYT<br>有讓觀眾投票覺得哪種寫法比較好。</li>
+<li>Replacing Ruby’s build system GNUAutotools → cmake</li>
+<li>Do you want to remove the GVL?</li>
+<li>Improving Ruby’s async usabilty e.g.async…awiat</li>
+<li><code>defer</code> for Ruby?</li>
+</ul>
+<h3 id="YJIT-Makes-Rails-1-7x-Faster"><a href="#YJIT-Makes-Rails-1-7x-Faster" class="headerlink" title="YJIT Makes Rails 1.7x Faster"></a>YJIT Makes Rails 1.7x Faster</h3><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Here&#39;s my deck for today&#39;s <a href="https://twitter.com/hashtag/rubykaigi?src=hash&amp;ref_src=twsrc%5Etfw" target="_blank" rel="noopener">#rubykaigi</a> talk: YJIT Makes Rails 1.7x faster <a href="https://t.co/Tq1s7wHWf6" target="_blank" rel="noopener">https://t.co/Tq1s7wHWf6</a></p>&mdash; k0kubun (@k0kubun) <a href="https://twitter.com/k0kubun/status/1791332281745080628?ref_src=twsrc%5Etfw" target="_blank" rel="noopener">May 17, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<h3 id="Ruby-and-the-World-Record-Pi-Calculation"><a href="#Ruby-and-the-World-Record-Pi-Calculation" class="headerlink" title="Ruby and the World Record Pi Calculation"></a>Ruby and the World Record Pi Calculation</h3><blockquote class="twitter-tweet"><p lang="ja" dir="ltr">本日の発表資料です。来てくださったみなさま、ありがとうございました！ Here&#39;s the deck from my RubyKaigi talk today. Thank you y&#39;all for coming today!<a href="https://t.co/kA33vC2W2c" target="_blank" rel="noopener">https://t.co/kA33vC2W2c</a><a href="https://twitter.com/hashtag/rubykaigic?src=hash&amp;ref_src=twsrc%5Etfw" target="_blank" rel="noopener">#rubykaigic</a></p>&mdash; Emma Haruka Iwao 🏳️‍🌈🏳️‍⚧️ (@Yuryu) <a href="https://twitter.com/Yuryu/status/1791390137915687158?ref_src=twsrc%5Etfw" target="_blank" rel="noopener">May 17, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<h3 id="Using-Ruby-in-the-browser-is-wonderful"><a href="#Using-Ruby-in-the-browser-is-wonderful" class="headerlink" title="Using Ruby in the browser is wonderful."></a>Using Ruby in the browser is wonderful.</h3><p>用很少的程式碼實現 Ruby in the browser，範例程式碼：<a href="https://github.com/ledsun/orbital_ring" target="_blank" rel="noopener">https://github.com/ledsun/orbital_ring</a> ，有趣的演講。</p>
+<h3 id="Matz-Keynote"><a href="#Matz-Keynote" class="headerlink" title="Matz Keynote"></a>Matz Keynote</h3><p>這次 Matz 講了 4 次的 performance (大家看到都笑惹 XD)，老實說我沒有百分百記得細節，之後可能要再看看影片惹。</p>
+<ul>
+<li>執行速度</li>
+<li>提高記憶體效率</li>
+<li>並行處理的改進</li>
+<li>提高開發者體驗</li>
+</ul>
+<h2 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h2><p>最後要感謝跟我一起去的 Kasa 小夥伴，日文比較好的她超厲害，可以跟大家好好的溝通。<br>也要謝謝 RubyKaigi 的所有工作人員，讓我們有很棒的體驗。</p>
+<p>整體而言對我來說是很棒的經驗，體會到 Ruby 沒有死的感覺？大家都超熱情，雖然參加活動又聽演講，整個就是動腦又動心力，每天都蠻累的但是又很充實。很推薦大家都去體驗看看，議程聽不懂其實也沒關係，之後可以再針對有興趣的主題看影片複習，但參加活動認識朋友或是可以近身貼近各界大大，其實是很難得的事情，即便是身為 I 人的我，還是覺得蠻不錯的呢。</p>
+
+  </div>
+</article>
+<script type="text/javascript" src="//js1.bloggerads.net/ShowBanner.aspx?blogid=20201206000001" async></script>
+
+
+<section id="comments">
+<div class="fb-like" data-href="
+https://cindyliu923.com/2024/06/02/RubyKaigi-2024/" data-width="" data-layout="button_count" data-action="like" data-size="large" data-share="true""></div>
+<div class="fb-comments" data-href="
+https://cindyliu923.com/2024/06/02/RubyKaigi-2024/" data-numposts="10" data-width="100%"></div>
+</section>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/posts/">Writing</a></li>
+         
+          <li><a href="https://github.com/cindyliu923" target="_blank" rel="noopener">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a href="/atom.xml">RSS</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#目標"><span class="toc-number">1.</span> <span class="toc-text">目標</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#事前攻略"><span class="toc-number">2.</span> <span class="toc-text">事前攻略</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#要做的事"><span class="toc-number">2.1.</span> <span class="toc-text">要做的事</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#活動網站"><span class="toc-number">2.2.</span> <span class="toc-text">活動網站</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#參加的活動"><span class="toc-number">3.</span> <span class="toc-text">參加的活動</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#會場"><span class="toc-number">4.</span> <span class="toc-text">會場</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#贊助商攤位"><span class="toc-number">5.</span> <span class="toc-text">贊助商攤位</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#考題類型"><span class="toc-number">5.1.</span> <span class="toc-text">考題類型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#可愛類型"><span class="toc-number">5.2.</span> <span class="toc-text">可愛類型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#遊戲互動類型"><span class="toc-number">5.3.</span> <span class="toc-text">遊戲互動類型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#議程"><span class="toc-number">6.</span> <span class="toc-text">議程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Writing-Weird-Code"><span class="toc-number">6.1.</span> <span class="toc-text">Writing Weird Code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Strings-Interpolation-Optimisation-amp-Bugs"><span class="toc-number">6.2.</span> <span class="toc-text">Strings! Interpolation, Optimisation &amp; Bugs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Let’s-use-LLMs-from-Ruby-〜-Refine-RBS-types-using-LLM-〜"><span class="toc-number">6.3.</span> <span class="toc-text">Let’s use LLMs from Ruby 〜 Refine RBS types using LLM 〜</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Exploring-Reline-Enhancing-Command-Line-Usability"><span class="toc-number">6.4.</span> <span class="toc-text">Exploring Reline: Enhancing Command Line Usability</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#An-adventure-of-Happy-Eyeballs"><span class="toc-number">6.5.</span> <span class="toc-text">An adventure of Happy Eyeballs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Leveraging-Falcon-and-Rails-for-Real-Time-Interactivity"><span class="toc-number">6.6.</span> <span class="toc-text">Leveraging Falcon and Rails for Real-Time Interactivity</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Finding-Memory-Leaks-in-the-Ruby-Ecosystem"><span class="toc-number">6.7.</span> <span class="toc-text">Finding Memory Leaks in the Ruby Ecosystem</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Embedding-it-into-Ruby-code"><span class="toc-number">6.8.</span> <span class="toc-text">Embedding it into Ruby code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reducing-Implicit-Allocations-During-Method-Calling"><span class="toc-number">6.9.</span> <span class="toc-text">Reducing Implicit Allocations During Method Calling</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RuboCop-LSP-and-Prism"><span class="toc-number">6.10.</span> <span class="toc-text">RuboCop: LSP and Prism</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#It’s-about-time-to-pack-Ruby-and-Ruby-scripts-in-one-binary"><span class="toc-number">6.11.</span> <span class="toc-text">It’s about time to pack Ruby and Ruby scripts in one binary</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Adding-Security-to-Microcontroller-Ruby"><span class="toc-number">6.12.</span> <span class="toc-text">Adding Security to Microcontroller Ruby</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Ruby-Committers-and-the-World"><span class="toc-number">6.13.</span> <span class="toc-text">Ruby Committers and the World</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#YJIT-Makes-Rails-1-7x-Faster"><span class="toc-number">6.14.</span> <span class="toc-text">YJIT Makes Rails 1.7x Faster</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Ruby-and-the-World-Record-Pi-Calculation"><span class="toc-number">6.15.</span> <span class="toc-text">Ruby and the World Record Pi Calculation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Using-Ruby-in-the-browser-is-wonderful"><span class="toc-number">6.16.</span> <span class="toc-text">Using Ruby in the browser is wonderful.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Matz-Keynote"><span class="toc-number">6.17.</span> <span class="toc-text">Matz Keynote</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#總結"><span class="toc-number">7.</span> <span class="toc-text">總結</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://cindyliu923.com/2024/06/02/RubyKaigi-2024/" target="_blank" rel="noopener"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://cindyliu923.com/2024/06/02/RubyKaigi-2024/&text=RubyKaigi 2024 心得 &amp; 紀錄" target="_blank" rel="noopener"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://cindyliu923.com/2024/06/02/RubyKaigi-2024/&title=RubyKaigi 2024 心得 &amp; 紀錄" target="_blank" rel="noopener"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cindyliu923.com/2024/06/02/RubyKaigi-2024/&is_video=false&description=RubyKaigi 2024 心得 &amp; 紀錄" target="_blank" rel="noopener"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=RubyKaigi 2024 心得 &amp; 紀錄&body=Check out this article: https://cindyliu923.com/2024/06/02/RubyKaigi-2024/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://cindyliu923.com/2024/06/02/RubyKaigi-2024/&title=RubyKaigi 2024 心得 &amp; 紀錄" target="_blank" rel="noopener"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://cindyliu923.com/2024/06/02/RubyKaigi-2024/&title=RubyKaigi 2024 心得 &amp; 紀錄" target="_blank" rel="noopener"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://cindyliu923.com/2024/06/02/RubyKaigi-2024/&title=RubyKaigi 2024 心得 &amp; 紀錄" target="_blank" rel="noopener"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://cindyliu923.com/2024/06/02/RubyKaigi-2024/&title=RubyKaigi 2024 心得 &amp; 紀錄" target="_blank" rel="noopener"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://cindyliu923.com/2024/06/02/RubyKaigi-2024/&name=RubyKaigi 2024 心得 &amp; 紀錄&description=" target="_blank" rel="noopener"><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2024 Cindy Liu <a href='/Privacy-Policy'>Privacy Policy</a>
+  </div>
+  <div class="footer-left">
+    . Some links are affiliated
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/posts/">Writing</a></li>
+        
+          <li><a href="https://github.com/cindyliu923" target="_blank" rel="noopener">Projects</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+          <li><a href="/atom.xml">RSS</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+
+<!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-80238614-3', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+
+
