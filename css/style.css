@@ -1442,3 +1442,10 @@ pre code {
 .highlight .line {
   height: 22px;
 }
+#floating-chicken {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  pointer-events: none;
+  z-index: 9999;
+}
