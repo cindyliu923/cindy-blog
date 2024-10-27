@@ -16,7 +16,7 @@
 <meta property="og:description" content="大家好，我是 Cindy，發現自己最近記憶力真的不好，以前看過的東西還是不記得，最近嚴重到 3 天前的事情也忘光，所以想盡可能做紀錄，於是這篇文章就誕生了ＱＱ 又過了一陣子發現這文章沒寫完，而且還有點混亂 XDD，趁過年的時候做了個整理，這篇文章最大的目的是如果我又忘記了可以直接翻來看，如果我有寫錯也歡迎大家留言告訴我唷。                什麼是 Cross SiteCross Si">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2022-11-20T07:39:08.000Z">
-<meta property="article:modified_time" content="2023-01-25T16:36:36.749Z">
+<meta property="article:modified_time" content="2024-10-27T13:20:44.616Z">
 <meta property="article:author" content="Cindy Liu">
 <meta property="article:tag" content="security">
 <meta property="article:tag" content="CSRF">
@@ -159,7 +159,7 @@ fjs.parentNode.insertBefore(js, fjs);
 
     </div>
     <div class="meta">
-      <span class="post-count">👀 4 min read 👀</span>
+      <span class="post-count">👀 5 min read 👀</span>
     </div>
   </header>
   
@@ -191,9 +191,12 @@ fjs.parentNode.insertBefore(js, fjs);
 <p>most Rails applications use cookie-based sessions. Either they store the session ID in the cookie and have a server-side session hash, or the entire session hash is on the client-side. In either case the browser will automatically send along the cookie on every request to a domain, if it can find a cookie for that domain. The controversial point is that if the request comes from a site of a different domain, it will also send the cookie.</p>
 </blockquote>
 <blockquote>
-<p>By default, Rails includes an unobtrusive scripting adapter, which adds a header called X-CSRF-Token with the security token on every non-GET Ajax call. Without this header, non-GET Ajax requests won’t be accepted by Rails. When using another library to make Ajax calls, it is necessary to add the security token as a default header for Ajax calls in your library. To get the token, have a look at <meta name='csrf-token' content='THE-TOKEN'> tag printed by &lt;%= csrf_meta_tags %&gt; in your application view.</p>
+<p>By default, Rails includes an unobtrusive scripting adapter, which adds a header called <code>X-CSRF-Token</code> with the security token on every non-GET Ajax call. Without this header, non-GET Ajax requests won’t be accepted by Rails. When using another library to make Ajax calls, it is necessary to add the security token as a default header for Ajax calls in your library. To get the token, have a look at <code>&lt;meta name=&#39;csrf-token&#39; content=&#39;THE-TOKEN&#39;&gt;</code> tag printed by &lt;%= csrf_meta_tags %&gt; in your application view.</p>
 </blockquote>
-<p>Rails 預設是 cookie-based sessions 的，關於 CSRF 的攻擊，Rails 也用一套解法 =&gt; CSRF token。<br>CSRF token 保護的重點在於，由於每次請求都會發送 cookie session_id（或帶有 JWT 的 cookie），因此我們需要一個額外的訊息（CSRF token），服務器將確認為用戶的瀏覽器操作，而不是惡意鏈接。</p>
+<blockquote>
+<p>The token parameter is named authenticity_token by default. The name and value of this token must be added to every layout that renders forms by including csrf_meta_tags in the HTML head.</p>
+</blockquote>
+<p>Rails 預設是 cookie-based sessions 的，關於 CSRF 的攻擊，Rails 也用一套解法 =&gt; CSRF token。<br>CSRF token 保護的重點在於，由於每次請求都會發送 cookie session_id（或帶有 JWT 的 cookie），因此我們需要一個額外的訊息（CSRF token 即 Rails 產生的 authenticity_token），服務器將確認為用戶的瀏覽器操作，而不是惡意鏈接。</p>
 <h2 id="為什麼-rails-api-mode-預設沒有處理-CSRF-token"><a href="#為什麼-rails-api-mode-預設沒有處理-CSRF-token" class="headerlink" title="為什麼 rails api mode 預設沒有處理 CSRF token"></a>為什麼 rails api mode 預設沒有處理 CSRF token</h2><blockquote>
 <p>Rails 文件中提到: <a href="https://api.rubyonrails.org/classes/ActionController/RequestForgeryProtection.html" target="_blank" rel="noopener">APIs may want to disable this behavior since they are typically designed to be state-less: that is, the request API client handles the session instead of Rails.</a></p>
 </blockquote>
@@ -205,6 +208,7 @@ fjs.parentNode.insertBefore(js, fjs);
 <li><a href="https://medium.com/rubyinside/a-deep-dive-into-csrf-protection-in-rails-19fa0a42c0ef" target="_blank" rel="noopener">A Deep Dive into CSRF Protection in Rails</a></li>
 <li><a href="https://tech-blog.cymetrics.io/posts/jo/zerobased-cross-site-request-forgery/" target="_blank" rel="noopener">零基礎資安系列（一）-認識 CSRF（Cross Site Request Forgery）</a></li>
 <li><a href="https://guides.rubyonrails.org/security.html#cross-site-request-forgery-csrf" target="_blank" rel="noopener">Cross-Site Request Forgery (CSRF)</a></li>
+<li><a href="https://api.rubyonrails.org/classes/ActionController/RequestForgeryProtection.html#method-i-commit_csrf_token" target="_blank" rel="noopener">Action Controller Request Forgery Protection</a></li>
 <li><a href="https://developer.mozilla.org/zh-TW/docs/Web/HTTP/CORS" target="_blank" rel="noopener">跨來源資源共用（CORS）</a></li>
 </ul>
 
