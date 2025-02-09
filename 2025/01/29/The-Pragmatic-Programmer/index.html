@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="google-site-verification" content="yE1jgc5Tv8iV5DSEVyofU-gRWHhi7jbA3b1Q2qvS-gI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta property="fb:app_id" content="3074485109285192" />
+    <meta name="description" content="大家好，我是 Cindy，斷斷續續用零碎時間看了好久才把這本融合了做法與想法的書看完，覺得很好看，所以想把看到的重點記錄下來，接下來是每個章節我畫的一些重點： 務實的哲學這章節講的比較偏軟實力的部分，從心態面開始 (我們都擁有改變的能量)，講到態度面 (請提供解決問題的選擇，停止製造爛藉口)，再到行為面 (請定期投資你的知識資產、批判式的分析你讀到或聽到的東西)、溝通面 (您說了什麼話，與您如何說">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Pragmatic Programmer - 邁向大師之路">
+<meta property="og:url" content="https://cindyliu923.com/2025/01/29/The-Pragmatic-Programmer/index.html">
+<meta property="og:site_name" content="Cindy&#39;s Blog">
+<meta property="og:description" content="大家好，我是 Cindy，斷斷續續用零碎時間看了好久才把這本融合了做法與想法的書看完，覺得很好看，所以想把看到的重點記錄下來，接下來是每個章節我畫的一些重點： 務實的哲學這章節講的比較偏軟實力的部分，從心態面開始 (我們都擁有改變的能量)，講到態度面 (請提供解決問題的選擇，停止製造爛藉口)，再到行為面 (請定期投資你的知識資產、批判式的分析你讀到或聽到的東西)、溝通面 (您說了什麼話，與您如何說">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2025-01-29T09:25:25.000Z">
+<meta property="article:modified_time" content="2025-02-09T15:10:53.883Z">
+<meta property="article:author" content="Cindy Liu">
+<meta property="article:tag" content="Clean Code">
+<meta property="article:tag" content="Coding">
+<meta property="article:tag" content="Agile">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/mstile-150x150.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>The Pragmatic Programmer - 邁向大師之路</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- rss -->
+    
+      
+    
+    
+      <link rel="alternate" href="/atom.xml" title="Cindy&#39;s Blog" type="application/atom+xml" />
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+    <div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/zh_TW/sdk/debug.js#xfbml=1&version=v12.0&appId=3074485109285192&autoLogAppEvents=1&colorscheme=light" nonce=Lh92L3Cq></script><script>(function(d, s, id) {
+var js, fjs = d.getElementsByTagName(s)[0];
+if (d.getElementById(id)) return;
+js = d.createElement(s); js.id = id;
+js.nonce ="Lh92L3Cq";
+js.src = "https://connect.facebook.net/zh_TW/sdk/debug.js#xfbml=1&version=v12.0&appId=3074485109285192&autoLogAppEvents=1&colorscheme=light&order_by=time";
+fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/posts/">Writing</a></li>
+         
+          <li><a href="https://github.com/cindyliu923" target="_blank" rel="noopener">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a href="/atom.xml">RSS</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2024/06/02/RubyKaigi-2024/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://cindyliu923.com/2025/01/29/The-Pragmatic-Programmer/" target="_blank" rel="noopener"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://cindyliu923.com/2025/01/29/The-Pragmatic-Programmer/&text=The Pragmatic Programmer - 邁向大師之路" target="_blank" rel="noopener"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://cindyliu923.com/2025/01/29/The-Pragmatic-Programmer/&title=The Pragmatic Programmer - 邁向大師之路" target="_blank" rel="noopener"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cindyliu923.com/2025/01/29/The-Pragmatic-Programmer/&is_video=false&description=The Pragmatic Programmer - 邁向大師之路" target="_blank" rel="noopener"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=The Pragmatic Programmer - 邁向大師之路&body=Check out this article: https://cindyliu923.com/2025/01/29/The-Pragmatic-Programmer/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://cindyliu923.com/2025/01/29/The-Pragmatic-Programmer/&title=The Pragmatic Programmer - 邁向大師之路" target="_blank" rel="noopener"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://cindyliu923.com/2025/01/29/The-Pragmatic-Programmer/&title=The Pragmatic Programmer - 邁向大師之路" target="_blank" rel="noopener"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://cindyliu923.com/2025/01/29/The-Pragmatic-Programmer/&title=The Pragmatic Programmer - 邁向大師之路" target="_blank" rel="noopener"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://cindyliu923.com/2025/01/29/The-Pragmatic-Programmer/&title=The Pragmatic Programmer - 邁向大師之路" target="_blank" rel="noopener"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://cindyliu923.com/2025/01/29/The-Pragmatic-Programmer/&name=The Pragmatic Programmer - 邁向大師之路&description=" target="_blank" rel="noopener"><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#務實的哲學"><span class="toc-number">1.</span> <span class="toc-text">務實的哲學</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#務實的方法"><span class="toc-number">2.</span> <span class="toc-text">務實的方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一個好的設計比爛設計更容易改動-ETC，Easier-to-Change"><span class="toc-number">2.1.</span> <span class="toc-text">一個好的設計比爛設計更容易改動 (ETC，Easier to Change)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DRY-的範圍不只是程式碼"><span class="toc-number">2.2.</span> <span class="toc-text">DRY 的範圍不只是程式碼</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#正交性"><span class="toc-number">2.3.</span> <span class="toc-text">正交性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#可逆性-若您只有唯一一個想法，那麼這個想法就是最危險的"><span class="toc-number">2.4.</span> <span class="toc-text">可逆性 (若您只有唯一一個想法，那麼這個想法就是最危險的)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#曳光彈開發-tracer-bullet-development-和原型-prototype"><span class="toc-number">2.5.</span> <span class="toc-text">曳光彈開發 (tracer bullet development) 和原型 (prototype)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#領域語言-一個人的語言界線就是他世界的界線"><span class="toc-number">2.6.</span> <span class="toc-text">領域語言 (一個人的語言界線就是他世界的界線)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#評估"><span class="toc-number">2.7.</span> <span class="toc-text">評估</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基本工具"><span class="toc-number">3.</span> <span class="toc-text">基本工具</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#在純文字中保存知識"><span class="toc-number">3.1.</span> <span class="toc-text">在純文字中保存知識</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#善用命令-Shell-的力量"><span class="toc-number">3.2.</span> <span class="toc-text">善用命令 Shell 的力量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#熟練編輯器"><span class="toc-number">3.3.</span> <span class="toc-text">熟練編輯器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一定要使用版本控制"><span class="toc-number">3.4.</span> <span class="toc-text">一定要使用版本控制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#除錯"><span class="toc-number">3.5.</span> <span class="toc-text">除錯</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#務實的偏執"><span class="toc-number">4.</span> <span class="toc-text">務實的偏執</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#合約式設計-Design-by-Contract，DBC"><span class="toc-number">4.1.</span> <span class="toc-text">合約式設計 (Design by Contract，DBC)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#彎曲或弄壞"><span class="toc-number">5.</span> <span class="toc-text">彎曲或弄壞</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#去耦合：單個元件應該與盡可能少的其他元件耦合。"><span class="toc-number">5.1.</span> <span class="toc-text">去耦合：單個元件應該與盡可能少的其他元件耦合。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#行走江湖-的策略"><span class="toc-number">5.2.</span> <span class="toc-text">行走江湖 (的策略)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#轉換式程式設計"><span class="toc-number">5.3.</span> <span class="toc-text">轉換式程式設計</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#繼承稅"><span class="toc-number">5.4.</span> <span class="toc-text">繼承稅</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#並行"><span class="toc-number">6.</span> <span class="toc-text">並行</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#不要共用狀態"><span class="toc-number">6.1.</span> <span class="toc-text">不要共用狀態</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#參與者-actor-與程序"><span class="toc-number">6.2.</span> <span class="toc-text">參與者 (actor) 與程序</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#當您寫程式時"><span class="toc-number">7.</span> <span class="toc-text">當您寫程式時</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安全基本原則"><span class="toc-number">7.1.</span> <span class="toc-text">安全基本原則</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#專案啟動前"><span class="toc-number">8.</span> <span class="toc-text">專案啟動前</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#需求坑"><span class="toc-number">8.1.</span> <span class="toc-text">需求坑</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#敏捷的本質"><span class="toc-number">8.2.</span> <span class="toc-text">敏捷的本質</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#務實的專案"><span class="toc-number">9.</span> <span class="toc-text">務實的專案</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#心得"><span class="toc-number">10.</span> <span class="toc-text">心得</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        The Pragmatic Programmer - 邁向大師之路
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Cindy's Blog</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2025-01-29T09:25:25.000Z" itemprop="datePublished">2025-01-29</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Agile/" rel="tag">Agile</a>, <a class="tag-link" href="/tags/Clean-Code/" rel="tag">Clean Code</a>, <a class="tag-link" href="/tags/Coding/" rel="tag">Coding</a>
+    </div>
+
+
+    </div>
+    <div class="meta">
+      <span class="post-count">👀 10 min read 👀</span>
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>大家好，我是 Cindy，斷斷續續用零碎時間看了好久才把這本融合了做法與想法的書看完，覺得很好看，所以想把看到的重點記錄下來，接下來是每個章節我畫的一些重點：</p>
+<h2 id="務實的哲學"><a href="#務實的哲學" class="headerlink" title="務實的哲學"></a>務實的哲學</h2><p>這章節講的比較偏軟實力的部分，從心態面開始 (我們都擁有改變的能量)，講到態度面 (請提供解決問題的選擇，停止製造爛藉口)，再到行為面 (請定期投資你的知識資產、批判式的分析你讀到或聽到的東西)、溝通面 (您說了什麼話，與您如何說這些話一樣地重要)，很多東西其實是在社群參加活動都會從各界大大們聽到的東西，算是好的理念好的想法參加社群就會常聽到？例如在去年的 <a href="https://webconf.tw/" target="_blank" rel="noopener">WEBCONF</a> 的 <a href="https://hackmd.io/@webconf/SJxR-P2MJx" target="_blank" rel="noopener">工程師成長之路：由時間管理到職涯規劃 - 李智樺 Ruddy</a> 這場演講其實就有提到類似的東西。</p>
+<p>我自己感覺重點是要有正向的心態，持續學習，深入理解學習到的知識，負責任，看見問題就想辦法解決它，不要逃避，相信沒有解決不了的問題 (<del>大不了改需求也是一種解決的方式</del>)，重視品質，並且要懂的溝通，並非工程師就不需要溝通，溝通是非常重要的技能，要用不同的方式，讓各方理解。</p>
+<h2 id="務實的方法"><a href="#務實的方法" class="headerlink" title="務實的方法"></a>務實的方法</h2><p>這章節更偏向於程式設計面，類似 Clean Code 或重構會提到的內容，包含以下重點：</p>
+<h3 id="一個好的設計比爛設計更容易改動-ETC，Easier-to-Change"><a href="#一個好的設計比爛設計更容易改動-ETC，Easier-to-Change" class="headerlink" title="一個好的設計比爛設計更容易改動 (ETC，Easier to Change)"></a>一個好的設計比爛設計更容易改動 (ETC，Easier to Change)</h3><p>有種總括了以前學過的知識，融合成一種價值觀，像是我們學過的低耦合，單一責任原則 (single responsibility principle)，最終我們想要達成的就是更好改動的程式碼，而我們學過的那些方法就只是朝著這樣目標的手段之一，所以最根本的核心是要有 ETC 這樣的價值觀，在做選擇的時候可以選出當下最適合的手段。</p>
+<h3 id="DRY-的範圍不只是程式碼"><a href="#DRY-的範圍不只是程式碼" class="headerlink" title="DRY 的範圍不只是程式碼"></a>DRY 的範圍不只是程式碼</h3><p>許多人認為 DRY 的意思是不要複製和貼上程式碼，但這不是 DRY 全部的意思，DRY 是指知識以及意圖上的重複，它是在兩個不同的地方表達相同的東西，包含可能使用兩種完全不同的表達方式。<br>我在這邊的認知是，我們要先知道程式碼表達的意圖是否相等，表示的是否是完全相同的知識，讓我們可以判斷究竟是重複還是巧合，兩個巧合如果整理成一個方法，在需求改變的將來可能會是個災難！</p>
+<h3 id="正交性"><a href="#正交性" class="headerlink" title="正交性"></a>正交性</h3><p>用<a href="https://zh.wikipedia.org/zh-tw/%E6%AD%A3%E4%BA%A4" target="_blank" rel="noopener">正交性</a> (如果其中一個的變化不影響其他任何一個，則兩個或多個事物是正交的) 的概念是設計系統或撰寫程式碼。</p>
+<h3 id="可逆性-若您只有唯一一個想法，那麼這個想法就是最危險的"><a href="#可逆性-若您只有唯一一個想法，那麼這個想法就是最危險的" class="headerlink" title="可逆性 (若您只有唯一一個想法，那麼這個想法就是最危險的)"></a>可逆性 (若您只有唯一一個想法，那麼這個想法就是最危險的)</h3><p>主要就是關鍵的決定是否可以被逆轉。隨著時間的推移，當初的決策可能需要做變更，可能是要換一個資料庫或換個套件，當我們有抽象化，隨時可以簡單做更換，當沒做抽象化替換可能就是個巨大工程了，像是 Rails 的 <a href="https://github.com/rails/rails/blob/main/activejob/README.md" target="_blank" rel="noopener">ActiveJob</a> 就是一個抽象化的例子，因為有了抽象化，我們可以隨時替換成想要的 <a href="https://api.rubyonrails.org/classes/ActiveJob/QueueAdapters.html" target="_blank" rel="noopener">Job Queue adapters</a>，總歸就是根本不會有所謂的最終決定，所有的事物都是會改變的，我們能做的就是保持靈活的架構，不用去管未來。</p>
+<h3 id="曳光彈開發-tracer-bullet-development-和原型-prototype"><a href="#曳光彈開發-tracer-bullet-development-和原型-prototype" class="headerlink" title="曳光彈開發 (tracer bullet development) 和原型 (prototype)"></a>曳光彈開發 (tracer bullet development) 和原型 (prototype)</h3><p>原型生成的程式碼是用完就丟的，而曳光彈程式碼簡單但完整，也是最終系統的一部分。<br>曳光彈開發我本來沒聽過，這邊我理解為在開發一個從未實作過的東西時，先找出一條路走看看，先讓使用者用看看，而不是一口氣做完所有的需求，先將核心做出，讓使用者回饋，然後再繼續，修改開發，先求有再求好的感覺。而原型更類似於一種用來學習的實驗，先試作看看，之後要做也不會是用一樣的程式碼。</p>
+<h3 id="領域語言-一個人的語言界線就是他世界的界線"><a href="#領域語言-一個人的語言界線就是他世界的界線" class="headerlink" title="領域語言 (一個人的語言界線就是他世界的界線)"></a>領域語言 (一個人的語言界線就是他世界的界線)</h3><p>緊靠問題所在的領域。</p>
+<h3 id="評估"><a href="#評估" class="headerlink" title="評估"></a>評估</h3><p>評估可以免除驚嚇。</p>
+<h2 id="基本工具"><a href="#基本工具" class="headerlink" title="基本工具"></a>基本工具</h2><h3 id="在純文字中保存知識"><a href="#在純文字中保存知識" class="headerlink" title="在純文字中保存知識"></a>在純文字中保存知識</h3><h3 id="善用命令-Shell-的力量"><a href="#善用命令-Shell-的力量" class="headerlink" title="善用命令 Shell 的力量"></a>善用命令 Shell 的力量</h3><h3 id="熟練編輯器"><a href="#熟練編輯器" class="headerlink" title="熟練編輯器"></a>熟練編輯器</h3><h3 id="一定要使用版本控制"><a href="#一定要使用版本控制" class="headerlink" title="一定要使用版本控制"></a>一定要使用版本控制</h3><h3 id="除錯"><a href="#除錯" class="headerlink" title="除錯"></a>除錯</h3><ul>
+<li>解決問題，而不是責備某人 (<del>我發現最近太容易自責了，需要改進 QQ</del>)</li>
+<li>在修復程式之前先進行錯誤測試<ul>
+<li>撰寫測試程式的舉動可能帶來解決方案</li>
+</ul>
+</li>
+<li>請一定要讀那該死的錯誤訊息</li>
+<li>跨版本回歸</li>
+<li>二元切分<br>這裡可以分成程式碼面的切分，和資料面的切分，分成兩個部分，一步步的找出錯誤的地方。</li>
+<li>log / trace</li>
+<li>黃色小鴨</li>
+<li>不要假設，請去證明<br>每次在除錯的時候，我總是想著要找到錯誤的那個點，相信唯有看見錯誤真正的地方，才能有效的解決問題，看了書後更證明了我是對的 XD</li>
+</ul>
+<h2 id="務實的偏執"><a href="#務實的偏執" class="headerlink" title="務實的偏執"></a>務實的偏執</h2><p>完美的軟體並不存在。務實的程式設計師則會更近一步，他們連自己也不相信，所以務實的程式設計師會為自己的錯誤建立防禦機制。</p>
+<h3 id="合約式設計-Design-by-Contract，DBC"><a href="#合約式設計-Design-by-Contract，DBC" class="headerlink" title="合約式設計 (Design by Contract，DBC)"></a>合約式設計 (Design by Contract，DBC)</h3><p>什麼是正確的程式？就是一個不會比它聲稱的做得更多或更少的程式。</p>
+<ul>
+<li>前置條件 (Precondition)：當一個函式的前置條件被違反時，它就不應該被呼叫。傳遞正確的資料是呼叫者的責任。</li>
+<li>後置條件 (Postcondition)：函式保證要做的事；函式完成時的狀態。</li>
+<li><a href="https://en.wikipedia.org/wiki/Class_invariant" target="_blank" rel="noopener">類別不變量 (Class invariant)</a>：從呼叫者的角度來看，類別必須確保類別不變量條件始終成立。可以想成是函式語言說的狀態不變。<br>如果呼叫者滿足了函式的所有前置條件，則函式應在完成時保證所有後置條件和不變量都成立。如果任何一方未能履行合約條款，就會呼叫補救措施，這種補救措施可能是引發例外，或者終止程式。不管發生什麼事，不能履行合約都是一個錯誤。</li>
+<li>如何平衡資源：由取得資源的人負責釋放資源。</li>
+</ul>
+<h2 id="彎曲或弄壞"><a href="#彎曲或弄壞" class="headerlink" title="彎曲或弄壞"></a>彎曲或弄壞</h2><p>這章節提供了幾個技巧，讓我們知道如何可以撰寫更可逆、更靈活的程式，讓我們在瘋狂奔向未來的過程中不要被海放在後面。我這邊截取幾個重點如下：</p>
+<h3 id="去耦合：單個元件應該與盡可能少的其他元件耦合。"><a href="#去耦合：單個元件應該與盡可能少的其他元件耦合。" class="headerlink" title="去耦合：單個元件應該與盡可能少的其他元件耦合。"></a>去耦合：單個元件應該與盡可能少的其他元件耦合。</h3><ul>
+<li>直接命令，不要詢問。</li>
+<li>不要串聯呼叫方法。</li>
+<li>避免全域資料</li>
+<li>如果非得當成全域資料使用，請確保將它用 API 包裝起來。</li>
+</ul>
+<h3 id="行走江湖-的策略"><a href="#行走江湖-的策略" class="headerlink" title="行走江湖 (的策略)"></a>行走江湖 (的策略)</h3><ul>
+<li>有限狀態機 (Finite State Machine)</li>
+<li>觀察者模式 (Observer Pattern)</li>
+<li>發佈 / 訂閱 (Publish/Subscribe)</li>
+<li>回應式程式設計 (Reactive Programming) 和串流 (Stream)</li>
+</ul>
+<h3 id="轉換式程式設計"><a href="#轉換式程式設計" class="headerlink" title="轉換式程式設計"></a>轉換式程式設計</h3><p>如果您不能把您正在做的事情描述成一個處理流程，那表示您不知道自己在做什麼。</p>
+<h3 id="繼承稅"><a href="#繼承稅" class="headerlink" title="繼承稅"></a>繼承稅</h3><p>您只想要一根香蕉，但是您得到的卻是一隻拿著香蕉的大猩猩和整個叢林。</p>
+<h2 id="並行"><a href="#並行" class="headerlink" title="並行"></a>並行</h2><p>並行 (concurrency) 是執行兩個或多個程式碼片段時，就好像他們同時執行一樣。平行 (parallelism) 是它們真的同時執行。有興趣更了解這兩個差別的朋友可以看看 <a href="https://www.youtube.com/watch?v=RlM9AfWf1WU" target="_blank" rel="noopener">ByteByteGo 的影片</a>。我們需要能讓並行發生，並去掉時間或順序中產生的耦合。</p>
+<h3 id="不要共用狀態"><a href="#不要共用狀態" class="headerlink" title="不要共用狀態"></a>不要共用狀態</h3><ul>
+<li>原子性更新</li>
+<li>semaphore：任何想要更新內容的人只有在持有該 semaphore 的情況下才能更新。</li>
+<li>其他：有些語言本身內建並行支援，例如，Rust 強化了資料擁有權的概念；一次只能有一個變數或參數可以參照到任何特定可變資料。</li>
+</ul>
+<h3 id="參與者-actor-與程序"><a href="#參與者-actor-與程序" class="headerlink" title="參與者 (actor) 與程序"></a>參與者 (actor) 與程序</h3><p>由 <a href="https://zh.wikipedia.org/zh-tw/Erlang" target="_blank" rel="noopener">Erlang</a> 這個程式語言奠定了基礎。Erlang 將參與者 (actor) 稱為程序 (process)，它們透過發送訊息進行通訊，每一個程序與其他的程序隔離，所以沒有狀態共用。<br>這裡我的理解是我們要從設計面來避免共用狀態的可能性，只要不共用狀態，個體之間可以更加獨立，所以會設計出獨立又抽象的參與者，透過訊息的傳遞讓程式可以彼此溝通。<br>關於訊息傳遞想到 <a href="https://www.youtube.com/watch?v=TbP2B1ijWr8" target="_blank" rel="noopener">Object Oriented Programming is not what I thought - Talk by Anjana Vakil</a> 這個以前看過的影片，有興趣的朋友也可以看看。<br>另外 Ruby 3 的 <a href="https://github.com/ruby/ruby/blob/master/doc/ractor.md" target="_blank" rel="noopener">Ractor</a> 就是 Ruby 的參與者模式。</p>
+<h2 id="當您寫程式時"><a href="#當您寫程式時" class="headerlink" title="當您寫程式時"></a>當您寫程式時</h2><ul>
+<li>外面的世界很殘酷，到處都是壞人，他們積極地試圖闖入您的系統。</li>
+<li>我們應該避免依靠巧合撰寫程式，即仰賴運氣與得到意外的成功，而應該蓄意地設計程式。</li>
+<li>不要假設，要證明。</li>
+<li>找到一個恰好合適的答案和找到正確答案是不一樣的兩件事。</li>
+<li>了解演算法速度，懂得最快不一定最好，且要避免過早優化。</li>
+<li>重構的定義：重組現有程式碼主體、改變其內部結構而不改變其外部行為的嚴格技術。</li>
+<li>請測試您的軟體，否則將由您的使用者進行測試。</li>
+<li>分析程式碼，找出可能出錯的地方，並將這些錯誤添加到您的測試套件中。</li>
+<li>您還需要考慮外部參與者是如何故意將系統搞砸的。(<del>這個論點在我加入現在的 DEVCORE 公司之前我也很少如此思考</del>)</li>
+<li>請好好命名；在有需要時重新密名。</li>
+</ul>
+<h3 id="安全基本原則"><a href="#安全基本原則" class="headerlink" title="安全基本原則"></a>安全基本原則</h3><p>務實的程式設計師會是健康的偏執狂。</p>
+<ol>
+<li>最小化攻擊表面積。<br>包含：程式碼複雜性、輸入的資料、未經身份驗證的服務、經過身份驗證的服務 (淘汰不使用的、舊的或過時的使用者和服務)、輸出資料和除錯資訊都可能會招來攻擊。</li>
+<li>最小權限原則。</li>
+<li>安全預設值。</li>
+<li>對敏感性資料進行加密。</li>
+<li>維護安全更新。歷史上最大的資料洩漏都是因為系統更新滯後造成的。</li>
+</ol>
+<blockquote>
+<p>密碼的建議：您想要鼓勵使用者使用較長、高度亂度的隨機密碼。那就要注意人為限制將會限制資訊亂度，並且助長糟糕的密碼使用習慣，讓您的使用者的帳戶很容易被破解。</p>
+</blockquote>
+<h2 id="專案啟動前"><a href="#專案啟動前" class="headerlink" title="專案啟動前"></a>專案啟動前</h2><h3 id="需求坑"><a href="#需求坑" class="headerlink" title="需求坑"></a>需求坑</h3><p>沒有人確切地知道自己想要什麼，程式設計師幫助人們了解需求。菜鳥開發人員經常犯的錯誤，是把需求宣告當真，並實作。但其實最初期的需求可能是一種要我們進一步探索的邀請。需求是從回饋的循環中了解的。讓我們站在客戶的立場思考。</p>
+<h3 id="敏捷的本質"><a href="#敏捷的本質" class="headerlink" title="敏捷的本質"></a>敏捷的本質</h3><ul>
+<li>敏捷指的是關於對變化的回應，對您出發後遇到的未知做出回應。</li>
+<li>好的設計使事情容易改變，如果它很容易改變，我們可以馬上修正，沒有任何猶豫。</li>
+</ul>
+<blockquote>
+<p>如何處理不確定性？</p>
+<ol>
+<li>找到自己目前的處境。</li>
+<li>朝您想要的方向邁出最小最有意義的一步。</li>
+<li>評估您現在的處境，並修復您所破壞的一切。</li>
+</ol>
+</blockquote>
+<h2 id="務實的專案"><a href="#務實的專案" class="headerlink" title="務實的專案"></a>務實的專案</h2><ul>
+<li>不容許破窗。</li>
+<li>用有效的開發方法，不要用流行的開發方法。</li>
+<li>不讓同樣的 bug 出現第二次。</li>
+</ul>
+<h2 id="心得"><a href="#心得" class="headerlink" title="心得"></a>心得</h2><p>看這本書會有很踏實的感覺，因為作者不只講概念還會適當的提出案例分享，以上內容不是全部，歡迎各位想成為大師?的人也買書看看。</p>
+
+  </div>
+</article>
+<script type="text/javascript" src="//js1.bloggerads.net/ShowBanner.aspx?blogid=20201206000001" async></script>
+
+
+<section id="comments">
+<div class="fb-like" data-href="
+https://cindyliu923.com/2025/01/29/The-Pragmatic-Programmer/" data-width="" data-layout="button_count" data-action="like" data-size="large" data-share="true""></div>
+<div class="fb-comments" data-href="
+https://cindyliu923.com/2025/01/29/The-Pragmatic-Programmer/" data-numposts="10" data-width="100%"></div>
+</section>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/posts/">Writing</a></li>
+         
+          <li><a href="https://github.com/cindyliu923" target="_blank" rel="noopener">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+         
+          <li><a href="/atom.xml">RSS</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#務實的哲學"><span class="toc-number">1.</span> <span class="toc-text">務實的哲學</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#務實的方法"><span class="toc-number">2.</span> <span class="toc-text">務實的方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一個好的設計比爛設計更容易改動-ETC，Easier-to-Change"><span class="toc-number">2.1.</span> <span class="toc-text">一個好的設計比爛設計更容易改動 (ETC，Easier to Change)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DRY-的範圍不只是程式碼"><span class="toc-number">2.2.</span> <span class="toc-text">DRY 的範圍不只是程式碼</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#正交性"><span class="toc-number">2.3.</span> <span class="toc-text">正交性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#可逆性-若您只有唯一一個想法，那麼這個想法就是最危險的"><span class="toc-number">2.4.</span> <span class="toc-text">可逆性 (若您只有唯一一個想法，那麼這個想法就是最危險的)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#曳光彈開發-tracer-bullet-development-和原型-prototype"><span class="toc-number">2.5.</span> <span class="toc-text">曳光彈開發 (tracer bullet development) 和原型 (prototype)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#領域語言-一個人的語言界線就是他世界的界線"><span class="toc-number">2.6.</span> <span class="toc-text">領域語言 (一個人的語言界線就是他世界的界線)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#評估"><span class="toc-number">2.7.</span> <span class="toc-text">評估</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基本工具"><span class="toc-number">3.</span> <span class="toc-text">基本工具</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#在純文字中保存知識"><span class="toc-number">3.1.</span> <span class="toc-text">在純文字中保存知識</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#善用命令-Shell-的力量"><span class="toc-number">3.2.</span> <span class="toc-text">善用命令 Shell 的力量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#熟練編輯器"><span class="toc-number">3.3.</span> <span class="toc-text">熟練編輯器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一定要使用版本控制"><span class="toc-number">3.4.</span> <span class="toc-text">一定要使用版本控制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#除錯"><span class="toc-number">3.5.</span> <span class="toc-text">除錯</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#務實的偏執"><span class="toc-number">4.</span> <span class="toc-text">務實的偏執</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#合約式設計-Design-by-Contract，DBC"><span class="toc-number">4.1.</span> <span class="toc-text">合約式設計 (Design by Contract，DBC)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#彎曲或弄壞"><span class="toc-number">5.</span> <span class="toc-text">彎曲或弄壞</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#去耦合：單個元件應該與盡可能少的其他元件耦合。"><span class="toc-number">5.1.</span> <span class="toc-text">去耦合：單個元件應該與盡可能少的其他元件耦合。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#行走江湖-的策略"><span class="toc-number">5.2.</span> <span class="toc-text">行走江湖 (的策略)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#轉換式程式設計"><span class="toc-number">5.3.</span> <span class="toc-text">轉換式程式設計</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#繼承稅"><span class="toc-number">5.4.</span> <span class="toc-text">繼承稅</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#並行"><span class="toc-number">6.</span> <span class="toc-text">並行</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#不要共用狀態"><span class="toc-number">6.1.</span> <span class="toc-text">不要共用狀態</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#參與者-actor-與程序"><span class="toc-number">6.2.</span> <span class="toc-text">參與者 (actor) 與程序</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#當您寫程式時"><span class="toc-number">7.</span> <span class="toc-text">當您寫程式時</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安全基本原則"><span class="toc-number">7.1.</span> <span class="toc-text">安全基本原則</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#專案啟動前"><span class="toc-number">8.</span> <span class="toc-text">專案啟動前</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#需求坑"><span class="toc-number">8.1.</span> <span class="toc-text">需求坑</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#敏捷的本質"><span class="toc-number">8.2.</span> <span class="toc-text">敏捷的本質</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#務實的專案"><span class="toc-number">9.</span> <span class="toc-text">務實的專案</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#心得"><span class="toc-number">10.</span> <span class="toc-text">心得</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://cindyliu923.com/2025/01/29/The-Pragmatic-Programmer/" target="_blank" rel="noopener"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://cindyliu923.com/2025/01/29/The-Pragmatic-Programmer/&text=The Pragmatic Programmer - 邁向大師之路" target="_blank" rel="noopener"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://cindyliu923.com/2025/01/29/The-Pragmatic-Programmer/&title=The Pragmatic Programmer - 邁向大師之路" target="_blank" rel="noopener"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://cindyliu923.com/2025/01/29/The-Pragmatic-Programmer/&is_video=false&description=The Pragmatic Programmer - 邁向大師之路" target="_blank" rel="noopener"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=The Pragmatic Programmer - 邁向大師之路&body=Check out this article: https://cindyliu923.com/2025/01/29/The-Pragmatic-Programmer/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://cindyliu923.com/2025/01/29/The-Pragmatic-Programmer/&title=The Pragmatic Programmer - 邁向大師之路" target="_blank" rel="noopener"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://cindyliu923.com/2025/01/29/The-Pragmatic-Programmer/&title=The Pragmatic Programmer - 邁向大師之路" target="_blank" rel="noopener"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://cindyliu923.com/2025/01/29/The-Pragmatic-Programmer/&title=The Pragmatic Programmer - 邁向大師之路" target="_blank" rel="noopener"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://cindyliu923.com/2025/01/29/The-Pragmatic-Programmer/&title=The Pragmatic Programmer - 邁向大師之路" target="_blank" rel="noopener"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://cindyliu923.com/2025/01/29/The-Pragmatic-Programmer/&name=The Pragmatic Programmer - 邁向大師之路&description=" target="_blank" rel="noopener"><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2025 Cindy Liu <a href='/Privacy-Policy'>Privacy Policy</a>
+  </div>
+  <div class="footer-left">
+    . Some links are affiliated
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/posts/">Writing</a></li>
+        
+          <li><a href="https://github.com/cindyliu923" target="_blank" rel="noopener">Projects</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+          <li><a href="/atom.xml">RSS</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+
+<!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-80238614-3', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+
+
